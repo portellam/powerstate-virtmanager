@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.40.0 -->
+<!-- Generated with glade 3.40.0 
+
+Copyright (C) 2023
+
+This file is part of Virtual Machine Powerstate Manager.
+
+Virtual Machine Powerstate Manager is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Virtual Machine Powerstate Manager is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Virtual Machine Powerstate Manager.  If not, see <http://www.gnu.org/licenses/>.
+
+Author: Alex Portell
+
+-->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <!-- interface-license-type gplv3 -->
+  <!-- interface-name Virtual Machine Powerstate Manager -->
+  <!-- interface-description Simple GUI app to manage powerstates (suspend and wake) of a QEMU/KVM virtual machine. -->
+  <!-- interface-copyright 2023 -->
+  <!-- interface-authors Alex Portell -->
   <object class="GtkListStore" id="liststore1">
     <columns>
       <!-- column-name Name -->
