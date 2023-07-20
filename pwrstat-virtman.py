@@ -1,51 +1,55 @@
 from os import system
 
-STATE_ACTIVE = "running"
-STATE_INACTIVE = "shut off"
-STATE_PAUSE = "paused"
-STATE_SUSPEND = "pmsuspended"
+# <params>
+STATE_PAUSED    = "paused"
+STATE_STARTED   = "running"
+STATE_STOPPED   = "shut off"
+STATE_SUSPENDED = "pmsuspended"
 
-class BashLogic:
-  command = "sudo virsh"
-  command_list_all = "{} list --all".format(command)
+COMMAND_PREFIX  = "sudo virsh"
 
-  command_pause = "suspend".format(command)
-  command_shutdown = "shutdown".format(command)
-  command_start = "start".format(command)
-  command_suspend = "dompmsuspend".format(command)
-  command_resume_from_pause = "resume".format(command)
-  command_resume_from_suspend = "dompmwakeup".format(command)
+OPTION_LIST_ALL       = "list --all"
+OPTION_PAUSE_RESUME   = "resume"
+OPTION_PAUSE_STOP     = "suspend"
+OPTION_PAUSE_SUSPEND  = "dompmwakeup"
+OPTION_SET_DOMAIN     = "--domain"
+OPTION_SET_TARGET     = "--target"
+OPTION_START          = "start"
+OPTION_STOP           = "shutdown"
+OPTION_TARGET_BOTH    = "hybrid"
+OPTION_TARGET_DISK    = "disk"
+OPTION_TARGET_RAM     = "mem"
 
-  option_set_target="--target"
-  option_set_domain="--domain"
+GET_UNFILTERED_DOMAIN_LIST      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(COMMAND_PREFIX,OPTION_LIST_ALL)
+GET_UNFILTERED_DOMAIN_AND_STATE = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(COMMAND_PREFIX,OPTION_LIST_ALL)
 
-  get_unfiltered_domain_list = "{} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(command_list_all)
-  get_unfiltered_domain_and_state="{} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(command_list_all)
+SET_SUSPEND_DOMAIN_TO_DISK_ONLY     = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_DISK,OPTION_SET_DOMAIN)
+SET_SUSPEND_DOMAIN_TO_DISK_AND_RAM  = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_BOTH,OPTION_SET_DOMAIN)
+SET_SUSPEND_DOMAIN_TO_RAM_ONLY      = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_RAM,OPTION_SET_DOMAIN)
+# </params>
 
-  set_suspend_domain_to_disk="{} {} disk {} ".format(command_suspend, option_set_target, option_set_domain)
-  set_suspend_domain_to_disk_and_ram="{} {} hybrid {} ".format(command_suspend, option_set_target, option_set_domain)
-  set_suspend_domain_to_ram="{} {} mem {} ".format(command_suspend, option_set_target, option_set_domain)
+# <functions>
+# def get_unfiltered_line( line ):
 
-  # def get_unfiltered_line( line ):
+def get_filtered_domain_name( line ):
+  if line is None:
+    return ""
 
-  def get_filtered_domain_name( line ):
-    if line is None:
-      return ""
-
-    return line.split( )[1]
+  return line.split( )[1]
 
 
-  def get_filtered_domain_state( line ):
-    if line is None:
-      return ""
+def get_filtered_domain_state( line ):
+  if line is None:
+    return ""
 
-    wordList = line.split( )[2:]
-    status = ""
+  wordList = line.split( )[2:]
+  status = ""
 
-    for word in wordList:
-      status = ' '.join(word)
+  for word in wordList:
+    status = ' '.join(word)
 
-    return status
+  return status
+# </functions>
 
   # def parse_arguments( f ):
   #     def wrapper(something, argumentStr ):
