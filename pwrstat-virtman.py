@@ -12,7 +12,7 @@ state_stop      = "pmsuspended"
 
 command_prefix = "sudo virsh"
 
-option_list_ALL     = "list --all"
+option_list_all     = "list --all"
 option_hard_start   = "start"
 option_hard_stop    = "shutdown"
 option_soft_start   = "resume"
@@ -26,8 +26,8 @@ option_target_both    = "hybrid"
 option_target_disk    = "disk"
 option_target_memory     = "mem"
 
-get_unfiltered_domain_list      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(command_prefix,option_list_ALL)
-get_unfiltered_domain_and_state = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(command_prefix,option_list_ALL)
+get_unfiltered_domain_list      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(command_prefix,option_list_all)
+get_unfiltered_domain_and_state = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(command_prefix,option_list_all)
 
 set_hard_start_domain   = "{} {} ".format(command_prefix,option_hard_start)
 set_hard_stop_domain     = "{} {} ".format(command_prefix,option_hard_stop)
