@@ -213,14 +213,30 @@
   <object class="GtkListStore" id="liststore1">
     <columns>
       <!-- column-name Name -->
-      <column type="gchar"/>
+      <column type="gchararray"/>
       <!-- column-name Status -->
-      <column type="gchar"/>
+      <column type="gchararray"/>
     </columns>
     <data>
       <row>
-        <col id="0"/>
-        <col id="1"/>
+        <col id="0" translatable="yes"/>
+        <col id="1" translatable="yes"/>
+      </row>
+      <row>
+        <col id="0" translatable="yes"/>
+        <col id="1" translatable="yes"/>
+      </row>
+      <row>
+        <col id="0" translatable="yes"/>
+        <col id="1" translatable="yes"/>
+      </row>
+      <row>
+        <col id="0" translatable="yes"/>
+        <col id="1" translatable="yes"/>
+      </row>
+      <row>
+        <col id="0" translatable="yes"/>
+        <col id="1" translatable="yes"/>
       </row>
     </data>
   </object>
