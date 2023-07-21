@@ -1,21 +1,27 @@
 from os import system
 
+# TODO: make a class with a constructor, to abstract command calls.
+
 # <params>
+EXCEPTION_MESSAGE = "An exception occurred."
+
 STATE_PAUSED    = "paused"
 STATE_STARTED   = "running"
 STATE_STOPPED   = "shut off"
-STATE_SUSPENDED = "pmsuspended"
+STATE_STOP = "pmsuspended"
 
-COMMAND_PREFIX  = "sudo virsh"
+COMMAND_PREFIX = "sudo virsh"
 
-OPTION_LIST_ALL       = "list --all"
-OPTION_PAUSE_RESUME   = "resume"
-OPTION_PAUSE_STOP     = "suspend"
-OPTION_PAUSE_SUSPEND  = "dompmwakeup"
+OPTION_LIST_ALL     = "list --all"
+OPTION_HARD_START   = "start"
+OPTION_HARD_STOP    = "shutdown"
+OPTION_SOFT_START   = "resume"
+OPTION_SOFT_STOP    = "suspend"
+OPTION_POWER_START  = "dompmwakeup"
+OPTION_POWER_STOP   = "dompmsuspend"
+
 OPTION_SET_DOMAIN     = "--domain"
 OPTION_SET_TARGET     = "--target"
-OPTION_START          = "start"
-OPTION_STOP           = "shutdown"
 OPTION_TARGET_BOTH    = "hybrid"
 OPTION_TARGET_DISK    = "disk"
 OPTION_TARGET_RAM     = "mem"
@@ -23,9 +29,16 @@ OPTION_TARGET_RAM     = "mem"
 GET_UNFILTERED_DOMAIN_LIST      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(COMMAND_PREFIX,OPTION_LIST_ALL)
 GET_UNFILTERED_DOMAIN_AND_STATE = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(COMMAND_PREFIX,OPTION_LIST_ALL)
 
-SET_SUSPEND_DOMAIN_TO_DISK_ONLY     = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_DISK,OPTION_SET_DOMAIN)
-SET_SUSPEND_DOMAIN_TO_DISK_AND_RAM  = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_BOTH,OPTION_SET_DOMAIN)
-SET_SUSPEND_DOMAIN_TO_RAM_ONLY      = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_RAM,OPTION_SET_DOMAIN)
+SET_HARD_START_DOMAIN   = "{} {} ".format(COMMAND_PREFIX,OPTION_HARD_START)
+SET_HARD_STOP_DOMAIN     = "{} {} ".format(COMMAND_PREFIX,OPTION_HARD_STOP)
+SET_SOFT_START_DOMAIN   = "{} {} ".format(COMMAND_PREFIX,OPTION_SOFT_START)
+SET_SOFT_STOP_DOMAIN     = "{} {} ".format(COMMAND_PREFIX,OPTION_SOFT_STOP)
+SET_POWER_START_DOMAIN  = "{} {} ".format(COMMAND_PREFIX,OPTION_POWER_START)
+SET_POWER_STOP_DOMAIN  = "{} {} ".format(COMMAND_PREFIX,OPTION_POWER_STOP)
+
+SET_POWER_STOP_DOMAIN_TO_DISK_ONLY     = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_DISK,OPTION_SET_DOMAIN)
+SET_POWER_STOP_DOMAIN_TO_DISK_AND_RAM  = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_BOTH,OPTION_SET_DOMAIN)
+SET_POWER_STOP_DOMAIN_TO_RAM_ONLY      = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_RAM,OPTION_SET_DOMAIN)
 # </params>
 
 # <functions>
@@ -49,6 +62,36 @@ def get_filtered_domain_state( line ):
     status = ' '.join(word)
 
   return status
+
+def run_command_with_domain( command, domain):
+  command = "{}{}".format(command,domain)
+
+  try:
+    subprocess.run(command)
+  except:
+    print(EXCEPTION_MESSAGE)
+
+def do_hard_start_domain( domain ):
+  run_command_with_domain(SET_HARD_START_DOMAIN, domain)
+
+def do_hard_stop_domain( domain ):
+  run_command_with_domain(SET_HARD_STOP_DOMAIN, domain)
+
+def do_soft_start_domain( domain ):
+  run_command_with_domain(SET_SOFT_START_DOMAIN, domain)
+
+def do_soft_stop_domain( domain ):
+  run_command_with_domain(SET_SOFT_STOP_DOMAIN, domain)
+
+def do_power_stop_domain_to_disk( domain ):
+  run_command_with_domain(SET_POWER_STOP_DOMAIN_TO_DISK_ONLY, domain)
+
+def do_power_stop_domain_to_disk_and_memory( domain ):
+  run_command_with_domain(SET_POWER_STOP_DOMAIN_TO_DISK_AND_RAM, domain)
+
+def do_power_stop_domain_to_memory( domain ):
+  run_command_with_domain(SET_POWER_STOP_DOMAIN_TO_RAM_ONLY, domain)
+
 # </functions>
 
   # def parse_arguments( f ):
