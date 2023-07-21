@@ -3,94 +3,97 @@ from os import system
 # TODO: make a class with a constructor, to abstract command calls.
 
 # <params>
-EXCEPTION_MESSAGE = "An exception occurred."
+exception_message = "An exception occurred."
 
-STATE_PAUSED    = "paused"
-STATE_STARTED   = "running"
-STATE_STOPPED   = "shut off"
-STATE_STOP = "pmsuspended"
+state_paused    = "paused"
+state_started   = "running"
+state_stopped   = "shut off"
+state_stop      = "pmsuspended"
 
-COMMAND_PREFIX = "sudo virsh"
+command_prefix = "sudo virsh"
 
-OPTION_LIST_ALL     = "list --all"
-OPTION_HARD_START   = "start"
-OPTION_HARD_STOP    = "shutdown"
-OPTION_SOFT_START   = "resume"
-OPTION_SOFT_STOP    = "suspend"
-OPTION_POWER_START  = "dompmwakeup"
-OPTION_POWER_STOP   = "dompmsuspend"
+option_list_ALL     = "list --all"
+option_hard_start   = "start"
+option_hard_stop    = "shutdown"
+option_soft_start   = "resume"
+option_soft_stop    = "suspend"
+option_power_start  = "dompmwakeup"
+option_power_stop   = "dompmsuspend"
 
-OPTION_SET_DOMAIN     = "--domain"
-OPTION_SET_TARGET     = "--target"
-OPTION_TARGET_BOTH    = "hybrid"
-OPTION_TARGET_DISK    = "disk"
-OPTION_TARGET_RAM     = "mem"
+option_set_domain     = "--domain"
+option_set_target     = "--target"
+option_target_both    = "hybrid"
+option_target_disk    = "disk"
+option_target_memory     = "mem"
 
-GET_UNFILTERED_DOMAIN_LIST      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(COMMAND_PREFIX,OPTION_LIST_ALL)
-GET_UNFILTERED_DOMAIN_AND_STATE = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(COMMAND_PREFIX,OPTION_LIST_ALL)
+get_unfiltered_domain_list      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(command_prefix,option_list_ALL)
+get_unfiltered_domain_and_state = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(command_prefix,option_list_ALL)
 
-SET_HARD_START_DOMAIN   = "{} {} ".format(COMMAND_PREFIX,OPTION_HARD_START)
-SET_HARD_STOP_DOMAIN     = "{} {} ".format(COMMAND_PREFIX,OPTION_HARD_STOP)
-SET_SOFT_START_DOMAIN   = "{} {} ".format(COMMAND_PREFIX,OPTION_SOFT_START)
-SET_SOFT_STOP_DOMAIN     = "{} {} ".format(COMMAND_PREFIX,OPTION_SOFT_STOP)
-SET_POWER_START_DOMAIN  = "{} {} ".format(COMMAND_PREFIX,OPTION_POWER_START)
-SET_POWER_STOP_DOMAIN  = "{} {} ".format(COMMAND_PREFIX,OPTION_POWER_STOP)
+set_hard_start_domain   = "{} {} ".format(command_prefix,option_hard_start)
+set_hard_stop_domain     = "{} {} ".format(command_prefix,option_hard_stop)
+set_soft_start_domain   = "{} {} ".format(command_prefix,option_soft_start)
+set_soft_stop_domain     = "{} {} ".format(command_prefix,option_soft_stop)
+set_power_start_domain  = "{} {} ".format(command_prefix,option_power_start)
+set_power_stop_domain  = "{} {} ".format(command_prefix,option_power_stop)
 
-SET_POWER_STOP_DOMAIN_TO_DISK_ONLY     = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_DISK,OPTION_SET_DOMAIN)
-SET_POWER_STOP_DOMAIN_TO_DISK_AND_RAM  = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_BOTH,OPTION_SET_DOMAIN)
-SET_POWER_STOP_DOMAIN_TO_RAM_ONLY      = "{} {} {} {} ".format(COMMAND_PREFIX,OPTION_SET_TARGET,OPTION_TARGET_RAM,OPTION_SET_DOMAIN)
+set_power_stop_domain_to_disk             = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_disk,option_set_domain)
+set_power_stop_domain_to_disk_and_memory  = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_both,option_set_domain)
+set_power_stop_domain_to_memory           = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_memory,option_set_domain)
 # </params>
 
-# <functions>
-# def get_unfiltered_line( line ):
+class DomainModel:
+  def __init__(self, domain):
+    self.domain = domain
 
-def get_filtered_domain_name( line ):
-  if line is None:
-    return ""
+  def get_filtered_domain_name( line ):
+    if line is None:
+      return ""
 
-  return line.split( )[1]
+    return line.split( )[1]
 
+  def get_filtered_domain_state( line ):
+    if line is None:
+      return ""
 
-def get_filtered_domain_state( line ):
-  if line is None:
-    return ""
+    wordList = line.split( )[2:]
+    status = ""
 
-  wordList = line.split( )[2:]
-  status = ""
+    for word in wordList:
+      status = ' '.join(word)
 
-  for word in wordList:
-    status = ' '.join(word)
+    return status
 
-  return status
+  def run_command_with_domain( command ):
+    if self.domain is None:
+      return
 
-def run_command_with_domain( command, domain):
-  command = "{}{}".format(command,domain)
+    this_subprocess = "{}{}".format(command, self.domain)
 
-  try:
-    subprocess.run(command)
-  except:
-    print(EXCEPTION_MESSAGE)
+    try:
+      subprocess.run(this_subprocess)
+    except:
+      print(exception_message)
 
-def do_hard_start_domain( domain ):
-  run_command_with_domain(SET_HARD_START_DOMAIN, domain)
+  def do_hard_start_domain():
+    run_command_with_domain(set_hard_start_domain)
 
-def do_hard_stop_domain( domain ):
-  run_command_with_domain(SET_HARD_STOP_DOMAIN, domain)
+  def do_hard_stop_domain( domain ):
+    run_command_with_domain(set_hard_stop_domain)
 
-def do_soft_start_domain( domain ):
-  run_command_with_domain(SET_SOFT_START_DOMAIN, domain)
+  def do_soft_start_domain( domain ):
+    run_command_with_domain(set_soft_start_domain)
 
-def do_soft_stop_domain( domain ):
-  run_command_with_domain(SET_SOFT_STOP_DOMAIN, domain)
+  def do_soft_stop_domain( domain ):
+    run_command_with_domain(set_soft_stop_domain)
 
-def do_power_stop_domain_to_disk( domain ):
-  run_command_with_domain(SET_POWER_STOP_DOMAIN_TO_DISK_ONLY, domain)
+  def do_power_stop_domain_to_disk( domain ):
+    run_command_with_domain(set_power_stop_domain_to_disk)
 
-def do_power_stop_domain_to_disk_and_memory( domain ):
-  run_command_with_domain(SET_POWER_STOP_DOMAIN_TO_DISK_AND_RAM, domain)
+  def do_power_stop_domain_to_disk_and_memory( domain ):
+    run_command_with_domain(set_power_stop_domain_to_disk_and_memory,)
 
-def do_power_stop_domain_to_memory( domain ):
-  run_command_with_domain(SET_POWER_STOP_DOMAIN_TO_RAM_ONLY, domain)
+  def do_power_stop_domain_to_memory( domain ):
+    run_command_with_domain(set_power_stop_domain_to_memory)
 
 # </functions>
 
