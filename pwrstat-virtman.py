@@ -1,47 +1,41 @@
 from os import system
 
-# TODO: make a class with a constructor, to abstract command calls.
-
-# <params>
-exception_message = "An exception occurred."
-
-state_paused    = "paused"
-state_started   = "running"
-state_stopped   = "shut off"
-state_stop      = "pmsuspended"
-
-command_prefix = "sudo virsh"
-
-option_list_all     = "list --all"
-option_hard_start   = "start"
-option_hard_stop    = "shutdown"
-option_soft_start   = "resume"
-option_soft_stop    = "suspend"
-option_power_start  = "dompmwakeup"
-option_power_stop   = "dompmsuspend"
-
-option_set_domain     = "--domain"
-option_set_target     = "--target"
-option_target_both    = "hybrid"
-option_target_disk    = "disk"
-option_target_memory     = "mem"
-
-get_unfiltered_domain_list      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(command_prefix,option_list_all)
-get_unfiltered_domain_and_state = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(command_prefix,option_list_all)
-
-set_hard_start_domain   = "{} {} ".format(command_prefix,option_hard_start)
-set_hard_stop_domain     = "{} {} ".format(command_prefix,option_hard_stop)
-set_soft_start_domain   = "{} {} ".format(command_prefix,option_soft_start)
-set_soft_stop_domain     = "{} {} ".format(command_prefix,option_soft_stop)
-set_power_start_domain  = "{} {} ".format(command_prefix,option_power_start)
-set_power_stop_domain  = "{} {} ".format(command_prefix,option_power_stop)
-
-set_power_stop_domain_to_disk             = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_disk,option_set_domain)
-set_power_stop_domain_to_disk_and_memory  = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_both,option_set_domain)
-set_power_stop_domain_to_memory           = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_memory,option_set_domain)
-# </params>
-
 class DomainModel:
+  command_prefix = "sudo virsh"
+
+  option_list_all     = "list --all"
+  option_hard_start   = "start"
+  option_hard_stop    = "shutdown"
+  option_soft_start   = "resume"
+  option_soft_stop    = "suspend"
+  option_power_start  = "dompmwakeup"
+  option_power_stop   = "dompmsuspend"
+
+  option_set_domain     = "--domain"
+  option_set_target     = "--target"
+  option_target_both    = "hybrid"
+  option_target_disk    = "disk"
+  option_target_memory     = "mem"
+
+  state_paused    = "paused"
+  state_started   = "running"
+  state_stopped   = "shut off"
+  state_stop      = "pmsuspended"
+
+  get_unfiltered_domain_list      = "{} {} | grep -Eiv 'Id|Name|State' | cut -d '-' -f 2 | cut -d ' ' -f 5 | grep -Ei [A-Za-z] )".format(command_prefix,option_list_all)
+  get_unfiltered_domain_and_state = "{} {} | grep '$DOMAIN' | head -n 1 | awk 'END {print $2}'".format(command_prefix,option_list_all)
+
+  set_hard_start_domain   = "{} {} ".format(command_prefix,option_hard_start)
+  set_hard_stop_domain    = "{} {} ".format(command_prefix,option_hard_stop)
+
+  set_power_start_domain                    = "{} {} ".format(command_prefix,option_power_start)
+  set_power_stop_domain_to_disk             = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_disk,option_set_domain)
+  set_power_stop_domain_to_disk_and_memory  = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_both,option_set_domain)
+  set_power_stop_domain_to_memory           = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_memory,option_set_domain)
+
+  set_soft_start_domain = "{} {} ".format(command_prefix,option_soft_start)
+  set_soft_stop_domain  = "{} {} ".format(command_prefix,option_soft_stop)
+
   def __init__(self, domain):
     self.domain = domain
 
@@ -72,6 +66,7 @@ class DomainModel:
     try:
       subprocess.run(this_subprocess)
     except:
+      exception_message = "An exception occurred."
       print(exception_message)
 
   def do_hard_start_domain():
@@ -94,8 +89,6 @@ class DomainModel:
 
   def do_power_stop_domain_to_memory( domain ):
     run_command_with_domain(set_power_stop_domain_to_memory)
-
-# </functions>
 
   # def parse_arguments( f ):
   #     def wrapper(something, argumentStr ):
