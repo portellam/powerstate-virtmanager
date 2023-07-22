@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-###########################################################
+#######################################################################################################################
 #
 # Filename:       pwrstat-virtman.py
 # Description:    Set power state of a given QEMU/KVM virtual machine. Includes sleep, hibernate, and wake from sleep.
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
-###########################################################
+#######################################################################################################################
 
 from os import system
 
