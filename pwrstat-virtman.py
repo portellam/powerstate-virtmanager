@@ -1,6 +1,6 @@
 from os import system
 
-class BashEnum:
+class BashEnumController:
   enum = []
 
   def __init__(enum):
@@ -33,7 +33,7 @@ class BashEnum:
       __init__()
       sys.exit(1)
 
-class BashVar:
+class BashVarController:
   var = ""
 
   def __init__(var):
@@ -66,17 +66,10 @@ class BashVar:
       __init__()
       sys.exit(1)
 
-class Domain:
-  command_prefix = "sudo virsh"
+class DomainListModel:
+  command_prefix        = "sudo virsh"
 
-  option_list_all     = "list --all"
-  option_hard_start   = "start"
-  option_hard_stop    = "shutdown"
-  option_soft_start   = "resume"
-  option_soft_stop    = "suspend"
-  option_power_start  = "dompmwakeup"
-  option_power_stop   = "dompmsuspend"
-
+  option_list_all       = "list --all"
   option_set_domain     = "--domain"
   option_set_target     = "--target"
   option_target_both    = "hybrid"
@@ -88,53 +81,20 @@ class Domain:
   state_stopped   = "shut off"
   state_stop      = "pmsuspended"
 
-  set_hard_start_domain   = "{} {} ".format(command_prefix,option_hard_start)
-  set_hard_stop_domain    = "{} {} ".format(command_prefix,option_hard_stop)
-
-  set_power_start_domain                    = "{} {} ".format(command_prefix,option_power_start)
-  set_power_stop_domain_to_disk             = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_disk,option_set_domain)
-  set_power_stop_domain_to_disk_and_memory  = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_both,option_set_domain)
-  set_power_stop_domain_to_memory           = "{} {} {} {} ".format(command_prefix,option_set_target,option_target_memory,option_set_domain)
-
-  set_soft_start_domain = "{} {} ".format(command_prefix,option_soft_start)
-  set_soft_stop_domain  = "{} {} ".format(command_prefix,option_soft_stop)
-
-  def __init__(self, domain, domain_list, status_list):
-    self.domain = domain
+  def __init__(self, domain_list, domain_dict):
     self.domain_list = domain_list
-    self.status_list = status_list
-
-  def do_hard_start_domain():
-    __run_command_with_domain(set_hard_start_domain)
-
-  def do_hard_stop_domain():
-    __run_command_with_domain(set_hard_stop_domain)
-
-  def do_power_stop_domain_to_disk():
-    __run_command_with_domain(set_power_stop_domain_to_disk)
-
-  def do_power_stop_domain_to_disk_and_memory():
-    __run_command_with_domain(set_power_stop_domain_to_disk_and_memory,)
-
-  def do_power_stop_domain_to_memory():
-    __run_command_with_domain(set_power_stop_domain_to_memory)
-
-  def do_soft_start_domain():
-    __run_command_with_domain(set_soft_start_domain)
-
-  def do_soft_stop_domain():
-    __run_command_with_domain(set_soft_stop_domain)
+    self.domain_dict = domain_dict
 
   def get_domain_status():
     if self.domain not in self.domain_list:
       syscall.exit(1)
 
     i = self.domain_list.index(self.domain)
-    self.status = self.domain_list(i)
+    self.status = self.status_list(i)
 
   def get_lists():
     __get_domain_list()
-    __get_status_list()
+    __get_domain_dict()
 
   def __get_domain_list():
     list_ref = "_ARR_DOMAIN"
@@ -147,7 +107,7 @@ class Domain:
     if self.domain_list is None:
       sys.exit(1)
 
-  def __get_status_list():
+  def __get_domain_dict():
     domain_ref = "_DOMAIN"
     element_ref = "_ELEMENT"
     get_domain_list = "{} {} {}".format(command_prefix, option_list_all, option_set_domain)
@@ -155,46 +115,102 @@ class Domain:
 
     for domain in self.domain_list:
       set_domain = "declare -a {}=\"{}\"".format(domain_ref, domain)
-      line = ""
+      status = ""
 
       while True:
         index=2
         get_delimited_value = "| awk 'END {print $" + index + "}'"
         get_element = "declare {}=$( \"{}{}\" )".format(element_ref, get_messy_domain_and_state, get_delimited_value)
         subprocess.run(get_element)
-        BashVar.set_var_from_reference(element_ref)
+        BashVarController.set_var_from_reference(element_ref)
 
-        if BashVar.var is None:
+        if BashVarController.var is None:
           break
 
-        line.__add__("{} ".format(BashVar.var))
+        status.__add__("{} ".format(BashVarController.var))
         index.__add__(1)
 
-      self.status_list.append(line)
+      self.domain_dict.append([domain, status])
 
-    if self.status_list is None:
+    if self.domain_dict is None:
       sys.exit(1)
 
-  def __get_filtered_domain_state():
-    if line is None:
-      return ""
+class DomainController:
+  option_start        = "start"
+  option_hard_stop    = "shutdown"
+  option_force_stop   = "destroy"
+  option_power_start  = "dompmwakeup"
+  option_power_stop   = "dompmsuspend"
+  option_soft_start   = "resume"
+  option_soft_stop    = "suspend"
 
-    wordList = line.split( )[2:]
-    status = ""
+  set_start_domain        = "{} {}".format(command_prefix,option_start)
+  set_force_stop_domain   = "{} {}".format(command_prefix,option_force_stop)
+  set_hard_stop_domain    = "{} {}".format(command_prefix,option_hard_stop)
 
-    for word in wordList:
-      status = ' '.join(word)
+  set_power_start_domain                    = "{} {}".format(command_prefix,option_power_start)
+  set_power_stop_domain_to_disk             = "{} {} {} {}".format(command_prefix,option_set_target,option_target_disk,option_set_domain)
+  set_power_stop_domain_to_disk_and_memory  = "{} {} {} {}".format(command_prefix,option_set_target,option_target_both,option_set_domain)
+  set_power_stop_domain_to_memory           = "{} {} {} {}".format(command_prefix,option_set_target,option_target_memory,option_set_domain)
 
-    return status
+  set_soft_start_domain = "{} {}".format(command_prefix,option_soft_start)
+  set_soft_stop_domain  = "{} {}".format(command_prefix,option_soft_stop)
+
+  def __init__(self, domain, status):
+    self.domain = domain
+    self.status = status
+
+  def do_start_domain():
+    if self.status is not state_paused and self.status is not state_stopped:
+      sys.exit(1)
+
+    __run_command_with_domain(set_start_domain)
+
+  def do_force_stop_domain():
+    if self.status is state_started:
+      sys.exit(1)
+
+    __run_command_with_domain(set_force_stop_domain)
+
+  def do_hard_stop_domain():
+    if self.status is state_started:
+      sys.exit(1)
+
+    __run_command_with_domain(set_hard_stop_domain)
+
+  def do_power_stop_domain_to_disk():
+    if self.status is not state_started:
+      sys.exit(1)
+
+    __run_command_with_domain(set_power_stop_domain_to_disk)
+
+  def do_power_stop_domain_to_disk_and_memory():
+    if self.status is not state_started:
+      sys.exit(1)
+
+    __run_command_with_domain(set_power_stop_domain_to_disk_and_memory,)
+
+  def do_power_stop_domain_to_memory():
+    if self.status is not state_stopped:
+      sys.exit(1)
+
+    __run_command_with_domain(set_power_stop_domain_to_memory)
+
+  def do_soft_stop_domain():
+    if self.status is not state_paused and self.status is not state_started:
+      sys.exit(1)
+
+    __run_command_with_domain(set_soft_stop_domain)
 
   def __run_command_with_domain( command ):
     if self.domain is None:
-      return
+      sys.exit(1)
 
-    this_subprocess = "{}{}".format(command, self.domain)
+    this_subprocess = "{} {}".format(command, self.domain)
 
     try:
       subprocess.run(this_subprocess)
+
     except:
       exception_message = "An exception occurred."
       print(exception_message)
