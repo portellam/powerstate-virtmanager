@@ -1,6 +1,6 @@
 from os import system
 
-class BashEnumController:
+class BashEnum:
   enum = []
 
   def __init__(enum):
@@ -33,7 +33,7 @@ class BashEnumController:
       __init__()
       sys.exit(1)
 
-class BashVarController:
+class BashVar:
   var = ""
 
   def __init__(var):
@@ -66,7 +66,7 @@ class BashVarController:
       __init__()
       sys.exit(1)
 
-class DomainListModel:
+class DomainList:
   command_prefix        = "sudo virsh"
 
   option_list_all       = "list --all"
@@ -135,7 +135,7 @@ class DomainListModel:
     if self.domain_dict is None:
       sys.exit(1)
 
-class DomainController:
+class Domain:
   option_start        = "start"
   option_hard_stop    = "shutdown"
   option_force_stop   = "destroy"
