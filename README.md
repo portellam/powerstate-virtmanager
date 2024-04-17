@@ -11,7 +11,7 @@ Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hiber
 
 ## Contents
 ### Why?
-The virtual machine manager application *virt-manager* does not (currently) have the option to wake a VM from S3 sleep.
+The virtual machine manager application *virt-manager* does not (currently) have the option to wake a VM from Sleep.
 That is unfortunate, as a VM cannot be awaken from normal and expected means (wake from USB keyboard or network activity).
 This application fixes that issue, with a nice Frontend.
 
