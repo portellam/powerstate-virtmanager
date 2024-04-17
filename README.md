@@ -1,5 +1,12 @@
-# pwrstat-virtman
-Set power state of a given QEMU/KVM virtual machine. Includes sleep, hibernate, and wake from sleep. Simple GTK3 GUI application.
+# Power State Virtual Machine Manager
+Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hibernation. Simple GTK3 GUI application.
+
+**[View master branch...](https://github.com/portellam/pwrstat-virtman/tree/master)**
+
+#### Related Projects:
+**[Auto Xorg](https://github.com/portellam/auto-Xorg) | [Deploy VFIO](https://github.com/portellam/deploy-vfio) | [Generate Evdev](https://github.com/portellam/generate-evdev) | [Guest Machine Guide](https://github.com/portellam/guest-machine-guide) | | [Libvirt Hooks](https://github.com/portellam/libvirt-hooks)**
 
 # Why?
-My daily driver application *virt-manager* does not (currently) have the option to wake a VM from sleep. That is unfortunate, as my VM cannot be awaken from normal and expected means (wake from USB keyboard or network activity).
+The virtual machine manager application *virt-manager* does not (currently) have the option to wake a VM from S3 sleep.
+That is unfortunate, as a VM cannot be awaken from normal and expected means (wake from USB keyboard or network activity).
+This application fixes that issue, with a nice Frontend.
