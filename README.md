@@ -1,5 +1,5 @@
 # Power State Virtual Machine Manager
-Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hibernation. Simple GTK3 GUI application.
+Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hibernation. Python and GTK3 GUI application.
 
 **[View master branch...](https://github.com/portellam/pwrstat-virtman/tree/master)**
 
