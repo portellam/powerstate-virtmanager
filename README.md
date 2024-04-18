@@ -21,3 +21,6 @@ This application fixes that issue, with a nice Frontend to boot.
 - [ ] gather Linux shell commands.
 - [ ] create Python classes.
 - [ ] Test.
+
+### Contact
+Did you encounter a bug? Do you need help? Notice any dead links? Please contact by [raising an issue](https://github.com/portellam/powerstate-virtmanager/issues) with the project itself.
