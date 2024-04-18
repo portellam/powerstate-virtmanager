@@ -8,20 +8,9 @@ Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hiber
 
 ## Table of Contents
 - [Why?](#why)
-- [Contact](#contact)
 
 ## Contents
 ### Why?
 The virtual machine manager application `virt-manager` does not (currently) have the option to wake a VM from Sleep.
 That is unfortunate, as a VM cannot be awaken from normal and expected means (wake from USB keyboard or network activity).
 This application fixes that issue, with a nice Frontend to boot.
-
-## TODO:
-- [ ] create GTK3 project.
-- [ ] draw GUI layout.
-- [ ] gather Linux shell commands.
-- [ ] create Python classes.
-- [ ] Test.
-
-### Contact
-Did you encounter a bug? Do you need help? Notice any dead links? Please contact by [raising an issue](https://github.com/portellam/powerstate-virtmanager/issues) with the project itself.
