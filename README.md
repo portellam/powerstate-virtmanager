@@ -8,6 +8,7 @@ Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hiber
 
 ## Table of Contents
 - [Why?](#why)
+- [Contact](#contact)
 
 ## Contents
 ### Why?
