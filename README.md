@@ -1,10 +1,15 @@
 # Power State Virtual Machine Manager
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
-**[View master branch...](https://github.com/portellam/pwrstat-virtman/tree/master)**
+**[View master branch...](/../../../tree/master)**
 
-#### Related Projects:
-**[Auto X.Org](https://github.com/portellam/auto-xorg) | [Deploy VFIO](https://github.com/portellam/deploy-vfio) | [Generate Evdev](https://github.com/portellam/generate-evdev) | [Guest Machine Guide](https://github.com/portellam/guest-machine-guide) | [Libvirt Hooks](https://github.com/portellam/libvirt-hooks)**
+### Related Projects
+**[Deploy VFIO](/../../../../deploy-VFIO)** | **[Auto X.Org](/../../../../auto-xorg)** | **[Generate Evdev](/../../../../generate-evdev)**
+
+**[Guest Machine Guide](/../../../../guest-machine-guide)** | **[Libvirt Hooks](/../../../../libvirt-hooks)** | [Power State Virtual Machine Manager](/../../../../powerstate-virtmanager)
+
+### Other Links:
+**What is [VFIO?](#VFIO) | [VFIO Article](https://www.kernel.org/doc/html/latest/driver-api/vfio.html) | [VFIO Forum](https://old.reddit.com/r/VFIO) | [PCI Passthrough Guide](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)**
 
 ## Table of Contents
 - [Why?](#why)
