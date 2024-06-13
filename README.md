@@ -1,9 +1,9 @@
 # Power State Virtual Machine Manager
 ### Status: Pre-development
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
-Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
+Hibernation. Does what `virt-manager` doesn't.
 
-**Download latest release:**&ensp;[Codeberg][codeberg-releases],
+**Download the Latest Release:**&ensp;[Codeberg][codeberg-releases],
 [GitHub][github-releases]
 
 [codeberg-releases]: https://codeberg.org/portellam/powerstate-virtmanager/releases/latest
@@ -18,10 +18,10 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 ## Contents
 ### Why?
 The virtual machine manager application `virt-manager` does not (currently) have
-the option to wake a VM from Sleep.
-That is unfortunate, as a VM cannot be awaken from normal and expected means
-(wake from USB keyboard or network activity).
-This application fixes that issue, with a nice Frontend to boot.
+the option to wake a VM from Sleep. That is unfortunate, as a VM cannot be
+awaken from normal and expected means. For example, wake from keyboard or
+network activity. This application fixes that issue, with a nice Frontend to
+boot.
 
 ### Related Projects
 | Project                                 | Codeberg          | GitHub          |
@@ -54,9 +54,8 @@ This application fixes that issue, with a nice Frontend to boot.
 [PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
 ### Contact
-Did you encounter a bug? Do you need help? Please contact by
-**raising an issue** ([Codeberg][codeberg-issues], [GitHub][github-issues])
-with the project itself.
+Did you encounter a bug? Do you need help? Please visit the
+**Issues page** ([Codeberg][codeberg-issues], [GitHub][github-issues]).
 
 [codeberg-issues]: https://codeberg.org/portellam/powerstate-virtmanager/issues
 [github-issues]:   https://github.com/portellam/powerstate-virtmanager/issues
