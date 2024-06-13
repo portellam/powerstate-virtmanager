@@ -3,7 +3,7 @@ Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hiber
 
 **[View latest release]** | **[View develop branch]**
 
-### <u>Related Projects</u>
+**<u>Related Projects</u>**
 [Deploy VFIO] | [Auto X.Org]| [Generate Evdev]
 
 [Guest Machine Guide] | [Libvirt Hooks] | **[Power State Virtual Machine Manager]**
@@ -21,6 +21,9 @@ The virtual machine manager application `virt-manager` does not (currently) have
 That is unfortunate, as a VM cannot be awaken from normal and expected means (wake from USB keyboard or network activity).
 This application fixes that issue, with a nice Frontend to boot.
 
+### Contact
+Did you encounter a bug? Do you need help? Notice any dead links? Please contact by [raising an issue] with the project itself.
+
 ## TODO:
 - [ ] create GTK3 project.
 - [ ] draw GUI layout.
@@ -30,11 +33,8 @@ This application fixes that issue, with a nice Frontend to boot.
 - [ ] test.
 - [ ] create first release.
 
-### Contact
-Did you encounter a bug? Do you need help? Notice any dead links? Please contact by [raising an issue] with the project itself.
-
 [View latest release]: https://github.com/portellam/powerstate-virtmanager/releases/latest
-[View develop branch]: https://github.com/portellam/powerstate-virtmanager/develop
+[View develop branch]: https://github.com/portellam/powerstate-virtmanager/tree/develop
 
 [Deploy VFIO]: https://github.com/portellam/deploy-VFIO
 [Auto X.Org]: https://github.com/portellam/auto-xorg
