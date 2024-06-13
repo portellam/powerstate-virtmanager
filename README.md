@@ -5,8 +5,7 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
 **[View latest release]**
 
-[View latest release]: /../../releases/latest
-[View develop branch]: /../../tree/develop
+[View latest release]: /releases/latest
 
 ## Table of Contents
 - [Why?](#why)
@@ -56,7 +55,7 @@ This application fixes that issue, with a nice Frontend to boot.
 Did you encounter a bug? Do you need help? Please contact by [raising an issue]
 with the project itself.
 
-[raising an issue]: /../../issues
+[raising an issue]: /issues
 
 ## TODO:
 - [ ] create GTK3 project.
