@@ -55,7 +55,7 @@ This application fixes that issue, with a nice Frontend to boot.
 
 ### Contact
 Did you encounter a bug? Do you need help? Please contact by
-**raising an issue** ([Codeberg][github-issues], [GitHub][github-issues])
+**raising an issue** ([Codeberg][codeberg-issues], [GitHub][github-issues])
 with the project itself.
 
 [codeberg-issues]: https://codeberg.org/portellam/powerstate-virtmanager/issues
