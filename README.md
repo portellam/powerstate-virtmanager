@@ -15,14 +15,14 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
 ## Contents
 ### Related Projects
-| Project                                 | Codeberg    | GitHub      |
-| :---                                    | :---:       | :---:       |
-| Deploy VFIO                             | [link][#1]  | [link][#2]  |
-| Auto X.Org                              | [link][#3]  | [link][#4]  |
-| Generate Evdev                          | [link][#5]  | [link][#6]  |
-| Guest Machine Guide                     | [link][#7]  | [link][#8]  |
-| Libvirt Hooks                           | [link][#9]  | [link][#10] |
-| **Power State Virtual Machine Manager** | [link][#11] | [link][#12] |
+| Project                                 | Codeberg   | GitHub     |
+| :---                                    | :---:      | :---:      |
+| Deploy VFIO                             | [link][1]  | [link][2]  |
+| Auto X.Org                              | [link][3]  | [link][4]  |
+| Generate Evdev                          | [link][5]  | [link][6]  |
+| Guest Machine Guide                     | [link][7]  | [link][8]  |
+| Libvirt Hooks                           | [link][9]  | [link][10] |
+| **Power State Virtual Machine Manager** | [link][11] | [link][12] |
 
 [1]: https://codeberg.org/portellam/deploy-VFIO
 [2]: https://github.com/portellam/deploy-VFIO
