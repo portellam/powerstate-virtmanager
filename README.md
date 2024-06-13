@@ -4,18 +4,25 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
 **[View latest release]** | **[View develop branch]**
 
-[View latest release]: /../releases/latest
+[View latest release]: /../../releases/latest
 [View develop branch]: /../tree/develop
 
-### Related Projects:
-| Repository                              | Codeberg  | GitHub      |
-| --------------------------------------- | --------- | ----------- |
-| Deploy VFIO                             | [link][1] | [link][2]   |
-| Auto X.Org                              | [link][3] | [link][4]   |
-| Generate Evdev                          | [link][5] | [link][6]   |
-| Guest Machine Guide                     | [link][7] | [link][8]   |
-| Libvirt Hooks                           | [link][9] | [link][10]  |
-| **Power State Virtual Machine Manager** | [link][11] | [link][12] |
+## Table of Contents
+- [Related Projects][#related-projects]
+- [Recommended Reading][#recommended-reading]
+- [Why?](#why)
+- [Contact](#contact)
+
+## Contents
+### Related Projects
+| Project                                 | Codeberg    | GitHub      |
+| :---                                    | :---:       | :---:       |
+| Deploy VFIO                             | [link][#1]  | [link][#2]  |
+| Auto X.Org                              | [link][#3]  | [link][#4]  |
+| Generate Evdev                          | [link][#5]  | [link][#6]  |
+| Guest Machine Guide                     | [link][#7]  | [link][#8]  |
+| Libvirt Hooks                           | [link][#9]  | [link][#10] |
+| **Power State Virtual Machine Manager** | [link][#11] | [link][#12] |
 
 [1]: https://codeberg.org/portellam/deploy-VFIO
 [2]: https://github.com/portellam/deploy-VFIO
@@ -30,18 +37,13 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 [11]: https://codeberg.org/portellam/powerstate-virtmanager
 [12]: https://github.com/portellam/powerstate-virtmanager
 
-### Other Links:
+### Recommended Reading
 [VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
 
 [VFIO Article]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
 [VFIO Forum]: https://old.reddit.com/r/VFIO
 [PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
-## Table of Contents
-- [Why?](#why)
-- [Contact](#contact)
-
-## Contents
 ### Why?
 The virtual machine manager application `virt-manager` does not (currently) have
 the option to wake a VM from Sleep.
