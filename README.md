@@ -12,7 +12,7 @@ Hibernation. Does what `virt-manager` doesn't.
 ## Table of Contents
 - [Why?](#why)
 - [Related Projects](#related-projects)
-- [Recommended Reading](#recommended-reading)
+- [Documentation](#documentation)
 - [Contact](#contact)
 
 ## Contents
@@ -59,12 +59,3 @@ Did you encounter a bug? Do you need help? Please visit the
 
 [codeberg-issues]: https://codeberg.org/portellam/powerstate-virtmanager/issues
 [github-issues]:   https://github.com/portellam/powerstate-virtmanager/issues
-
-## TODO:
-- [ ] create GTK3 project.
-- [ ] draw GUI layout.
-- [ ] gather Linux shell commands.
-- [ ] create Python classes.
-- [ ] add CLI commands?
-- [ ] test.
-- [ ] create first release.
