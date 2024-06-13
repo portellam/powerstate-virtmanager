@@ -4,8 +4,8 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
 **[View latest release]** | **[View develop branch]**
 
-[View latest release]: /../../releases/latest
-[View develop branch]: /../tree/develop
+[View latest release]: ../releases/latest
+[View develop branch]: ../tree/develop
 
 ## Table of Contents
 - [Related Projects](#related-projects)
@@ -52,8 +52,8 @@ That is unfortunate, as a VM cannot be awaken from normal and expected means
 This application fixes that issue, with a nice Frontend to boot.
 
 ### Contact
-Did you encounter a bug? Do you need help? Notice any dead links? Please contact
-by [raising an issue] with the project itself.
+Did you encounter a bug? Do you need help? Please contact by [raising an issue]
+with the project itself.
 
 [raising an issue]: /../issues
 
