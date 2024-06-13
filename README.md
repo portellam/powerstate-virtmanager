@@ -1,30 +1,3 @@
-```js client
-function getCurrentUrl ()
-{
-  return window.location.href
-}
-
-function isUrlCodeberg ()
-{
-  return url.startsWith("http://codeberg.org")
-    || url.startsWith("http://www.codeberg.org")
-    || url.startsWith("https://codeberg.org")
-    || url.startsWith("https://www.codeberg.org");
-}
-
-function isUrlGitHub ()
-{
-  return url.startsWith("http://github.com")
-    || url.startsWith("http://www.github.com")
-    || url.startsWith("https://github.com")
-    || url.startsWith("https://www.github.com");
-}
-
-const url = getCurrentURL()
-const isCodeberg = isUrlCodeberg();
-const isGitHub = isUrlGitHub();
-```
-
 # Power State Virtual Machine Manager
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
 Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
@@ -49,27 +22,27 @@ That is unfortunate, as a VM cannot be awaken from normal and expected means
 This application fixes that issue, with a nice Frontend to boot.
 
 ### Related Projects
-| Project                                 | Codeberg   | GitHub     |
-| :---                                    | :---:      | :---:      |
-| Deploy VFIO                             | [link][codeberg1]  | [link][2]  |
-| Auto X.Org                              | [link][3]  | [link][4]  |
-| Generate Evdev                          | [link][5]  | [link][6]  |
-| Guest Machine Guide                     | [link][7]  | [link][8]  |
-| Libvirt Hooks                           | [link][9]  | [link][10] |
-| **Power State Virtual Machine Manager** | [link][11] | [link][12] |
+| Project                                 | Codeberg          | GitHub          |
+| :---                                    | :---:             | :---:           |
+| Deploy VFIO                             | [link][codeberg1] | [link][github1] |
+| Auto X.Org                              | [link][codeberg2] | [link][github2] |
+| Generate Evdev                          | [link][codeberg3] | [link][github3] |
+| Guest Machine Guide                     | [link][codeberg4] | [link][github4] |
+| Libvirt Hooks                           | [link][codeberg5] | [link][github5] |
+| **Power State Virtual Machine Manager** | [link][codeberg6] | [link][github6] |
 
-[1]: https://codeberg.org/portellam/deploy-VFIO
-[2]: https://github.com/portellam/deploy-VFIO
-[3]: https://codeberg.org/portellam/auto-xorg
-[4]: https://github.com/portellam/auto-xorg
-[5]: https://codeberg.org/portellam/generate-evdev
-[6]: https://github.com/portellam/generate-evdev
-[7]: https://codeberg.org/portellam/guest-machine-guide
-[8]: https://github.com/portellam/guest-machine-guide
-[9]: https://codeberg.org/portellam/libvirt-hooks
-[10]: https://github.com/portellam/libvirt-hooks
-[11]: https://codeberg.org/portellam/powerstate-virtmanager
-[12]: https://github.com/portellam/powerstate-virtmanager
+[codeberg1]: https://codeberg.org/portellam/deploy-VFIO
+[codeberg2]: https://github.com/portellam/deploy-VFIO
+[codeberg3]: https://codeberg.org/portellam/auto-xorg
+[codeberg4]: https://github.com/portellam/auto-xorg
+[codeberg5]: https://codeberg.org/portellam/generate-evdev
+[codeberg6]: https://github.com/portellam/generate-evdev
+[github1]: https://codeberg.org/portellam/guest-machine-guide
+[github2]: https://github.com/portellam/guest-machine-guide
+[github3]: https://codeberg.org/portellam/libvirt-hooks
+[github4]: https://github.com/portellam/libvirt-hooks
+[github5]: https://codeberg.org/portellam/powerstate-virtmanager
+[github6]: https://github.com/portellam/powerstate-virtmanager
 
 ### Recommended Reading
 [VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
