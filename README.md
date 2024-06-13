@@ -38,25 +38,18 @@ by [raising an issue] with the project itself.
 - [ ] test.
 - [ ] create first release.
 
-[View latest release]: https://github.com/portellam/powerstate-virtmanager/
-releases/latest
-
-[View develop branch]: https://github.com/portellam/powerstate-virtmanager/
-tree/develop
+[View latest release]: https://github.com/portellam/powerstate-virtmanager/releases/latest
+[View develop branch]: https://github.com/portellam/powerstate-virtmanager/tree/develop
 
 [Deploy VFIO]: https://github.com/portellam/deploy-VFIO
 [Auto X.Org]: https://github.com/portellam/auto-xorg
 [Generate Evdev]: https://github.com/portellam/generate-evdev
 [Guest Machine Guide]: https://github.com/portellam/guest-machine-guide
 [Libvirt Hooks]: https://github.com/portellam/libvirt-hooks
-
-[Power State Virtual Machine Manager]: https://github.com/portellam/
-powerstate-virtmanager
+[Power State Virtual Machine Manager]: https://github.com/portellam/powerstate-virtmanager
 
 [VFIO Article]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
 [VFIO Forum]: https://old.reddit.com/r/VFIO
-
-[PCI Passthrough Guide]: https://wiki.archlinux.org/title/
-PCI_passthrough_via_OVMF
+[PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
 [raising an issue]: https://github.com/portellam/powerstate-virtmanager/issues
