@@ -3,10 +3,11 @@
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
 Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
-**Download latest release:** [![codeberg-release]] [![github-release]]
+**Download latest release:** [![codeberg-release](codeberg-logo.png)]
+[![github-release](github-logo.png)]
 
-[![codeberg-release](codeberg-logo.png)]: https://github.com/portellam/powerstate-virtmanager/releases/latest
-[![github-release](github-logo.png)]: https://github.com/portellam/powerstate-virtmanager/releases/latest
+[![codeberg-release]]: https://github.com/portellam/powerstate-virtmanager/releases/latest
+[![github-release]]: https://github.com/portellam/powerstate-virtmanager/releases/latest
 
 
 ## Table of Contents
