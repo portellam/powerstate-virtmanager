@@ -3,12 +3,12 @@ Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or Hiber
 
 **[View latest release]** | **[View develop branch]**
 
-### Related Projects
+### <u>Related Projects</u>
 [Deploy VFIO] | [Auto X.Org]| [Generate Evdev]
 
 [Guest Machine Guide] | [Libvirt Hooks] | **[Power State Virtual Machine Manager]**
 
-### Other Links:
+### <u>Other Links</u>
 [VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
 
 ## Table of Contents
@@ -36,7 +36,7 @@ Did you encounter a bug? Do you need help? Notice any dead links? Please contact
 [View latest release]: https://github.com/portellam/powerstate-virtmanager/releases/latest
 [View develop branch]: https://github.com/portellam/powerstate-virtmanager/develop
 
-[Deploy VFIO]: (https://github.com/portellam/deploy-VFIO
+[Deploy VFIO]: https://github.com/portellam/deploy-VFIO
 [Auto X.Org]: https://github.com/portellam/auto-xorg
 [Generate Evdev]: https://github.com/portellam/generate-evdev
 [Guest Machine Guide]: https://github.com/portellam/guest-machine-guide
