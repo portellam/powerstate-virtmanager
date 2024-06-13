@@ -2,18 +2,25 @@
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
 Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
-**[View latest release]** | **[View develop branch]**
+**[View latest release][1]** | **[View develop branch][2]**
 
-[View latest release]: ../releases/latest
-[View develop branch]: ../tree/develop
+[1]: ../releases/latest
+[2]: ../tree/develop
 
 ## Table of Contents
+- [Why?](#why)
 - [Related Projects](#related-projects)
 - [Recommended Reading](#recommended-reading)
-- [Why?](#why)
 - [Contact](#contact)
 
 ## Contents
+### Why?
+The virtual machine manager application `virt-manager` does not (currently) have
+the option to wake a VM from Sleep.
+That is unfortunate, as a VM cannot be awaken from normal and expected means
+(wake from USB keyboard or network activity).
+This application fixes that issue, with a nice Frontend to boot.
+
 ### Related Projects
 | Project                                 | Codeberg   | GitHub     |
 | :---                                    | :---:      | :---:      |
@@ -38,24 +45,17 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 [12]: https://github.com/portellam/powerstate-virtmanager
 
 ### Recommended Reading
-[VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
+[VFIO article][1] | [VFIO forum][2] | [PCI Passthrough Guide][3]
 
-[VFIO Article]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
-[VFIO Forum]: https://old.reddit.com/r/VFIO
-[PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
-
-### Why?
-The virtual machine manager application `virt-manager` does not (currently) have
-the option to wake a VM from Sleep.
-That is unfortunate, as a VM cannot be awaken from normal and expected means
-(wake from USB keyboard or network activity).
-This application fixes that issue, with a nice Frontend to boot.
+[1]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
+[2]: https://old.reddit.com/r/VFIO
+[3]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
 ### Contact
-Did you encounter a bug? Do you need help? Please contact by [raising an issue]
-with the project itself.
+Did you encounter a bug? Do you need help? Please contact by
+[raising an issue][1] with the project itself.
 
-[raising an issue]: /../issues
+[1]: /../issues
 
 ## TODO:
 - [ ] create GTK3 project.
