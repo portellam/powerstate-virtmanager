@@ -46,7 +46,7 @@ boot.
 [codeberg6]: https://codeberg.org/portellam/powerstate-virtmanager
 [github6]:   https://github.com/portellam/powerstate-virtmanager
 
-### Recommended Reading
+### Documentation
 [VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
 
 [VFIO Article]:          https://www.kernel.org/doc/html/latest/driver-api/vfio.html
