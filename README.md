@@ -1,11 +1,38 @@
+```js client
+function getCurrentUrl ()
+{
+  return window.location.href
+}
+
+function isUrlCodeberg ()
+{
+  return url.startsWith("http://codeberg.org")
+    || url.startsWith("http://www.codeberg.org")
+    || url.startsWith("https://codeberg.org")
+    || url.startsWith("https://www.codeberg.org");
+}
+
+function isUrlGitHub ()
+{
+  return url.startsWith("http://github.com")
+    || url.startsWith("http://www.github.com")
+    || url.startsWith("https://github.com")
+    || url.startsWith("https://www.github.com");
+}
+
+const url = getCurrentURL()
+const isCodeberg = isUrlCodeberg();
+const isGitHub = isUrlGitHub();
+```
+
 # Power State Virtual Machine Manager
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
 Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
-**[View latest release][1]** | **[View develop branch][2]**
+**[View latest release]** | **[View develop branch]**
 
-[1]: ../releases/latest
-[2]: ../tree/develop
+[View latest release]: ../releases/latest
+[View develop branch]: ../tree/develop
 
 ## Table of Contents
 - [Why?](#why)
@@ -24,7 +51,7 @@ This application fixes that issue, with a nice Frontend to boot.
 ### Related Projects
 | Project                                 | Codeberg   | GitHub     |
 | :---                                    | :---:      | :---:      |
-| Deploy VFIO                             | [link][1]  | [link][2]  |
+| Deploy VFIO                             | [link][codeberg1]  | [link][2]  |
 | Auto X.Org                              | [link][3]  | [link][4]  |
 | Generate Evdev                          | [link][5]  | [link][6]  |
 | Guest Machine Guide                     | [link][7]  | [link][8]  |
@@ -45,17 +72,17 @@ This application fixes that issue, with a nice Frontend to boot.
 [12]: https://github.com/portellam/powerstate-virtmanager
 
 ### Recommended Reading
-[VFIO article][1] | [VFIO forum][2] | [PCI Passthrough Guide][3]
+[VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
 
-[1]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
-[2]: https://old.reddit.com/r/VFIO
-[3]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
+[VFIO Article]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
+[VFIO Forum]: https://old.reddit.com/r/VFIO
+[PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
 ### Contact
-Did you encounter a bug? Do you need help? Please contact by
-[raising an issue][1] with the project itself.
+Did you encounter a bug? Do you need help? Please contact by [raising an issue]
+with the project itself.
 
-[1]: /../issues
+[raising an issue]: /../issues
 
 ## TODO:
 - [ ] create GTK3 project.
