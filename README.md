@@ -55,7 +55,7 @@ This application fixes that issue, with a nice Frontend to boot.
 Did you encounter a bug? Do you need help? Please contact by [raising an issue]
 with the project itself.
 
-[raising an issue]: /../issues
+[raising an issue]: ../issues
 
 ## TODO:
 - [ ] create GTK3 project.
