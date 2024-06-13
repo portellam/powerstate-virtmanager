@@ -8,8 +8,8 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 [View develop branch]: /../tree/develop
 
 ## Table of Contents
-- [Related Projects][#related-projects]
-- [Recommended Reading][#recommended-reading]
+- [Related Projects](#related-projects)
+- [Recommended Reading](#recommended-reading)
 - [Why?](#why)
 - [Contact](#contact)
 
