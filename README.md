@@ -4,14 +4,38 @@ Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
 **[View latest release]** | **[View develop branch]**
 
-### Related Projects:
-[Deploy VFIO] | [Auto X.Org]| [Generate Evdev]
+[View latest release]: /../releases/latest
+[View develop branch]: /../tree/develop
 
-[Guest Machine Guide] | [Libvirt Hooks] |
-**[Power State Virtual Machine Manager]**
+### Related Projects:
+| Repository                              | Codeberg  | GitHub      |
+| --------------------------------------- | --------- | ----------- |
+| Deploy VFIO                             | [link][1] | [link][2]   |
+| Auto X.Org                              | [link][3] | [link][4]   |
+| Generate Evdev                          | [link][5] | [link][6]   |
+| Guest Machine Guide                     | [link][7] | [link][8]   |
+| Libvirt Hooks                           | [link][9] | [link][10]  |
+| **Power State Virtual Machine Manager** | [link][11] | [link][12] |
+
+[1]: https://codeberg.org/portellam/deploy-VFIO
+[2]: https://github.com/portellam/deploy-VFIO
+[3]: https://codeberg.org/portellam/auto-xorg
+[4]: https://github.com/portellam/auto-xorg
+[5]: https://codeberg.org/portellam/generate-evdev
+[6]: https://github.com/portellam/generate-evdev
+[7]: https://codeberg.org/portellam/guest-machine-guide
+[8]: https://github.com/portellam/guest-machine-guide
+[9]: https://codeberg.org/portellam/libvirt-hooks
+[10]: https://github.com/portellam/libvirt-hooks
+[11]: https://codeberg.org/portellam/powerstate-virtmanager
+[12]: https://github.com/portellam/powerstate-virtmanager
 
 ### Other Links:
 [VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
+
+[VFIO Article]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
+[VFIO Forum]: https://old.reddit.com/r/VFIO
+[PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
 ## Table of Contents
 - [Why?](#why)
@@ -29,6 +53,8 @@ This application fixes that issue, with a nice Frontend to boot.
 Did you encounter a bug? Do you need help? Notice any dead links? Please contact
 by [raising an issue] with the project itself.
 
+[raising an issue]: /../issues
+
 ## TODO:
 - [ ] create GTK3 project.
 - [ ] draw GUI layout.
@@ -37,19 +63,3 @@ by [raising an issue] with the project itself.
 - [ ] add CLI commands?
 - [ ] test.
 - [ ] create first release.
-
-[View latest release]: https://github.com/portellam/powerstate-virtmanager/releases/latest
-[View develop branch]: https://github.com/portellam/powerstate-virtmanager/tree/develop
-
-[Deploy VFIO]: https://github.com/portellam/deploy-VFIO
-[Auto X.Org]: https://github.com/portellam/auto-xorg
-[Generate Evdev]: https://github.com/portellam/generate-evdev
-[Guest Machine Guide]: https://github.com/portellam/guest-machine-guide
-[Libvirt Hooks]: https://github.com/portellam/libvirt-hooks
-[Power State Virtual Machine Manager]: https://github.com/portellam/powerstate-virtmanager
-
-[VFIO Article]: https://www.kernel.org/doc/html/latest/driver-api/vfio.html
-[VFIO Forum]: https://old.reddit.com/r/VFIO
-[PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
-
-[raising an issue]: https://github.com/portellam/powerstate-virtmanager/issues
