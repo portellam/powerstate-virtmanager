@@ -1,4 +1,5 @@
 # Power State Virtual Machine Manager
+## Status: Pre-development
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
 Hibernation. Does what `virt-manager` doesn't. Python and GTK3 GUI application.
 
