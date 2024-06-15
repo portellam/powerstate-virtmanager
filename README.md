@@ -14,6 +14,7 @@ Hibernation. Does what `virt-manager` doesn't.
 - [Related Projects](#related-projects)
 - [Documentation](#documentation)
 - [Contact](#contact)
+- [References](#references)
 
 ## Contents
 ### Why?
