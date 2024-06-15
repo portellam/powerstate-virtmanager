@@ -12,7 +12,7 @@ Hibernation. Does what `virt-manager` doesn't.
 ## Table of Contents
 - [Why?](#why)
 - [Related Projects](#related-projects)
-- [Recommended Reading](#recommended-reading)
+- [Documentation](#documentation)
 - [Contact](#contact)
 
 ## Contents
@@ -47,11 +47,9 @@ boot.
 [github6]:   https://github.com/portellam/powerstate-virtmanager
 
 ### Documentation
-[VFIO article] | [VFIO forum] | [PCI Passthrough Guide]
-
-[VFIO Article]:          https://www.kernel.org/doc/html/latest/driver-api/vfio.html
-[VFIO Forum]:            https://old.reddit.com/r/VFIO
-[PCI Passthrough Guide]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
+- [What is VFIO?](#3)
+- [VFIO Forum](#2)
+- [PCI Passthrough Guide](#1)
 
 ### Contact
 Did you encounter a bug? Do you need help? Please visit the
@@ -60,11 +58,16 @@ Did you encounter a bug? Do you need help? Please visit the
 [codeberg-issues]: https://codeberg.org/portellam/powerstate-virtmanager/issues
 [github-issues]:   https://github.com/portellam/powerstate-virtmanager/issues
 
-## TODO:
-- [ ] create GTK3 project.
-- [ ] draw GUI layout.
-- [ ] gather Linux shell commands.
-- [ ] create Python classes.
-- [ ] add CLI commands?
-- [ ] test.
-- [ ] create first release.
+### References
+#### 1.
+**PCI passthrough via OVMF**. ArchWiki. Accessed June 14, 2024.
+<sup>https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF.</sup>
+
+#### 2.
+**r/VFIO**. Accessed June 14, 2024.
+<sup>https://www.reddit.com/r/VFIO/.</sup>
+
+#### 3.
+**VFIO - ‘Virtual Function I/O’ - The Linux Kernel Documentation**.
+The linux kernel. Accessed June 14, 2024.
+<sup>https://www.kernel.org/doc/html/latest/driver-api/vfio.html.</sup>
