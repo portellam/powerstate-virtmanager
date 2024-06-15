@@ -14,6 +14,7 @@ Hibernation. Does what `virt-manager` doesn't.
 - [Related Projects](#related-projects)
 - [Documentation](#documentation)
 - [Contact](#contact)
+- [References](#references)
 
 ## Contents
 ### Why?
@@ -61,13 +62,16 @@ Did you encounter a bug? Do you need help? Please visit the
 ### References
 #### 1.
 **PCI passthrough via OVMF**. ArchWiki. Accessed June 14, 2024.
+
 <sup>https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF.</sup>
 
 #### 2.
 **r/VFIO**. Accessed June 14, 2024.
+
 <sup>https://www.reddit.com/r/VFIO/.</sup>
 
 #### 3.
 **VFIO - ‘Virtual Function I/O’ - The Linux Kernel Documentation**.
 The linux kernel. Accessed June 14, 2024.
+
 <sup>https://www.kernel.org/doc/html/latest/driver-api/vfio.html.</sup>
