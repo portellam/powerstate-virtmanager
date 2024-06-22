@@ -65,8 +65,8 @@ Linux.
 
 #### 4.3. Hardware
 The following firmware options are supported and enabled (motherboard and CPU):
-    - System Power State S3 (Sleep).
-    - System Power State S4 (Hibernation).
+- System Power State S3 (Sleep).
+- System Power State S4 (Hibernation).
 
 ### 5. Download
 **Note:** This information is pending development and is subject to change.
