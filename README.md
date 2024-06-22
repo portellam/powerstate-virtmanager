@@ -10,7 +10,7 @@ Hibernation. Does what `virt-manager` doesn't.
 - [2. Related Projects](#2-related-projects)
 - [3. Documentation](#3-documentation)
 - [4. Host Requirements](#4-host-requirements)
-    - [4.1. Opera(ting Systems ](#41-operating-systems)
+    - [4.1. Operating Systems ](#41-operating-systems)
     - [4.2. Software](#42-software)
     - [4.3. Hardware](#43-hardware)
 - [5. Download](#5-download)
@@ -64,9 +64,9 @@ Linux.
 **Note:** This information is pending development and is subject to change.
 
 #### 4.3. Hardware
-- The following firmware options are supported and enabled:
-    - S3 Shutdown (Sleep).
-    - S4 Shutdown (Hibernation).
+The following firmware options are supported and enabled (motherboard and CPU):
+    - System Power State S3 (Sleep).
+    - System Power State S4 (Hibernation).
 
 ### 5. Download
 **Note:** This information is pending development and is subject to change.
