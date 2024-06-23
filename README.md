@@ -1,9 +1,9 @@
 # Power State Virtual Machine Manager
-### v0.1.1
+### v0.1.1-dev
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
 Hibernation. Does what `virt-manager` doesn't.
 
-### Status: Pre-development
+## Status: Pre-Development
 
 ## Table of Contents
 - [1. Why?](#1-why)
