@@ -1,6 +1,13 @@
 #!/bin/bash
 
 #
+# Filename:       pwrstate-virtman-script-dialog.sh
+# Description:    Set the power state of a QEMU/KVM Virtual Machine (VM).
+# Author(s):      Alex Portell <github.com/portellam>
+# Maintainer(s):  Alex Portell <github.com/portellam>
+#
+
+#
 # sources
 #
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
