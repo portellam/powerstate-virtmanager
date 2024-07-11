@@ -8,43 +8,60 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+function is_user_root
+  {
+    if [[ $( whoami ) != "root" ]]; then
+      echo "User is not root."
+      return 1
+    fi
+
+    return 0
+  }
+
 function install
 {
+  local -r relative_path="bin"
   local -r script_file="powerstate-virtmanager.sh"
 
-  if [[ -e "./${script_file}" ]]; then
+  if [[ ! -e "${relative_path}/${script_file}" ]]; then
     echo "Error: Cannot locate script file."
     return 1
   fi
 
   local -r source_file="powerstate-virtmanager.d/script-dialog"
 
-  if [[ -e "./${source_file}" ]]; then
+  if [[ ! -e "${relative_path}/${source_file}" ]]; then
     echo "Error: Cannot locate source file."
     return 1
   fi
 
-  local -r destination_path="/usr/bin/local"
+  local -r destination_path="/usr/local/bin"
 
-  if ! cp "./${script_file}" "${destination_path}/${script_file}" \
+  if ! cp --force --recursive "${relative_path}/${script_file}" \
+    "${destination_path}/${script_file}" &> /dev/null; then
+    echo "Error: Cannot copy script file."
+    return 1
+  fi
+
+  if ! mkdir --parents $( dirname "${destination_path}/${source_file}" ) \
     &> /dev/null; then
     echo "Error: Cannot copy script file."
     return 1
   fi
 
-  if ! cp "./${source_file}" "${destination_path}/${source_file}" \
-    &> /dev/null; then
+  if ! cp --force --recursive "${relative_path}/${source_file}" \
+    "${destination_path}/${source_file}" &> /dev/null; then
     echo "Error: Cannot copy source file."
     return 1
   fi
 
-  if ! chmod +x "./${script_file}" "${destination_path}/${script_file}" \
+  if ! chmod +x "${destination_path}/${script_file}" \
     &> /dev/null; then
     echo "Error: Cannot set script file as executable."
     return 1
   fi
 
-  if ! chmod +x "./${source_file}" "${destination_path}/${source_file}" \
+  if ! chmod +x "${destination_path}/${source_file}" \
     &> /dev/null; then
     echo "Error: Cannot set source file as executable."
     return 1
@@ -55,7 +72,8 @@ function install
 
 function main
 {
-  if ! install; then
+  if ! is_user_root \
+    || ! install; then
     echo "Install failed."
     return 1
   fi
