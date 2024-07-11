@@ -2,7 +2,7 @@
 
 #
 # Filename:       powerstate-virtmanager.sh
-# Version:        1.0.0
+# Version:        1.0.0-alpha
 # Description:    Set the power state of a QEMU/KVM Virtual Machine (VM).
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
