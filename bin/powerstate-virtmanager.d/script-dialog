@@ -18,32 +18,52 @@
 # Do auto-detections at the top
 ################################
 
-if [[ $OSTYPE == darwin* ]]; then
+if [[ ${OSTYPE} == darwin* ]]; then
     desktop="macos"
-elif [[ $OSTYPE == msys ]] || [[ $(uname -r | tr '[:upper:]' '[:lower:]') == *wsl* ]]; then
+
+elif [[ ${OSTYPE} == msys ]] \
+  || [[ $(uname -r | tr '[:upper:]' '[:lower:]') == *wsl* ]]; then
     desktop="windows"
-elif [ -n "$XDG_CURRENT_DESKTOP" ]; then
+
+elif [ -n "${XDG_CURRENT_DESKTOP}" ]; then
   # shellcheck disable=SC2001
-  desktop=$(echo "$XDG_CURRENT_DESKTOP" | tr '[:upper:]' '[:lower:]' | sed 's/.*\(xfce\|kde\|gnome\).*/\1/')
-elif [ -n "$XDG_SESSION_DESKTOP" ]; then
+
+  desktop=$( \
+    echo "${XDG_CURRENT_DESKTOP}" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/.*\(xfce\|kde\|gnome\).*/\1/' \
+  )
+
+elif [ -n "${XDG_SESSION_DESKTOP}" ]; then
   # shellcheck disable=SC2001
-  desktop=$(echo "$XDG_SESSION_DESKTOP" | tr '[:upper:]' '[:lower:]' | sed 's/.*\(xfce\|kde\|gnome\).*/\1/')
-elif command -v >/dev/null pgrep && pgrep -l "gnome-shell" > /dev/null; then
+
+  desktop=$( echo "${XDG_SESSION_DESKTOP}" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/.*\(xfce\|kde\|gnome\).*/\1/' \
+  )
+
+elif command -v >/dev/null pgrep && pgrep -l "gnome-shell" > /dev/null \
+  || command -v >/dev/null pgrep && pgrep -l "mutter" > /dev/null; then
     desktop="gnome"
-elif command -v >/dev/null pgrep && pgrep -l "mutter" > /dev/null; then
-    desktop="gnome"
+
 elif command -v >/dev/null pgrep && pgrep -l "kwin" > /dev/null; then
     desktop="kde"
+
 else
   desktop="unknown"
 fi
 
+desktop="${desktop,,}"  # convert to lower case
 
-desktop=$(echo "$desktop" | tr '[:upper:]' '[:lower:]')  # convert to lower case
-export DETECTED_DESKTOP=$desktop
+export DETECTED_DESKTOP=${desktop}
 
 # If we have a standard in and out, then terminal
-[ -t 0 ] && [ -t 1 ] && terminal=true || terminal=false
+if ! [ -t 0 ] \
+  || ! [ -t 1 ]; then
+  terminal=false
+else
+  terminal=true
+fi
 
 hasKDialog=false
 hasZenity=false
@@ -53,7 +73,13 @@ hasWhiptail=false
 if [ -z ${GUI+x} ]; then
   GUI=false
   if [ "$terminal" == "false" ] ; then
-    GUI=$([ "$DISPLAY" ] || [ "$WAYLAND_DISPLAY" ] || [ "$MIR_SOCKET" ] && echo true || echo false)
+    if [ "${DISPLAY}" ] \
+      || [ "${WAYLAND_DISPLAY}" ] \
+      || [ "${MIR_SOCKET}" ]; then
+      GUI=true
+    else
+      GUI=false
+    fi
   fi
 fi
 
@@ -72,7 +98,6 @@ fi
 if command -v >/dev/null whiptail; then
   hasWhiptail=true
 fi
-
 
 if [ -z ${INTERFACE+x} ]; then
   if [ "$desktop" == "kde" ] || [ "$desktop" == "razor" ]  || [ "$desktop" == "lxqt" ]  || [ "$desktop" == "maui" ] ; then
