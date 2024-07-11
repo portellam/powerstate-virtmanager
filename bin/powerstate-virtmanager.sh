@@ -54,7 +54,7 @@
   function is_user_root
   {
     if [[ $( whoami ) != "root" ]]; then
-      message-error "Unsupported power state '${ANSWER}'."
+      message-error "User is not root."
       return 1
     fi
 
@@ -162,7 +162,7 @@
 
     local set_domain_power_state="sudo virsh ${option} --domain ${selected_domain}"
 
-    if ! log_evaluation "${set_domain_power_state}"; then
+    if ! eval "${set_domain_power_state}"; then
       message-error "Failed to ${ANSWER} Virtual Machine."
       return 1
     fi

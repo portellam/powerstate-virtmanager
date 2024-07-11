@@ -103,14 +103,14 @@ The following firmware options are supported and enabled (motherboard and CPU):
 ### 6. Usage
 #### 6.1. Install
 ```bash
-bash installer.sh
+sudo bash installer.sh
 ```
 
 #### 6.2. Run
 Installer will copy required files to `/usr/bin/local/`. You may run executable
 from any directory.
 ```bash
-bash powerstate-virtmanager
+sudo powerstate-virtmanager
 ```
 
 ### 7. Contact
