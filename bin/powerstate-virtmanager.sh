@@ -215,5 +215,5 @@
 #
 # main
 #
-  relaunch-if-not-visible
+  # relaunch-if-not-visible
   main
