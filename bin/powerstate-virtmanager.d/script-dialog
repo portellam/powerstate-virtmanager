@@ -1,4 +1,14 @@
 #!/bin/false
+
+#
+# Filename:       script-dialog
+# Version:        3.1.0
+# Description:    Allows a bash script to use the best available TUI or GUI
+#                 dialog system.
+# Author(s):      Sam Sarette <github.com/lunarcloud>
+# Maintainer(s):  Alex Portell <github.com/portellam>
+#
+
 # Multi-UI Scripting
 
 # Disable this rule, as it interferes with purely-numeric parameters
