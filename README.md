@@ -1,9 +1,9 @@
 # Power State Virtual Machine Manager
-### v0.1.1-dev
+### v1.0.0-alpha
 Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
 Hibernation. Does what `virt-manager` doesn't.
 
-## Status: Pre-Development
+**[Latest release](https://github.com/portellam/powerstate-virtmanager/releases/latest)**
 
 ## Table of Contents
 - [1. Why?](#1-why)
@@ -15,6 +15,8 @@ Hibernation. Does what `virt-manager` doesn't.
     - [4.3. Hardware](#43-hardware)
 - [5. Download](#5-download)
 - [6. Usage](#6-usage)
+    - [6.1. Install](#61-install)
+    - [6.2. Run](#62-run)
 - [7. Contact](#7-contact)
 - [8. References](#8-references)
 
@@ -61,7 +63,7 @@ ability to wake from Sleep and Hibernation, and the other related features from
 Linux.
 
 #### 4.2. Software
-**Note:** This information is pending development and is subject to change.
+- `QEMU` and `Libvirt` for Virtual Machines.
 
 #### 4.3. Hardware
 The following firmware options are supported and enabled (motherboard and CPU):
@@ -69,10 +71,47 @@ The following firmware options are supported and enabled (motherboard and CPU):
 - System Power State S4 (Hibernation).
 
 ### 5. Download
-**Note:** This information is pending development and is subject to change.
+- Download the Latest Release:&ensp;[Codeberg][codeberg-releases],
+[GitHub][github-releases]
+
+- Download the `.zip` file:
+    1. Viewing from the top of the repository's (current) webpage, click the
+        drop-down icon:
+        - `···` on Codeberg.
+        - `<> Code ` on GitHub.
+    2. Click `Download ZIP` and save.
+    3. Open the `.zip` file, then extract its contents.
+
+- Clone the repository:
+    1. Open a Command Line Interface (CLI).
+        - Open a console emulator (for Debian systems: Konsole).
+        - Open a existing console: press `CTRL` + `ALT` + `F2`, `F3`, `F4`, `F5`,  or
+        `F6`.
+            - **To return to the desktop,** press `CTRL` + `ALT` + `F7`.
+            - `F1` is reserved for debug output of the Linux kernel.
+            - `F7` is reserved for video output of the desktop environment.
+            - `F8` and above are unused.
+    2. Change your directory to your home folder or anywhere safe:
+        - `cd ~`
+    3. Clone the repository:
+        - `git clone https://www.codeberg.org/portellam/powerstate-virtmanager`
+        - `git clone https://www.github.com/portellam/powerstate-virtmanager`
+
+[codeberg-releases]: https://codeberg.org/portellam/powerstate-virtmanager/releases/latest
+[github-releases]:   https://github.com/portellam/powerstate-virtmanager/releases/latest
 
 ### 6. Usage
-**Note:** This information is pending development and is subject to change.
+#### 6.1. Install
+```bash
+sudo bash installer.sh
+```
+
+#### 6.2. Run
+Installer will copy required files to `/usr/bin/local/`. You may run executable
+from any directory.
+```bash
+sudo powerstate-virtmanager
+```
 
 ### 7. Contact
 Did you encounter a bug? Do you need help? Please visit the
