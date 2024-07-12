@@ -1,5 +1,5 @@
 # Power State Virtual Machine Manager
-### v1.0.0-alpha
+### v1.0.1-alpha
 Set the power state of a Virtual Machine (VM). Does what `virt-manager` doesn't;
 includes missing features like sleep, hibernate, and wake. Includes a TUI and
 GUI applications.

@@ -82,8 +82,10 @@
         "Pause"         "Suspend state."                        OFF \
         "Sleep"         "Suspend to Memory (S3)"                OFF \
         "Hibernate"     "Suspend to Disk (S4)"                  OFF \
-        "Hybrid Sleep"  "Suspend to Memory (S3) and Disk (S4)"  OFF \
+        "Hybrid Sleep"  "Sleep and Hibernate"                   OFF \
+        "Reboot"        "Stop and start."                       OFF \
         "Stop"          "Suspend power (S5)."                   OFF \
+        "Reset"         "Force stop and start."                 OFF \
         "Force Stop"    "Force suspend power (S5)."             OFF
     )
 
@@ -95,7 +97,9 @@
       ["sleep"]="dompmsuspend --target mem"
       ["hibernate"]="dompmsuspend --target disk"
       ["hybrid sleep"]="dompmsuspend --target hybrid"
+      ["reboot"]="reboot"
       ["stop"]="shutdown"
+      ["reset"]="reset"
       ["force stop"]="destroy"
     )
 
@@ -122,6 +126,15 @@
       )
         if [[ "${domain_state}" != "${power_states_and_status["start"]}" ]]; then
           message-warn "Cannot stop Virtual Machine. VM is offline."
+          return 1
+        fi
+        ;;
+
+      "reboot" \
+        | "reset" \
+      )
+        if [[ "${domain_state}" != "${power_states_and_status["start"]}" ]]; then
+          message-warn "Cannot restart Virtual Machine. VM is offline."
           return 1
         fi
         ;;
