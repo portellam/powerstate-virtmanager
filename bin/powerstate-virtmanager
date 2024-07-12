@@ -200,7 +200,11 @@
     local -i index=1
 
     for domain in $( sudo virsh list --all --name | head ); do
-      dialog_to_evaluate+=" \\ \"${index}.\" \"${domain}\" OFF"
+      local domain_state="$( \
+        sudo virsh domstate "${domain}" | head --lines 1 \
+      )"
+
+      dialog_to_evaluate+=" \\ \"${domain}\" \"${domain_state}\" OFF"
       (( index++ ))
     done
 
