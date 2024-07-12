@@ -1,7 +1,8 @@
 # Power State Virtual Machine Manager
 ### v1.0.0-alpha
-Set the power state of a QEMU/KVM Virtual Machine (VM). Wake from Sleep or
-Hibernation. Does what `virt-manager` doesn't.
+Set the power state of a Virtual Machine (VM). Does what `virt-manager` doesn't;
+includes missing features like sleep, hibernate, and wake. Includes a TUI and
+GUI applications.
 
 **[Latest release](https://github.com/portellam/powerstate-virtmanager/releases/latest)**
 
@@ -12,7 +13,6 @@ Hibernation. Does what `virt-manager` doesn't.
 - [4. Host Requirements](#4-host-requirements)
     - [4.1. Operating System](#41-operating-system)
     - [4.2. Software](#42-software)
-    - [4.3. Hardware](#43-hardware)
 - [5. Download](#5-download)
 - [6. Usage](#6-usage)
     - [6.1. Install](#61-install)
@@ -22,12 +22,18 @@ Hibernation. Does what `virt-manager` doesn't.
 
 ## Contents
 ### 1. Why?
-The virtual machine manager application `virt-manager` does not (currently) have
-the option to wake a VM from Sleep. In other words, as a VM cannot be awaken by
-an input device, unfortunately. For example, a physical or virtual "power on",
-button, keyboard input, or network activity. This application includes the
-ability to wake from Sleep and Hibernation, and the other related features from
-`virt-manager`.
+The Virtual Machine (VM) manager application `virt-manager` does not (currently)
+support resume and suspend of power states (S3 and above) such as sleep,
+hibernate, hybrid sleep.
+
+Normally, a bare-metal machine may resume from or suspend to sleep by a power
+button or input device activity.
+
+The Command Line Interface (CLI) tool `virsh` does support the aforementioned
+power states.
+
+The Terminal and Graphics UI (TUI and GUI) applications provided utilize `virsh`
+to simulate power button activity.
 
 ### 2. Related Projects
 | Project                                 | Codeberg          | GitHub          |
@@ -63,12 +69,8 @@ ability to wake from Sleep and Hibernation, and the other related features from
 Linux.
 
 #### 4.2. Software
-- `QEMU` and `Libvirt` for Virtual Machines.
-
-#### 4.3. Hardware
-The following firmware options are supported and enabled (motherboard and CPU):
-- System Power State S3 (Sleep).
-- System Power State S4 (Hibernation).
+- `virsh`, the Command Line Interface (CLI) tool which manages Virtual Machines,
+regardless of virtualization hypervisor (`QEMU`, `KVM`, etc.).
 
 ### 5. Download
 - Download the Latest Release:&ensp;[Codeberg][codeberg-releases],
@@ -107,11 +109,16 @@ sudo bash installer.sh
 ```
 
 #### 6.2. Run
-Installer will copy required files to `/usr/bin/local/`. You may run executable
-from any directory.
+Installer will copy required files to `/usr/bin/local/`. You may run the
+executable(s) from any directory.
+
+##### Terminal User Interface
 ```bash
 sudo powerstate-virtmanager
 ```
+
+##### Graphics User Interface
+work-in-progress
 
 ### 7. Contact
 Did you encounter a bug? Do you need help? Please visit the
