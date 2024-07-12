@@ -21,7 +21,7 @@ function is_user_root
 function install
 {
   local -r relative_path="bin"
-  local -r script_file="powerstate-virtmanager.sh"
+  local -r script_file="powerstate-virtmanager"
 
   if [[ ! -e "${relative_path}/${script_file}" ]]; then
     echo "Error: Cannot locate script file."
