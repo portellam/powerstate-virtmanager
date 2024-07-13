@@ -65,6 +65,48 @@ Codeberg https://codeberg.org/portellam)</property>
       </object>
     </child>
   </object>
+  <object class="GtkListStore" id="DomainListStore">
+    <columns>
+      <!-- column-name Virtualization Hypervisor -->
+      <column type="gchar"/>
+      <!-- column-name Virtual Machine Name -->
+      <column type="guchar"/>
+      <!-- column-name Power Status -->
+      <column type="guchar"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0"/>
+        <col id="1"/>
+        <col id="2"/>
+      </row>
+      <row>
+        <col id="0"/>
+        <col id="1"/>
+        <col id="2"/>
+      </row>
+      <row>
+        <col id="0"/>
+        <col id="1"/>
+        <col id="2"/>
+      </row>
+      <row>
+        <col id="0"/>
+        <col id="1"/>
+        <col id="2"/>
+      </row>
+      <row>
+        <col id="0"/>
+        <col id="1"/>
+        <col id="2"/>
+      </row>
+    </data>
+  </object>
+  <object class="GtkTreeViewColumn" id="DomainNameColumn">
+    <property name="title" translatable="yes">Name</property>
+    <property name="clickable">True</property>
+    <property name="sort-indicator">True</property>
+  </object>
   <object class="GtkImage" id="about">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -708,9 +750,17 @@ Codeberg https://codeberg.org/portellam)</property>
                 <property name="can-focus">False</property>
                 <property name="shadow-type">none</property>
                 <child>
-                  <object class="GtkListBox" id="MainPane2GtkListBox">
+                  <object class="GtkTreeView" id="MainPane2GtkTreeView">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
+                    <property name="model">DomainListStore</property>
+                    <property name="expander-column">DomainNameColumn</property>
+                    <property name="reorderable">True</property>
+                    <property name="enable-grid-lines">vertical</property>
+                    <property name="activate-on-single-click">True</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
                   </object>
                 </child>
               </object>
