@@ -127,15 +127,7 @@ power setting for one or more selected Virtual Machines.
 The right viewport is the list of valid Virtual Machines on the system. Filter
 and select one or more Virtual Machines.
 
-<p align="center">
-  <img src="/img/gui-main-window.png" title="GUI Main Window">
-</p>
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+![GUI Main Window](/img/gui-main-window.png)
 
 ### 7. Contact
 Did you encounter a bug? Do you need help? Please visit the
