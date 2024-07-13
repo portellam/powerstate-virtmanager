@@ -16,7 +16,8 @@ GUI applications.
 - [5. Download](#5-download)
 - [6. Usage](#6-usage)
     - [6.1. Install](#61-install)
-    - [6.2. Run](#62-run)
+    - [6.2. Terminal User Interface](#62-terminal-user-interface)
+    - [6.3. Graphics User Interface](#63-graphics-user-interface)
 - [7. Contact](#7-contact)
 - [8. References](#8-references)
 
@@ -104,20 +105,19 @@ regardless of virtualization hypervisor (`QEMU`, `KVM`, etc.).
 
 ### 6. Usage
 #### 6.1. Install
+Installer will copy required files to `/usr/bin/local/`. You may run the
+executable(s) from any directory.
+
 ```bash
 sudo bash installer.sh
 ```
 
-#### 6.2. Run
-Installer will copy required files to `/usr/bin/local/`. You may run the
-executable(s) from any directory.
-
-##### Terminal User Interface
+#### 6.2. Terminal User Interface
 ```bash
 sudo powerstate-virtmanager
 ```
 
-##### Graphics User Interface
+#### 6.3. Graphics User Interface
 - The top horizontal toolbar allows is optimized for keyboard. Use arrow keys
 and macros to quickly navigate and change settings.
 
@@ -127,7 +127,7 @@ a power setting for one or more selected Virtual Machines.
 - The right viewport is the list of valid Virtual Machines on the system. Filter
 and select one or more Virtual Machines.
 
-![GUI Main Window](/img/gui-main-window.png)
+![GUI Main Window](/images/gui-main-window.png)
 
 ### 7. Contact
 Did you encounter a bug? Do you need help? Please visit the
