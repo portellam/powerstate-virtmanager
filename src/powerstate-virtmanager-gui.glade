@@ -142,6 +142,16 @@ Codeberg https://codeberg.org/portellam)</property>
     <property name="can-focus">False</property>
     <property name="stock">gtk-harddisk</property>
   </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-find</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-refresh</property>
+  </object>
   <object class="GtkImage" id="reboo">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -190,6 +200,7 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                   </object>
@@ -212,8 +223,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Start an inactive or resume a suspended Virtual Machine.</property>
+                        <property name="use-underline">True</property>
                         <property name="image">action-start</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -228,8 +241,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend CPU activity of a Virtual Machine.</property>
+                        <property name="use-underline">True</property>
                         <property name="image">action-pause</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -238,8 +253,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to Random Access Memory (RAM).</property>
+                        <property name="use-underline">True</property>
                         <property name="image">action-stop</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -248,8 +265,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to Disk.</property>
+                        <property name="use-underline">True</property>
                         <property name="image">action-hibernate</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -258,8 +277,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to RAM and disk.</property>
+                        <property name="use-underline">True</property>
                         <property name="image">hibernate</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -269,13 +290,14 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="Action_Reboot">
-                        <property name="label" translatable="yes">Reboot</property>
+                      <object class="GtkImageMenuItem" id="Action_Restart">
+                        <property name="label" translatable="yes">Restart</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Stop and start a Virtual Machine.</property>
+                        <property name="tooltip-text" translatable="yes">Gracefully suspend and resume power of a Virtual Machine.</property>
                         <property name="image">reboo</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -284,8 +306,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Gracefully suspend power of a Virtual Machine.</property>
+                        <property name="use-underline">True</property>
                         <property name="image">stop</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -299,9 +323,11 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="label" translatable="yes">Reset</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Force stop and start a Virtual Machine.</property>
+                        <property name="tooltip-text" translatable="yes">Immediately suspend and resume power of a Virtual Machine.</property>
+                        <property name="use-underline">True</property>
                         <property name="image">reset</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -310,8 +336,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Immediately suspend power of a Virtual Machine.</property>
+                        <property name="use-underline">True</property>
                         <property name="image">force-stop</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                   </object>
@@ -330,12 +358,13 @@ Codeberg https://codeberg.org/portellam)</property>
                     <property name="can-focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem" id="View_Refresh">
-                        <property name="label">gtk-refresh</property>
+                        <property name="label">Refresh</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Refresh list of Virtual Machines.</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
+                        <property name="image">image2</property>
+                        <property name="use-stock">False</property>
                       </object>
                     </child>
                     <child>
@@ -346,12 +375,14 @@ Codeberg https://codeberg.org/portellam)</property>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="View_Find">
-                        <property name="label">gtk-find</property>
+                        <property name="label">Filter by Name</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Search Virtual Machines by name.</property>
+                        <property name="tooltip-text" translatable="yes">Filter Virtual Machines by name.</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
+                        <property name="image">image1</property>
+                        <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                     <child>
@@ -361,51 +392,10 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="View_SortPowerState">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Sort Virtual Machines by power state.</property>
-                        <property name="label" translatable="yes">Sort by Power State</property>
-                        <property name="use-underline">True</property>
-                        <child type="submenu">
-                          <object class="GtkMenu" id="View_SortPowerStateGtkMenu">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="View_ShowAll">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Show All</property>
-                                <property name="use-underline">True</property>
-                                <property name="active">True</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="View_ShowStarted">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Show Started</property>
-                                <property name="use-underline">True</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="View_ShowStopped">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Show Stopped</property>
-                                <property name="use-underline">True</property>
-                                <property name="draw-as-radio">True</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkMenuItem" id="View_SortHypervisor">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Sort Virtual Machines by virtualization hypervisor.</property>
+                        <property name="tooltip-text" translatable="yes">Filter Virtual Machines by virtualization hypervisor.</property>
                         <property name="label" translatable="yes">Filter by Hypervisor</property>
                         <property name="use-underline">True</property>
                         <child type="submenu">
@@ -480,11 +470,52 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
+                      <object class="GtkMenuItem" id="View_SortPowerState">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Filter Virtual Machines by power state.</property>
+                        <property name="label" translatable="yes">Filter by Power State</property>
+                        <property name="use-underline">True</property>
+                        <child type="submenu">
+                          <object class="GtkMenu" id="View_SortPowerStateGtkMenu">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <child>
+                              <object class="GtkRadioMenuItem" id="View_ShowAll">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">All</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkRadioMenuItem" id="View_ShowStarted">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">Started</property>
+                                <property name="use-underline">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkRadioMenuItem" id="View_ShowStopped">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">Stopped</property>
+                                <property name="use-underline">True</property>
+                                <property name="draw-as-radio">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkMenuItem" id="View_Reset">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Reset sort and filter to default configurations.</property>
-                        <property name="label" translatable="yes">Reset to Defaults</property>
+                        <property name="tooltip-text" translatable="yes">Reset filter to default configuration.</property>
+                        <property name="label" translatable="yes">Reset Filter</property>
                         <property name="use-underline">True</property>
                       </object>
                     </child>
@@ -507,8 +538,10 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="label" translatable="yes">About</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="use-underline">True</property>
                         <property name="image">about</property>
                         <property name="use-stock">False</property>
+                        <property name="always-show-image">True</property>
                         <signal name="button-press-event" handler="about-open" swapped="no"/>
                       </object>
                     </child>
@@ -531,12 +564,13 @@ Codeberg https://codeberg.org/portellam)</property>
               <object class="GtkToolbar" id="MainPane1GtkToolbar">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="orientation">vertical</property>
                 <property name="show-arrow">False</property>
                 <child>
                   <object class="GtkToolButton" id="MainPane1_Refresh">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="margin-right">23</property>
+                    <property name="tooltip-text" translatable="yes">Refresh list of Virtual Machines.</property>
                     <property name="is-important">True</property>
                     <property name="label" translatable="yes">Refresh</property>
                     <property name="use-underline">True</property>
@@ -547,54 +581,21 @@ Codeberg https://codeberg.org/portellam)</property>
                     <property name="homogeneous">True</property>
                   </packing>
                 </child>
-              </object>
-              <packing>
-                <property name="resize">False</property>
-                <property name="shrink">False</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkViewport" id="MainPane1GtkViewPort">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="shadow-type">none</property>
                 <child>
-                  <object class="GtkSearchEntry" id="MainPane1GtkSearchEntry">
+                  <object class="GtkSeparatorToolItem">
                     <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="primary-icon-name">edit-find-symbolic</property>
-                    <property name="primary-icon-activatable">False</property>
-                    <property name="primary-icon-sensitive">False</property>
-                    <property name="placeholder-text" translatable="yes">Search Virtual Machine by Name</property>
+                    <property name="can-focus">False</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
                 </child>
-              </object>
-              <packing>
-                <property name="resize">True</property>
-                <property name="shrink">False</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkPaned" id="MainGtkPaned2">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <child>
-              <object class="GtkToolbar" id="MainPane2GtkToolbar">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="show-arrow">False</property>
                 <child>
                   <object class="GtkToolButton" id="MainPane1_Start">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Start an inactive or resume a suspended Virtual Machine.</property>
                     <property name="label" translatable="yes">Start</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-media-play</property>
@@ -608,6 +609,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_Pause">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Suspend CPU activity of a Virtual Machine.</property>
                     <property name="label" translatable="yes">Pause</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-media-pause</property>
@@ -631,6 +633,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_Sleep">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to Random Access Memory (RAM).</property>
                     <property name="label" translatable="yes">Sleep</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-media-stop</property>
@@ -644,6 +647,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_Hibernate">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to Disk.</property>
                     <property name="label" translatable="yes">Hibernate</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-harddisk</property>
@@ -657,6 +661,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_HybridSleep">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to RAM and disk.</property>
                     <property name="label" translatable="yes">Hybrid Sleep</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-harddisk</property>
@@ -677,9 +682,10 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton" id="MainPane1_Reboot">
+                  <object class="GtkToolButton" id="MainPane1_Restart">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Gracefully suspend and resume power of a Virtual Machine.</property>
                     <property name="label" translatable="yes">Restart</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-redo</property>
@@ -693,6 +699,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_Stop">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Gracefully suspend power of a Virtual Machine.</property>
                     <property name="label" translatable="yes">Stop</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-stop</property>
@@ -716,6 +723,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_Reset">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Immediately suspend and resume power of a Virtual Machine.</property>
                     <property name="label" translatable="yes">Reset</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-redo</property>
@@ -729,6 +737,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_ForceStop">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Immediately suspend power of a Virtual Machine.</property>
                     <property name="label" translatable="yes">Force Stop</property>
                     <property name="use-underline">True</property>
                     <property name="stock-id">gtk-media-record</property>
@@ -745,12 +754,12 @@ Codeberg https://codeberg.org/portellam)</property>
               </packing>
             </child>
             <child>
-              <object class="GtkViewport" id="MainPane2GtkViewPort">
+              <object class="GtkViewport" id="MainPane1GtkViewPort">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="shadow-type">none</property>
                 <child>
-                  <object class="GtkTreeView" id="MainPane2GtkTreeView">
+                  <object class="GtkTreeView" id="MainPane1GtkTreeView">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="model">DomainListStore</property>
@@ -760,6 +769,30 @@ Codeberg https://codeberg.org/portellam)</property>
                     <property name="activate-on-single-click">True</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection"/>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="MainPane2TreeViewColumn_Type">
+                        <property name="title" translatable="yes">Virtualization Hypervisor</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <property name="sort-indicator">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="MainPane2TreeViewColumn_Status">
+                        <property name="title" translatable="yes">Power Status</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <property name="sort-indicator">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="MainPane2TreeViewColumn_Name">
+                        <property name="title" translatable="yes">Virtual Machine Name</property>
+                        <property name="clickable">True</property>
+                        <property name="reorderable">True</property>
+                        <property name="sort-indicator">True</property>
+                      </object>
                     </child>
                   </object>
                 </child>
