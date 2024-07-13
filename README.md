@@ -118,7 +118,17 @@ sudo powerstate-virtmanager
 ```
 
 ##### Graphics User Interface
-work-in-progress
+The top horizontal toolbar (Main) allows is optimized for keyboard. Use arrow
+keys and macros to quickly navigate and change settings.
+
+The left vertical toolbar is optimized for mouse and other input devices. Set a
+power setting for one or more selected Virtual Machines.
+
+The right viewport is the list of valid Virtual Machines on the system. Filter
+and select one or more Virtual Machines.
+
+<img align="left" src="/gui-main-window.png"/>
+<br>
 
 ### 7. Contact
 Did you encounter a bug? Do you need help? Please visit the
