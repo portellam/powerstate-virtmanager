@@ -27,7 +27,7 @@ Author: Alex Portell <github.com/portellam
   <!-- interface-name Power State Virtual Machine Manager -->
   <!-- interface-description Set the power state of a Virtual Machine (VM). Includes features like sleep, hibernate, and wake. -->
   <!-- interface-authors Alex Portell <github.com/portellam -->
-  <object class="GtkAboutDialog">
+  <object class="GtkAboutDialog" id="AboutGtkDialog">
     <property name="can-focus">False</property>
     <property name="type-hint">dialog</property>
     <property name="program-name">Power State Virtual Machine Manager</property>
@@ -47,12 +47,12 @@ Codeberg https://codeberg.org/portellam)</property>
     <property name="logo-icon-name">virt-manager</property>
     <property name="license-type">gpl-3-0</property>
     <child internal-child="vbox">
-      <object class="GtkBox">
+      <object class="GtkBox" id="AboutGtkBox">
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox">
+          <object class="GtkButtonBox" id="AboutGtkButtonBox">
             <property name="can-focus">False</property>
             <property name="layout-style">end</property>
           </object>
@@ -62,75 +62,83 @@ Codeberg https://codeberg.org/portellam)</property>
             <property name="position">0</property>
           </packing>
         </child>
-        <child>
-          <placeholder/>
-        </child>
       </object>
     </child>
   </object>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-media-play</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-media-pause</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-redo</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-harddisk</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-stop</property>
-  </object>
-  <object class="GtkImage" id="image6">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-no</property>
-  </object>
-  <object class="GtkImage" id="image7">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-redo</property>
-  </object>
-  <object class="GtkImage" id="image8">
+  <object class="GtkImage" id="about">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="stock">gtk-about</property>
   </object>
-  <object class="GtkWindow" id="_GtkWindow1">
+  <object class="GtkImage" id="action-hibernate">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-harddisk</property>
+  </object>
+  <object class="GtkImage" id="action-pause">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-media-pause</property>
+  </object>
+  <object class="GtkImage" id="action-start">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-media-play</property>
+  </object>
+  <object class="GtkImage" id="action-stop">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-media-stop</property>
+  </object>
+  <object class="GtkImage" id="force-stop">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-media-record</property>
+  </object>
+  <object class="GtkImage" id="hibernate">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-harddisk</property>
+  </object>
+  <object class="GtkImage" id="reboo">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-redo</property>
+  </object>
+  <object class="GtkImage" id="reset">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-redo</property>
+  </object>
+  <object class="GtkImage" id="stop">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-stop</property>
+  </object>
+  <object class="GtkWindow" id="MainGtkWindow">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Power State Virtual Machine Manager</property>
     <property name="default-width">640</property>
     <property name="default-height">480</property>
     <property name="icon-name">virtual</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="MainGtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
+        <signal name="show" handler="about-open" swapped="no"/>
         <child>
-          <object class="GtkMenuBar">
+          <object class="GtkMenuBar" id="MainGtkMenuBar">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkMenuItem">
+              <object class="GtkMenuItem" id="FileGtkMenuItem">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_File</property>
+                <property name="label" translatable="yes">File</property>
                 <property name="use-underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="FileGtkMenu">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
@@ -147,13 +155,13 @@ Codeberg https://codeberg.org/portellam)</property>
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem">
+              <object class="GtkMenuItem" id="ActionGtkMenuItem">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_Action</property>
+                <property name="label" translatable="yes">Action</property>
                 <property name="use-underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="ActionGtkMenu">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
@@ -162,7 +170,7 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Start an inactive or resume a suspended Virtual Machine.</property>
-                        <property name="image">image1</property>
+                        <property name="image">action-start</property>
                         <property name="use-stock">False</property>
                       </object>
                     </child>
@@ -178,16 +186,18 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend CPU activity of a Virtual Machine.</property>
-                        <property name="image">image2</property>
+                        <property name="image">action-pause</property>
                         <property name="use-stock">False</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem">
+                      <object class="GtkImageMenuItem">
+                        <property name="label" translatable="yes">Sleep</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to Random Access Memory (RAM).</property>
-                        <property name="label" translatable="yes">Sleep</property>
+                        <property name="image">action-stop</property>
+                        <property name="use-stock">False</property>
                       </object>
                     </child>
                     <child>
@@ -196,17 +206,18 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to Disk.</property>
-                        <property name="image">image4</property>
+                        <property name="image">action-hibernate</property>
                         <property name="use-stock">False</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem">
+                      <object class="GtkImageMenuItem">
+                        <property name="label" translatable="yes">Hybrid Sleep</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Suspend a Virtual Machine to RAM and disk.</property>
-                        <property name="label" translatable="yes">Hybrid Sleep</property>
-                        <property name="use-underline">True</property>
+                        <property name="image">hibernate</property>
+                        <property name="use-stock">False</property>
                       </object>
                     </child>
                     <child>
@@ -221,17 +232,17 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Stop and start a Virtual Machine.</property>
-                        <property name="image">image3</property>
+                        <property name="image">reboo</property>
                         <property name="use-stock">False</property>
                       </object>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem">
-                        <property name="label" translatable="yes">Reset</property>
+                        <property name="label" translatable="yes">Stop</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Force stop and start a Virtual Machine.</property>
-                        <property name="image">image7</property>
+                        <property name="tooltip-text" translatable="yes">Gracefully suspend power of a Virtual Machine.</property>
+                        <property name="image">stop</property>
                         <property name="use-stock">False</property>
                       </object>
                     </child>
@@ -243,11 +254,11 @@ Codeberg https://codeberg.org/portellam)</property>
                     </child>
                     <child>
                       <object class="GtkImageMenuItem">
-                        <property name="label" translatable="yes">Stop</property>
+                        <property name="label" translatable="yes">Reset</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Gracefully suspend power of a Virtual Machine.</property>
-                        <property name="image">image5</property>
+                        <property name="tooltip-text" translatable="yes">Force stop and start a Virtual Machine.</property>
+                        <property name="image">reset</property>
                         <property name="use-stock">False</property>
                       </object>
                     </child>
@@ -257,7 +268,7 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Immediately suspend power of a Virtual Machine.</property>
-                        <property name="image">image6</property>
+                        <property name="image">force-stop</property>
                         <property name="use-stock">False</property>
                       </object>
                     </child>
@@ -266,13 +277,13 @@ Codeberg https://codeberg.org/portellam)</property>
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem">
+              <object class="GtkMenuItem" id="ViewGtkMenuItem">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_View</property>
+                <property name="label" translatable="yes">View</property>
                 <property name="use-underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="ViewGtkMenu">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
@@ -280,9 +291,159 @@ Codeberg https://codeberg.org/portellam)</property>
                         <property name="label">gtk-refresh</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="tooltip-text" translatable="yes">Refresh lists of Virtual Machines.</property>
+                        <property name="tooltip-text" translatable="yes">Refresh list of Virtual Machines.</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem">
+                        <property name="label">gtk-find</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Search Virtual Machines by name.</property>
+                        <property name="use-underline">True</property>
+                        <property name="use-stock">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Sort Virtual Machines by power state.</property>
+                        <property name="label" translatable="yes">Sort by Power State</property>
+                        <property name="use-underline">True</property>
+                        <child type="submenu">
+                          <object class="GtkMenu">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <child>
+                              <object class="GtkRadioMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">Show All</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkRadioMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">Show Started Only</property>
+                                <property name="use-underline">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkRadioMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">Show Suspended Only</property>
+                                <property name="use-underline">True</property>
+                                <property name="draw-as-radio">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Sort Virtual Machines by virtualization hypervisor.</property>
+                        <property name="label" translatable="yes">Filter by Hypervisor</property>
+                        <property name="use-underline">True</property>
+                        <child type="submenu">
+                          <object class="GtkMenu">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <child>
+                              <object class="GtkCheckMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">KVM</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkCheckMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">LXC</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkCheckMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">OpenVZ</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkCheckMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">QEMU</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkCheckMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">VirtualBox</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkCheckMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">VMWare</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkCheckMenuItem">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="label" translatable="yes">XEN</property>
+                                <property name="use-underline">True</property>
+                                <property name="active">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text" translatable="yes">Reset sort and filter to default configurations.</property>
+                        <property name="label" translatable="yes">Reset to Defaults</property>
+                        <property name="use-underline">True</property>
                       </object>
                     </child>
                   </object>
@@ -290,25 +451,23 @@ Codeberg https://codeberg.org/portellam)</property>
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem">
+              <object class="GtkMenuItem" id="HelpGtkMenuItem">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">_Help</property>
+                <property name="label" translatable="yes">Help</property>
                 <property name="use-underline">True</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="HelpGtkMenu">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem">
-                        <property name="label">About</property>
+                        <property name="label" translatable="yes">About</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="action-name">app.about</property>
-                        <property name="image">image8</property>
+                        <property name="image">about</property>
                         <property name="use-stock">False</property>
-                        <property name="always-show-image">True</property>
-                        <signal name="activate" handler="open-about" swapped="no"/>
+                        <signal name="button-press-event" handler="about-open" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -323,9 +482,49 @@ Codeberg https://codeberg.org/portellam)</property>
           </packing>
         </child>
         <child>
-          <object class="GtkStackSidebar">
+          <object class="GtkPaned" id="MainGtkPaned1">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
+            <property name="can-focus">True</property>
+            <child>
+              <object class="GtkButtonBox" id="MainPane1GtkButtonBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-right">365</property>
+                <property name="layout-style">start</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label">gtk-refresh</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="use-stock">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">False</property>
+                <property name="shrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSearchEntry" id="MainPane1GtkSearchEntry">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="primary-icon-name">edit-find-symbolic</property>
+                <property name="primary-icon-activatable">False</property>
+                <property name="primary-icon-sensitive">False</property>
+                <property name="placeholder-text" translatable="yes">Search Virtual Machine by Name</property>
+              </object>
+              <packing>
+                <property name="resize">True</property>
+                <property name="shrink">False</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -334,7 +533,190 @@ Codeberg https://codeberg.org/portellam)</property>
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkPaned" id="MainGtkPaned2">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <child>
+              <object class="GtkToolbar" id="MainPane2GtkToolbar">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="show-arrow">False</property>
+                <child>
+                  <object class="GtkSeparatorToolItem">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Start</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-media-play</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Pause</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-media-pause</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Sleep</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-media-stop</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Hibernate</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-harddisk</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Hybrid Sleep</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-harddisk</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Restart</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-redo</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Stop</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-stop</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Reset</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-redo</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Force Stop</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-media-record</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">False</property>
+                <property name="shrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkViewport" id="MainPane2GtkViewPort">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="MainPane2GtkListBox">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">True</property>
+                <property name="shrink">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
         </child>
       </object>
     </child>
