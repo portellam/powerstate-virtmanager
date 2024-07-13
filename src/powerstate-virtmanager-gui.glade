@@ -142,7 +142,7 @@ Codeberg https://codeberg.org/portellam)</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="File_Quit">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -165,7 +165,7 @@ Codeberg https://codeberg.org/portellam)</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_Start">
                         <property name="label" translatable="yes">Start</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -181,7 +181,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_Pause">
                         <property name="label" translatable="yes">Pause</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -191,7 +191,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_Sleep">
                         <property name="label" translatable="yes">Sleep</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -201,7 +201,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_Hibernate">
                         <property name="label" translatable="yes">Hibernate</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -211,7 +211,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_HybridSleep">
                         <property name="label" translatable="yes">Hybrid Sleep</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -227,8 +227,8 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label" translatable="yes">Restart</property>
+                      <object class="GtkImageMenuItem" id="Action_Reboot">
+                        <property name="label" translatable="yes">Reboot</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Stop and start a Virtual Machine.</property>
@@ -237,7 +237,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_Stop">
                         <property name="label" translatable="yes">Stop</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -253,7 +253,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_Reset">
                         <property name="label" translatable="yes">Reset</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -263,7 +263,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Action_ForceStop">
                         <property name="label" translatable="yes">Force Stop</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -287,7 +287,7 @@ Codeberg https://codeberg.org/portellam)</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="View_Refresh">
                         <property name="label">gtk-refresh</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -303,7 +303,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="View_Find">
                         <property name="label">gtk-find</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -319,18 +319,18 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem">
+                      <object class="GtkMenuItem" id="View_SortPowerState">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Sort Virtual Machines by power state.</property>
                         <property name="label" translatable="yes">Sort by Power State</property>
                         <property name="use-underline">True</property>
                         <child type="submenu">
-                          <object class="GtkMenu">
+                          <object class="GtkMenu" id="View_SortPowerStateGtkMenu">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <child>
-                              <object class="GtkRadioMenuItem">
+                              <object class="GtkRadioMenuItem" id="View_ShowAll">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">Show All</property>
@@ -339,18 +339,18 @@ Codeberg https://codeberg.org/portellam)</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkRadioMenuItem">
+                              <object class="GtkRadioMenuItem" id="View_ShowStarted">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Show Started Only</property>
+                                <property name="label" translatable="yes">Show Started</property>
                                 <property name="use-underline">True</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkRadioMenuItem">
+                              <object class="GtkRadioMenuItem" id="View_ShowStopped">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Show Suspended Only</property>
+                                <property name="label" translatable="yes">Show Stopped</property>
                                 <property name="use-underline">True</property>
                                 <property name="draw-as-radio">True</property>
                               </object>
@@ -360,18 +360,18 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem">
+                      <object class="GtkMenuItem" id="View_SortHypervisor">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Sort Virtual Machines by virtualization hypervisor.</property>
                         <property name="label" translatable="yes">Filter by Hypervisor</property>
                         <property name="use-underline">True</property>
                         <child type="submenu">
-                          <object class="GtkMenu">
+                          <object class="GtkMenu" id="View_SortHypervisorGtkMenu">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <child>
-                              <object class="GtkCheckMenuItem">
+                              <object class="GtkCheckMenuItem" id="View_KVM">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">KVM</property>
@@ -380,7 +380,7 @@ Codeberg https://codeberg.org/portellam)</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkCheckMenuItem">
+                              <object class="GtkCheckMenuItem" id="View_LXC">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">LXC</property>
@@ -389,7 +389,7 @@ Codeberg https://codeberg.org/portellam)</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkCheckMenuItem">
+                              <object class="GtkCheckMenuItem" id="View_OpenVZ">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">OpenVZ</property>
@@ -398,7 +398,7 @@ Codeberg https://codeberg.org/portellam)</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkCheckMenuItem">
+                              <object class="GtkCheckMenuItem" id="View_QEMU">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">QEMU</property>
@@ -407,7 +407,7 @@ Codeberg https://codeberg.org/portellam)</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkCheckMenuItem">
+                              <object class="GtkCheckMenuItem" id="View_VirtualBox">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">VirtualBox</property>
@@ -416,7 +416,7 @@ Codeberg https://codeberg.org/portellam)</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkCheckMenuItem">
+                              <object class="GtkCheckMenuItem" id="View_VMWare">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">VMWare</property>
@@ -425,7 +425,7 @@ Codeberg https://codeberg.org/portellam)</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkCheckMenuItem">
+                              <object class="GtkCheckMenuItem" id="View_XEN">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">XEN</property>
@@ -438,7 +438,7 @@ Codeberg https://codeberg.org/portellam)</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem">
+                      <object class="GtkMenuItem" id="View_Reset">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="tooltip-text" translatable="yes">Reset sort and filter to default configurations.</property>
@@ -461,7 +461,7 @@ Codeberg https://codeberg.org/portellam)</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="Help_About">
                         <property name="label" translatable="yes">About</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -486,23 +486,22 @@ Codeberg https://codeberg.org/portellam)</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <child>
-              <object class="GtkButtonBox" id="MainPane1GtkButtonBox">
+              <object class="GtkToolbar" id="MainPane1GtkToolbar">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="margin-right">365</property>
-                <property name="layout-style">start</property>
+                <property name="show-arrow">False</property>
                 <child>
-                  <object class="GtkButton">
-                    <property name="label">gtk-refresh</property>
+                  <object class="GtkToolButton" id="MainPane1_Refresh">
                     <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
-                    <property name="use-stock">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="is-important">True</property>
+                    <property name="label" translatable="yes">Refresh</property>
+                    <property name="use-underline">True</property>
+                    <property name="stock-id">gtk-refresh</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="homogeneous">True</property>
                   </packing>
                 </child>
               </object>
@@ -512,17 +511,24 @@ Codeberg https://codeberg.org/portellam)</property>
               </packing>
             </child>
             <child>
-              <object class="GtkSearchEntry" id="MainPane1GtkSearchEntry">
+              <object class="GtkViewport" id="MainPane1GtkViewPort">
                 <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="primary-icon-name">edit-find-symbolic</property>
-                <property name="primary-icon-activatable">False</property>
-                <property name="primary-icon-sensitive">False</property>
-                <property name="placeholder-text" translatable="yes">Search Virtual Machine by Name</property>
+                <property name="can-focus">False</property>
+                <property name="shadow-type">none</property>
+                <child>
+                  <object class="GtkSearchEntry" id="MainPane1GtkSearchEntry">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="primary-icon-name">edit-find-symbolic</property>
+                    <property name="primary-icon-activatable">False</property>
+                    <property name="primary-icon-sensitive">False</property>
+                    <property name="placeholder-text" translatable="yes">Search Virtual Machine by Name</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="resize">True</property>
-                <property name="shrink">False</property>
+                <property name="shrink">True</property>
               </packing>
             </child>
           </object>
@@ -543,17 +549,7 @@ Codeberg https://codeberg.org/portellam)</property>
                 <property name="orientation">vertical</property>
                 <property name="show-arrow">False</property>
                 <child>
-                  <object class="GtkSeparatorToolItem">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="homogeneous">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_Start">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Start</property>
@@ -566,7 +562,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_Pause">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Pause</property>
@@ -589,7 +585,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_Sleep">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Sleep</property>
@@ -602,7 +598,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_Hibernate">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Hibernate</property>
@@ -615,7 +611,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_HybridSleep">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Hybrid Sleep</property>
@@ -638,7 +634,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_Reboot">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Restart</property>
@@ -651,7 +647,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_Stop">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Stop</property>
@@ -664,7 +660,17 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkSeparatorToolItem">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="MainPane1_Reset">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Reset</property>
@@ -677,7 +683,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton">
+                  <object class="GtkToolButton" id="MainPane1_ForceStop">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Force Stop</property>
@@ -699,6 +705,7 @@ Codeberg https://codeberg.org/portellam)</property>
               <object class="GtkViewport" id="MainPane2GtkViewPort">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="shadow-type">none</property>
                 <child>
                   <object class="GtkListBox" id="MainPane2GtkListBox">
                     <property name="visible">True</property>
