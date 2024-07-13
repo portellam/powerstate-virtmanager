@@ -494,6 +494,7 @@ Codeberg https://codeberg.org/portellam)</property>
                   <object class="GtkToolButton" id="MainPane1_Refresh">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="margin-right">23</property>
                     <property name="is-important">True</property>
                     <property name="label" translatable="yes">Refresh</property>
                     <property name="use-underline">True</property>
@@ -528,7 +529,7 @@ Codeberg https://codeberg.org/portellam)</property>
               </object>
               <packing>
                 <property name="resize">True</property>
-                <property name="shrink">True</property>
+                <property name="shrink">False</property>
               </packing>
             </child>
           </object>
@@ -715,7 +716,7 @@ Codeberg https://codeberg.org/portellam)</property>
               </object>
               <packing>
                 <property name="resize">True</property>
-                <property name="shrink">True</property>
+                <property name="shrink">False</property>
               </packing>
             </child>
           </object>
