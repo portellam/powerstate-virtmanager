@@ -1,5 +1,5 @@
 # Power State Virtual Machine Manager
-### v1.0.1-alpha
+### v1.0.0-alpha
 Set the power state of a Virtual Machine (VM). Does what `virt-manager` doesn't;
 includes missing features like sleep, hibernate, and wake. Includes a TUI and
 GUI applications.
@@ -127,7 +127,7 @@ power setting for one or more selected Virtual Machines.
 The right viewport is the list of valid Virtual Machines on the system. Filter
 and select one or more Virtual Machines.
 
-<img align="left" src="/gui-main-window.png"/>
+<img align="left" src="/img/gui-main-window.png"/>
 <br>
 
 ### 7. Contact
