@@ -3,9 +3,10 @@
   `make source/ui_xml.h`
 */
 
-#include "version.h"
 #include "data.h"
+#include "version.h"
 #include <gtk/gtk.h>
+#include <stdlib.h>
 
 /*
   The macros VERSION, NAME, TARGET, AUTHOR and COPYRIGHT are available for this
@@ -13,53 +14,291 @@
   information about itself. These macros are defined in config.mk
 */
 
-int main(
-  int argc,
-  char* argv[]
-)
-{
-  if (
-        argc >= 2
-        && (
-          0 == strcmp (
-            argv[1],
-            "--version"
-          ) || 0 == strcmp (
-            argv[1],
-            "-v"
-  )))
+/*
+  Main
+*/
+  int main(
+    int argc,
+    char* argv[]
+  )
   {
-    version();
+    if (
+          argc >= 2
+          && (
+            0 == strcmp (
+              argv[1],
+              "--version"
+            ) || 0 == strcmp (
+              argv[1],
+              "-v"
+    )))
+    {
+      version();
+    }
+
+    GtkBuilder* builder;
+    GtkWidget*  window;
+
+    gtk_init (
+      &argc,
+      &argv
+    );
+
+    builder = gtk_builder_new_from_resource (APP_PREFIX"/window_main.glade");
+
+    window = GTK_WIDGET (gtk_builder_get_object (
+        builder,
+        "window_main"
+    ));
+
+    gtk_builder_connect_signals(
+      builder,
+      NULL
+    );
+
+    g_object_unref (builder);
+
+    gtk_widget_show (window);
+    gtk_main ();
+    return 0;
   }
 
-  GtkBuilder* builder;
-  GtkWidget*  window;
+/*
+  Shell logic
+*/
+  //int run_command (char* argv[])
+  bool run_command (char* command)
+  {
+    int status = system(command);
+    return status == 0;
+  }
 
-  gtk_init (
-    &argc,
-    &argv
-  );
+/*
+  Getter logic
+*/
+  char*[] get_domain_list ()
+  {
+    char* get_delim_list="arr=$( sudo virsh list --name --all | head )'; echo $arr"
+    char* delim_list = run_command(get_delim_list);
 
-  builder = gtk_builder_new_from_resource (APP_PREFIX"/window_main.glade");
+    while TRUE
+    {
+      char* domain = ""
+    }
+  }
 
-  window = GTK_WIDGET (gtk_builder_get_object (
-      builder,
-      "window_main"
-  ));
+/*
+  Domain operation and validation logic
+*/
+  bool domain_exists (char* domainName)
+  {
+    if (domainName == NULL)
+    {
+      return 1;
+    }
 
-  gtk_builder_connect_signals(
-    builder,
-    NULL
-  );
+    char* command = "sudo virsh list --name ";
+    command += "| grep --fixed-strings --line-regexp \"%s\" ", domainName;
+    command += "| head --lines 1";
+    return run_command (command);
+  }
 
-  g_object_unref (builder);
+  bool domain_start (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
 
-  gtk_widget_show (window);
-  gtk_main ();
-  return 0;
-}
+    switch (state)
+    {
+      case "running":
+        return false;
 
-void on_window_main_destroy ()
-{
-  gtk_main_quit ();
-}
+      case "paused":
+        option = "resume";
+        break;
+
+      case "pmsuspended":
+        option = "dompmwakeup";
+        break;
+
+      case "shut off":
+        option = "start";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_pause (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "pause";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_sleep (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "dompmsuspend --target mem";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_hibernate (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "dompmsuspend --target disk";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_hybrid_sleep (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "dompmsuspend --target hybrid";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_restart (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "reboot";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_reset (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "reset";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_stop (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "shutdown";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  bool domain_force_stop (char* domainName)
+  {
+    char* state = get_domain_state (domainName);
+    char* option = "";
+
+    switch (state)
+    {
+      case "running":
+        option = "destroy";
+        break;
+
+      default:
+        return false;
+    }
+
+    char* command = "sudo virsh " + option + " --domain " + domainName;
+    return run_command (command);
+  }
+
+  char* get_domain_state (char* domainName)
+  {
+    if (! domain_exists (domainName))
+    {
+      return;
+    }
+
+    return "sudo virsh domstate %s  | head --lines 1", domainName;
+  }
+
+/*
+  Presentation logic
+*/
+  void on_window_main_destroy ()
+  {
+    gtk_main_quit ();
+  }
