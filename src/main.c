@@ -79,7 +79,7 @@
     return "sudo virsh " + option;
   }
 
-  char* get_virsh_command (char* option, char* domainName)
+  char* get_virsh_command (char* option, char* domain)
   {
     if (
       option == NULL
@@ -90,14 +90,14 @@
     }
 
     if (
-      domainName == NULL
-      || strcmp(domainName, "")
+      domain == NULL
+      || strcmp(domain, "")
     )
     {
       return "";
     }
 
-    return "sudo virsh " + option + " --domain " + domainName;
+    return "sudo virsh " + option + " --domain " + domain;
   }
 
 /*
@@ -117,25 +117,25 @@
 /*
   Domain operation and validation logic
 */
-  bool domain_exists (char* domainName)
+  bool domain_exists (char* domain)
   {
     if (
-      domainName == NULL
-      || strcmp(domainName, "")
+      domain == NULL
+      || strcmp(domain, "")
     )
     {
       return 1;
     }
 
     char* command = get_virsh_command ("list --name");
-    command += "| grep --fixed-strings --line-regexp \"%s\" ", domainName;
+    command += "| grep --fixed-strings --line-regexp \"%s\" ", domain;
     command += "| head --lines 1";
     return run_command (command);
   }
 
-  bool domain_start (char* domainName)
+  bool domain_start (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -159,13 +159,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_pause (char* domainName)
+  bool domain_pause (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -178,13 +178,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_sleep (char* domainName)
+  bool domain_sleep (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -197,13 +197,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_hibernate (char* domainName)
+  bool domain_hibernate (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -216,13 +216,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_hybrid_sleep (char* domainName)
+  bool domain_hybrid_sleep (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -235,13 +235,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_restart (char* domainName)
+  bool domain_restart (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -254,13 +254,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_reset (char* domainName)
+  bool domain_reset (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -273,13 +273,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_stop (char* domainName)
+  bool domain_stop (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -292,13 +292,13 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  bool domain_force_stop (char* domainName)
+  bool domain_force_stop (char* domain)
   {
-    char* state = get_domain_state (domainName);
+    char* state = get_domain_state (domain);
     char* option = "";
 
     switch (state)
@@ -311,18 +311,18 @@
         return false;
     }
 
-    char* command = get_virsh_command (option, domainName);
+    char* command = get_virsh_command (option, domain);
     return run_command (command);
   }
 
-  char* get_domain_state (char* domainName)
+  char* get_domain_state (char* domain)
   {
-    if (! domain_exists (domainName))
+    if (! domain_exists (domain))
     {
       return;
     }
 
-    return "sudo virsh domstate %s  | head --lines 1", domainName;
+    return "sudo virsh domstate %s  | head --lines 1", domain;
   }
 
 /*
