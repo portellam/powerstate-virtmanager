@@ -17,21 +17,14 @@
 /*
   Main
 */
-  int main(
-    int argc,
-    char* argv[]
-  )
+  int main(int argc, char* argv[])
   {
     if (
           argc >= 2
           && (
-            0 == strcmp (
-              argv[1],
-              "--version"
-            ) || 0 == strcmp (
-              argv[1],
-              "-v"
-    )))
+            0 == strcmp (argv[1], "--version")
+          || 0 == strcmp (argv[1], "-v")
+    ))
     {
       version();
     }
@@ -73,6 +66,40 @@
     return status == 0;
   }
 
+  char* get_virsh_command (char* option)
+  {
+    if (
+      option == NULL
+      || strcmp(option, "")
+    )
+    {
+      return "";
+    }
+
+    return "sudo virsh " + option;
+  }
+
+  char* get_virsh_command (char* option, char* domainName)
+  {
+    if (
+      option == NULL
+      || strcmp(option, "")
+    )
+    {
+      return "";
+    }
+
+    if (
+      domainName == NULL
+      || strcmp(domainName, "")
+    )
+    {
+      return "";
+    }
+
+    return "sudo virsh " + option + " --domain " + domainName;
+  }
+
 /*
   Getter logic
 */
@@ -92,12 +119,15 @@
 */
   bool domain_exists (char* domainName)
   {
-    if (domainName == NULL)
+    if (
+      domainName == NULL
+      || strcmp(domainName, "")
+    )
     {
       return 1;
     }
 
-    char* command = "sudo virsh list --name ";
+    char* command = get_virsh_command ("list --name");
     command += "| grep --fixed-strings --line-regexp \"%s\" ", domainName;
     command += "| head --lines 1";
     return run_command (command);
@@ -129,7 +159,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -148,7 +178,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -167,7 +197,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -186,7 +216,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -205,7 +235,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -224,7 +254,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -243,7 +273,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -262,7 +292,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
@@ -281,7 +311,7 @@
         return false;
     }
 
-    char* command = "sudo virsh " + option + " --domain " + domainName;
+    char* command = get_virsh_command (option, domainName);
     return run_command (command);
   }
 
