@@ -9,46 +9,48 @@
 #
 
 class bash_enum:
-  py_enum = []
+  enum = []
 
-    def __init__(py_enum):
-      self.py_enum = py_enum
+  def __init__(enum):
+    self.enum = enum
 
-    def set_py_enum_from_bash_ref(bash_ref_name):
-      __init__(bash_ref_name)
+  def set_enum_from_reference(reference_name):
+    __init__(reference_name)
 
-    def get_py_enum_from_bash_ref(bash_ref_name):
-      if bash_ref_name is None:
-        sys.exit(1)
+  def get_enum_from_reference(reference_name):
+    if reference_name is None:
+      sys.exit(1)
 
-      bash_ref_expression = '"${' + bash_ref_name + '[@]}"'
+    reference_expression = '"${' + reference_name + '[@]}"'
 
-      py_enum =  "$( python -c 'import sys; " \
-              "from pyscript import {}; print {}(sys.argv[1:])' {} )" \
-              .format(
-                BashClass.set_py_enum_from_bash_ref.__name__,
-                BashClass.set_py_enum_from_bash_ref.__name__,
-                bash_ref_expression
-              )
+    enum =  "$( python -c 'import sys; " \
+            "from pyscript import {}; print {}(sys.argv[1:])' {} )" \
+            .format(
+              BashClass.set_enum_from_reference.__name__,
+              BashClass.set_enum_from_reference.__name__,
+              reference_expression
+            )
 
-      set_py_enum =  "mapfile -t {} <<<\"${}\"" \
-                  .format(
-                    bash_ref_name,
-                    py_enum.__name__
-                  )
+    set_enum =  "mapfile -t {} <<<\"${}\"" \
+                .format(
+                  reference_name,
+                  enum.__name__
+                )
 
-      try:
-        subprocess.run(py_enum)
-      except:
-        exception_message = "Exception: Failed to get enumeration."
-        print(exception_message)
-        __init__()
-        sys.exit(1)
+    try:
+      subprocess.run(enum)
 
-      try:
-        subprocess.run(set_py_enum)
-      except:
-        exception_message = "Exception: Failed to set enumeration."
-        print(exception_message)
-        __init__()
-        sys.exit(1)
+    except:
+      exception_message = "Exception: Failed to get enumeration."
+      print(exception_message)
+      __init__()
+      sys.exit(1)
+
+    try:
+      subprocess.run(set_enum)
+
+    except:
+      exception_message = "Exception: Failed to set enumeration."
+      print(exception_message)
+      __init__()
+      sys.exit(1)
