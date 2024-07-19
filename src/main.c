@@ -105,13 +105,54 @@
 */
   char*[] get_domain_list ()
   {
-    char* get_delim_list="arr=$( sudo virsh list --name --all | head )'; echo $arr"
-    char* delim_list = run_command(get_delim_list);
+    char* get_delim="arr=$( sudo virsh list --name --all | head )'; echo $arr"
+    char delimiter = " ";
+    char* domain_delim = run_command (get_delim);
 
-    while TRUE
+    size_t delim_count = count_char_in_string (domain_delim, delimiter);
+    char* domain_list [delim_count];
+
+    size_t index = 0;
+
+    while (domain_delim[index])
     {
-      char* domain = ""
+      size_t delim_index = domain_delim.find (delimiter);
+
+      char* domain = domain_delim.substr(
+        index,
+        domain_delim.find (delim_index)
+      );
+
+      domain_list [index] = domain;
+
+      size_t last_index = strlen (domain_delim) - 1;
+
+      domain_delim = domain_delim.substr(
+        delim_index,
+        last_index
+      )
+
+      index++;
     }
+
+    return domain_list;
+  }
+
+  int count_char_in_string(char* string, char _char)
+  {
+    int count = 0;
+
+    for (int i = 0; i < strlen(string); i++)
+    {
+      if (s[i] != c)
+      {
+        continue
+      }
+
+      count++
+    }
+
+    return count;
   }
 
 /*
