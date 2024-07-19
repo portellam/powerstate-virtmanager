@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 #
-# Filename:       bash_datatypes.py
+# Filename:       bash_enum.py
 # Version:        1.0.0
-# Description:    Datatype logic from Bash to Python.
+# Description:    Enum datatype logic between Bash and Python.
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-class bash_datatypes:
+class bash_enum:
   py_enum = []
 
     def __init__(py_enum):
