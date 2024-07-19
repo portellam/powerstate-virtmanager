@@ -74,10 +74,25 @@
       sudo virsh domstate "${selected_domain}" | head --lines 1 \
     )"
 
+    local -ir choice_count=9
+
     ACTIVITY="POWER STATES"
 
+    # ANSWER=$( \
+    #   radiolist "Set Power State for ${selected_domain}" "${choice_count}"  \
+    #     "Start"         "Resume any suspended state."           OFF \
+    #     "Pause"         "Suspend state."                        OFF \
+    #     "Sleep"         "Suspend to Memory (S3)"                OFF \
+    #     "Hibernate"     "Suspend to Disk (S4)"                  OFF \
+    #     "Hybrid Sleep"  "Sleep and Hibernate"                   OFF \
+    #     "Reboot"        "Stop and start."                       OFF \
+    #     "Stop"          "Suspend power (S5)."                   OFF \
+    #     "Reset"         "Force stop and start."                 OFF \
+    #     "Force Stop"    "Force suspend power (S5)."             OFF
+    # )
+
     ANSWER=$( \
-      radiolist "Set Power State for ${selected_domain}" 5  \
+      radiolist "Set Power State for ${selected_domain}" "${MAX_LIST_SIZE}"  \
         "Start"         "Resume any suspended state."           OFF \
         "Pause"         "Suspend state."                        OFF \
         "Sleep"         "Suspend to Memory (S3)"                OFF \
@@ -90,17 +105,17 @@
     )
 
     local -Ar power_states_and_choice=(
-      ["start"]="start"
-      ["resume"]=resume
-      ["wake"]="dompmwakeup"
-      ["pause"]="suspend"
+      ["start"]="start --domain"
+      ["resume"]="resume --domain"
+      ["wake"]="dompmwakeup --domain"
+      ["pause"]="suspend --domain"
       ["sleep"]="dompmsuspend --target mem"
       ["hibernate"]="dompmsuspend --target disk"
       ["hybrid sleep"]="dompmsuspend --target hybrid"
-      ["reboot"]="reboot"
-      ["stop"]="shutdown"
-      ["reset"]="reset"
-      ["force stop"]="destroy"
+      ["reboot"]="reboot --domain"
+      ["stop"]="shutdown --domain"
+      ["reset"]="reset --domain"
+      ["force stop"]="destroy --domain"
     )
 
     local -Ar power_states_and_status=(
@@ -125,7 +140,8 @@
         | "force stop" \
       )
         if [[ "${domain_state}" != "${power_states_and_status["start"]}" ]]; then
-          message-warn "Cannot stop Virtual Machine. VM is offline."
+          message-warn "Cannot stop \"${selected_domain}\".\nVirtual Machine is online."
+
           return 1
         fi
         ;;
@@ -134,15 +150,17 @@
         | "reset" \
       )
         if [[ "${domain_state}" != "${power_states_and_status["start"]}" ]]; then
-          message-warn "Cannot restart Virtual Machine. VM is offline."
+          message-warn "Cannot restart \"${selected_domain}\".\nVirtual Machine is offline."
+
           return 1
         fi
         ;;
 
       "start" )
         if [[ "${domain_state}" == "${power_states_and_status["start"]}" ]]; then
-          message-warn "Cannot start Virtual Machine. VM is online."
-          return 255
+          message-warn "Cannot start \"${selected_domain}\".\nVirtual Machine is online."
+
+          return 1
         fi
 
         case "${domain_state}" in
@@ -166,6 +184,44 @@
         ;;
     esac
 
+    local verb=""
+
+    case "${ANSWER}" in
+      "start" )
+        verb="Started"
+        ;;
+      "resume" )
+        verb="Resuming"
+        ;;
+      "wake" )
+        verb="Waking"
+        ;;
+      "pause" )
+        verb="Pausing"
+        ;;
+      "sleep" )
+        verb="Sleeping"
+        ;;
+      "hibernate" )
+        verb="Hibernating"
+        ;;
+      "hybrid sleep" )
+        verb="Hybrid sleeping"
+        ;;
+      "reboot" )
+        verb="Rebooting"
+        ;;
+      "reset" )
+        verb="Reseting"
+        ;;
+      "stop" )
+        verb="Stopping"
+        ;;
+      "force stop" )
+        verb="Force stopping"
+        ;;
+    esac
+
     option="${power_states_and_choice["${ANSWER}"]}"
 
     if [[ "${option}" == "" ]]; then
@@ -173,17 +229,29 @@
       return 1
     fi
 
-    local set_domain_power_state="sudo virsh ${option} --domain ${selected_domain}"
 
-    if ! eval "${set_domain_power_state}"; then
-      message-error "Failed to ${ANSWER} Virtual Machine."
+
+    local set_domain_power_state="sudo virsh ${option} ${selected_domain}"
+    local output=""
+
+    if ! eval "${set_domain_power_state}" | output="${@}"; then
+      # output="$( echo "${output}" | sort --reverse | head --lines 1 )"
+      message-error "Failed to ${ANSWER} ${selected_domain}.\n${output}"
+      echo "${output}"
       return 1
+    else
+      message-info "${verb} ${selected_domain}."
     fi
 
     return 0
   }
 
-    function prompt_virtual_machines
+  function get_action_verb
+  {
+    local option=""
+  }
+
+  function prompt_virtual_machines
   {
     local -n reference="${1}"
     ACTIVITY="VIRTUAL MACHINES"
@@ -191,7 +259,7 @@
     local -ir max_index="$( sudo virsh list --all --name | head | wc --lines )"
 
     if [[ "${max_index}" -eq 0 ]]; then
-      message-warn "No virtual machines exist."
+      message-warn "No Virtual Machines exist."
       return 1
     fi
 
@@ -204,7 +272,7 @@
         sudo virsh domstate "${domain}" | head --lines 1 \
       )"
 
-      dialog_to_evaluate+=" \\ \"${domain}\" \"${domain_state}\" OFF"
+      dialog_to_evaluate+=" \\ \"${index}. ${domain}\" \"${domain_state}\" OFF"
       (( index++ ))
     done
 
