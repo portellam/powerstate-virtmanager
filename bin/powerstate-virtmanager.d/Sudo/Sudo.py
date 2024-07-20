@@ -8,7 +8,7 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-import BashCommand
+from Bash.BashCommand import *
 
 class Sudo:
   is_sudo = false

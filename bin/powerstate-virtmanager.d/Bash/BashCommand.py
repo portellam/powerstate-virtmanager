@@ -18,7 +18,7 @@ class BashCommand:
       result = sys.stdin.readline()
       return result
 
-    except subprocess.CalledProcessError as exception:
+    except Exception exception:
       print(exception)
       sys.exit(1)
 
@@ -47,6 +47,6 @@ class BashCommand:
     try:
       return os.system(command)
 
-    except subprocess.CalledProcessError as exception:
+    except Exception exception:
       print(exception)
       sys.exit(1)

@@ -10,7 +10,7 @@
 
 import subprocess
 import sys
-import BashCommand
+from Bash.BashCommand import *
 
 class BashDatatype:
   def get_formatted_array(reference):
@@ -63,7 +63,7 @@ class BashDatatype:
     try:
       result = bash_command.get_command_return_code(reference)
 
-    except:
+    except Exception exception:
       return False
 
     return result == 0
@@ -78,7 +78,7 @@ class BashDatatype:
     try:
       result = bash_command.get_command_return_code(reference)
 
-    except:
+    except Exception exception:
       return False
 
     return result == 0
@@ -93,7 +93,7 @@ class BashDatatype:
     try:
       result = bash_command.get_command_return_code(reference)
 
-    except:
+    except Exception exception:
       return False
 
     return result == 0
