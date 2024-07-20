@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 
 #
-# Filename:       bash_datatype.py
+# Filename:       BashDatatype.py
 # Version:        1.0.0
 # Description:    Bash datatype logic.
 # Author(s):      Alex Portell <github.com/portellam>
@@ -10,32 +10,32 @@
 
 import subprocess
 import sys
-import bash_command
+import BashCommand
 
-class bash:
+class BashDatatype:
   def get_formatted_array(reference):
     if reference is None:
       sys.exit(1)
 
-    return "\"${" + reference "[*]}\""
+    return "\"${" + {reference} + "[*]}\""
 
   def get_formatted_array_length(reference):
     if reference is None:
       sys.exit(1)
 
-    return "\"${#" + reference "[*]}\""
+    return "\"${#" + {reference} + "[*]}\""
 
   def get_formatted_keys(reference):
     if reference is None:
       sys.exit(1)
 
-    return "\"${!" + reference "[*]}\""
+    return "\"${!" + {reference} + "[*]}\""
 
   def get_formatted_variable(reference):
     if reference is None:
       sys.exit(1)
 
-    return "\"${" + reference "}\""
+    return "\"${" + {reference} + "}\""
 
   def get_keys_output(reference):
     command = "echo {}" \
@@ -53,14 +53,47 @@ class bash:
     return  "\"{}\"" \
             .format(string)
 
+  def is_array(reference):
+    if reference is None:
+      sys.exit(1)
 
+    command = "declare -p {} | grep \"-a\"" \
+              .format(reference)
+
+    try:
+      result = bash_command.get_command_return_code(reference)
+
+    except:
+      return False
+
+    return result == 0
+
+  def is_dict(reference):
+    if reference is None:
+      sys.exit(1)
+
+    command = "declare -p {} | grep \"-A\"" \
+              .format(reference)
+
+    try:
+      result = bash_command.get_command_return_code(reference)
+
+    except:
+      return False
+
+    return result == 0
 
   def is_variable(reference):
+    if reference is None:
+      sys.exit(1)
 
+    command = "declare -p {}" \
+              .format(reference)
 
-  text = get_command_input()
+    try:
+      result = bash_command.get_command_return_code(reference)
 
-  expression =  "echo {}" \
-                .format(text)
+    except:
+      return False
 
-  print(get_command_output(expression))
+    return result == 0
