@@ -1,9 +1,7 @@
 #!/usr/local/bin/python
 
-import sys
-# import os
 import subprocess
-# from os import system
+import sys
 
 def get_command_output(command):
   if command is None:
@@ -28,10 +26,8 @@ def get_string_literal(string):
           .format(string)
 
 text = sys.stdin.readline()
-# print(text)
 
 expression =  "echo {}" \
               .format(text)
 
-# get_command_output(expression)
 print(get_command_output(expression))
