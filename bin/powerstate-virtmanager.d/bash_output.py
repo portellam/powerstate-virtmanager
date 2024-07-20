@@ -1,9 +1,9 @@
 #!/usr/local/bin/python
 
 #
-# Filename:       bash_output.py
+# Filename:       bash.py
 # Version:        1.0.0
-# Description:    Bash to Python logic.
+# Description:    Bash input and output logic for Python.
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
@@ -11,7 +11,7 @@
 import subprocess
 import sys
 
-class bash_output:
+class bash:
   def get_command_input():
     try:
       result = sys.stdin.readline()
