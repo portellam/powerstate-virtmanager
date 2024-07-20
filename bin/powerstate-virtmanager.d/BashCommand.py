@@ -19,34 +19,34 @@ class BashCommand:
       return result
 
     except subprocess.CalledProcessError as exception:
-        print(exception)
-        sys.exit(1)
+      print(exception)
+      sys.exit(1)
 
   def get_command_output(command):
     if command is None:
       sys.exit(1)
 
     try:
-        result = subprocess.check_output(
-          command,
-          shell = True,
-          stderr = subprocess.STDOUT,
-          text = True
-        )
+      result = subprocess.check_output(
+        command,
+        shell = True,
+        stderr = subprocess.STDOUT,
+        text = True
+      )
 
-        return result
+      return result
 
     except subprocess.CalledProcessError as exception:
-        print(exception)
-        sys.exit(1)
+      print(exception)
+      sys.exit(1)
 
   def get_command_return_code(command):
     if command is None:
       sys.exit(1)
 
     try:
-        return os.system(command)
+      return os.system(command)
 
     except subprocess.CalledProcessError as exception:
-        print(exception)
-        sys.exit(1)
+      print(exception)
+      sys.exit(1)
