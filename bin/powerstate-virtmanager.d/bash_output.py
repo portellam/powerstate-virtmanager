@@ -1,5 +1,13 @@
 #!/usr/local/bin/python
 
+#
+# Filename:       bash_output.py
+# Version:        1.0.0
+# Description:    Bash to Python logic.
+# Author(s):      Alex Portell <github.com/portellam>
+# Maintainer(s):  Alex Portell <github.com/portellam>
+#
+
 import subprocess
 import sys
 
