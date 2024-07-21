@@ -13,47 +13,47 @@ import sys
 from Bash.BashCommand import *
 
 class BashDatatype:
-  def get_formatted_array(reference):
+  def GetFormattedArray(reference):
     if reference is None:
       sys.exit(1)
 
     return "\"${" + {reference} + "[*]}\""
 
-  def get_formatted_array_length(reference):
+  def GetFormattedArrayLength(reference):
     if reference is None:
       sys.exit(1)
 
     return "\"${#" + {reference} + "[*]}\""
 
-  def get_formatted_keys(reference):
+  def GetFormattedKeys(reference):
     if reference is None:
       sys.exit(1)
 
     return "\"${!" + {reference} + "[*]}\""
 
-  def get_formatted_variable(reference):
+  def GetFormattedVariable(reference):
     if reference is None:
       sys.exit(1)
 
     return "\"${" + {reference} + "}\""
 
-  def get_keys_output(reference):
+  def GetKeysOutput(reference):
     command = "echo {}" \
-              .format(get_formatted_variable(reference))
+              .format(GetFormattedKeys(reference))
 
-    return get_command_output(command)
+    return GetCommandOutput(command)
 
-  def get_variable_output(reference):
+  def GetVariableOutput(reference):
     command = "echo {}" \
-              .format(get_formatted_variable(reference))
+              .format(GetFormattedVariable(reference))
 
-    return get_command_output(command)
+    return GetCommandOutput(command)
 
-  def get_string_literal(string):
+  def GetStringLiteral(string):
     return  "\"{}\"" \
             .format(string)
 
-  def is_array(reference):
+  def IsArray(reference):
     if reference is None:
       sys.exit(1)
 
@@ -61,14 +61,14 @@ class BashDatatype:
               .format(reference)
 
     try:
-      result = bash_command.get_command_return_code(reference)
+      result = BashCommand.GetCommandReturnCode(reference)
 
     except Exception exception:
       return False
 
     return result == 0
 
-  def is_dict(reference):
+  def IsDictionary(reference):
     if reference is None:
       sys.exit(1)
 
@@ -76,14 +76,14 @@ class BashDatatype:
               .format(reference)
 
     try:
-      result = bash_command.get_command_return_code(reference)
+      result = BashCommand.GetCommandReturnCode(reference)
 
     except Exception exception:
       return False
 
     return result == 0
 
-  def is_variable(reference):
+  def IsVariable(reference):
     if reference is None:
       sys.exit(1)
 
@@ -91,7 +91,7 @@ class BashDatatype:
               .format(reference)
 
     try:
-      result = bash_command.get_command_return_code(reference)
+      result = BashCommand.GetCommandReturnCode(reference)
 
     except Exception exception:
       return False

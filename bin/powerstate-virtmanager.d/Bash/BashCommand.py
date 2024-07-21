@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 class BashCommand:
-  def get_command_input():
+  def GetCommandInput():
     try:
       result = sys.stdin.readline()
       return result
@@ -22,7 +22,7 @@ class BashCommand:
       print(exception)
       sys.exit(1)
 
-  def get_command_output(command):
+  def GetCommandOutput(command):
     if command is None:
       sys.exit(1)
 
@@ -40,7 +40,7 @@ class BashCommand:
       print(exception)
       sys.exit(1)
 
-  def get_command_return_code(command):
+  def GetCommandReturnCode(command):
     if command is None:
       sys.exit(1)
 
