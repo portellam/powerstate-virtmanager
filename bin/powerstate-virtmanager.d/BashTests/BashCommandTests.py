@@ -10,43 +10,46 @@
 
 import sys
 import unittest
+import BashCommand # TODO: fix import!
 
 # TODO: how to call from directory (this is a relative link)
 # TODO: create functional unit test.
 
 class BashCommandTests(unittest.TestCase):
-  # def __init__(self):
-  #   test_GetCommandReturnCode_CommandIsNone_AssertExit(self)
-  #   # test_GetCommandReturnCode_CommandIsNotValid_ReturnOutput(self)
-  #   # test_GetCommandReturnCode_CommandIsValid_ReturnOutput(self)
-
-  def test_GetCommandReturnCode_CommandIsNone_AssertExit(self):
-    exceptionRaised = False
-
+  def test_GetCommandReturnCode_CommandIsNone_ThrowSystemException(self):
     try:
       result = BashCommand.GetCommandReturnCode(None)
-      with self.assertRaises(SystemExit) as systemExit:
-        self.assertEqual(systemExit.exception.code, 1)
+      # with self.assertRaises(SystemExit) as systemExit:
+      #   self.assertEqual(systemExit.exception.code, 1)
 
-    except:
-      exceptionRaised = True
+    except Exception as exception:
+      self.assertEqual(exception, SystemExit)
+      return
 
-    self.assertFalse(exceptionRaised)
+    self.assertFail()
 
-  # test_GetCommandReturnCode_CommandIsNotValid_ReturnOutput(self)
+  def test_GetCommandReturnCode_CommandFails_ThrowSubprocessException(self):
+    try:
+      result = BashCommand.GetCommandReturnCode("false")
+
+    except Exception as exception:
+      self.assertEqual(exception, subprocess.CalledProcessError)
+      return
+
+    self.assertFail()
 
   # def test_GetCommandReturnCode_CommandIsValid_ReturnOutput(self):
   #   command = "echo \"Hello\""
   #   expected = "Hello"
-  #   exceptionRaised = False
+  #   isExceptionRaised = False
 
   #   try:
   #     result = BashCommand.GetCommandReturnCode(command)
 
   #   except:
-  #     exceptionRaised = True
+  #     isExceptionRaised = True
 
-  #   self.assertFalse(exceptionRaised)
+  #   self.assertFalse(isExceptionRaised)
   #   self.assertEqual(result, expected)
 
 if __name__ == '__main__':
