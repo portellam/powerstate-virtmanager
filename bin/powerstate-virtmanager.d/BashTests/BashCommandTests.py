@@ -8,15 +8,20 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+import sys
 import unittest
-import ..Bash.BashCommand
 
 # TODO: how to call from directory (this is a relative link)
 # TODO: create functional unit test.
 
 class BashCommandTests(unittest.TestCase):
-  def Test_GetCommandReturnCode_CommandIsNone_AssertExit(self):
-    exceptionRaised = false
+  # def __init__(self):
+  #   test_GetCommandReturnCode_CommandIsNone_AssertExit(self)
+  #   # test_GetCommandReturnCode_CommandIsNotValid_ReturnOutput(self)
+  #   # test_GetCommandReturnCode_CommandIsValid_ReturnOutput(self)
+
+  def test_GetCommandReturnCode_CommandIsNone_AssertExit(self):
+    exceptionRaised = False
 
     try:
       result = BashCommand.GetCommandReturnCode(None)
@@ -24,22 +29,22 @@ class BashCommandTests(unittest.TestCase):
         self.assertEqual(systemExit.exception.code, 1)
 
     except:
-      exceptionRaised = true
+      exceptionRaised = True
 
     self.assertFalse(exceptionRaised)
 
-  # Test_GetCommandReturnCode_CommandIsNotValid_ReturnOutput(self)
+  # test_GetCommandReturnCode_CommandIsNotValid_ReturnOutput(self)
 
-  # def Test_GetCommandReturnCode_CommandIsValid_ReturnOutput(self):
+  # def test_GetCommandReturnCode_CommandIsValid_ReturnOutput(self):
   #   command = "echo \"Hello\""
   #   expected = "Hello"
-  #   exceptionRaised = false
+  #   exceptionRaised = False
 
   #   try:
   #     result = BashCommand.GetCommandReturnCode(command)
 
   #   except:
-  #     exceptionRaised = true
+  #     exceptionRaised = True
 
   #   self.assertFalse(exceptionRaised)
   #   self.assertEqual(result, expected)
