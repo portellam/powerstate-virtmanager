@@ -47,6 +47,6 @@ class BashCommand:
     try:
       return os.system(command)
 
-    except Exception exception:
+    except subprocess.CalledProcessError:
       print(exception)
       sys.exit(1)
