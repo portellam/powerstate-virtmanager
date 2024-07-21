@@ -15,7 +15,7 @@ import ..Bash.BashCommand
 # TODO: create functional unit test.
 
 class BashCommandTests(unittest.TestCase):
-  def test_GetCommandReturnCode_command_is_none_do_exit(self):
+  def Test_test_GetCommandReturnCode_CommandIsNone_AssertExit(self):
     exceptionRaised = false
 
     try:
@@ -28,9 +28,9 @@ class BashCommandTests(unittest.TestCase):
 
     self.assertFalse(exceptionRaised)
 
-  # test_GetCommandReturnCode_command_is_not_valid_return_output(self)
+  # Test_test_GetCommandReturnCode_CommandIsNotValid_ReturnOutput(self)
 
-  # def test_GetCommandReturnCode_command_is_valid_return_output(self):
+  # def Test_test_GetCommandReturnCode_CommandIsValid_ReturnOutput(self):
   #   command = "echo \"Hello\""
   #   expected = "Hello"
   #   exceptionRaised = false
