@@ -9,6 +9,13 @@
 #
 
 #
+# TODO:
+# - [ ] add functionality to sort by hypervisor for domains.
+# - [ ] show hypervisor for each domain.
+# - [ ] enable/disable autostart for domain.
+#
+
+#
 # sources
 #
   SCRIPT_DIR="$( \
