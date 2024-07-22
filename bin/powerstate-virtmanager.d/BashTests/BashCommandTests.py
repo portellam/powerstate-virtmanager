@@ -17,12 +17,12 @@ from Bash.BashCommand import BashCommand
 # TODO: create functional unit test.
 
 class BashCommandTests(unittest.TestCase):
-  def test_GetCode_CommandIsNone_ReturnExpectedCode(self):
-    result = BashCommand.GetCode(None)
-    self.assertEqual(result, 127)
-
   def test_GetCode_CommandDoesNotExist_ReturnExpectedCode(self):
     result = BashCommand.GetCode("")
+    self.assertEqual(result, 127)
+
+  def test_GetCode_CommandIsNone_ReturnExpectedCode(self):
+    result = BashCommand.GetCode(None)
     self.assertEqual(result, 127)
 
   def test_GetCode_CommandPasses_ReturnOne(self):
