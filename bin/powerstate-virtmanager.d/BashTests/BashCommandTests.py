@@ -10,7 +10,7 @@
 
 import sys
 import unittest
-import BashCommand # TODO: fix import!
+import Bash.BashCommand # TODO: fix import!
 
 # TODO: how to call from directory (this is a relative link)
 # TODO: create functional unit test.
