@@ -12,47 +12,47 @@ import subprocess
 import sys
 
 class BashCommand:
-  code = 127
-  command = None
-  output = None
+  # code = 127
+  # command = None
+  # output = None
 
-  def __init__(self):
-    self.code = 1
-    self.command = None
-    self.output = None
+  # def __init__(self):
+  #   self.code = 1
+  #   self.command = None
+  #   self.output = None
 
-  def __init__(self, command):
-    self.code = 1
-    self.command = command
-    self.output = ""
+  # def __init__(self, command):
+  #   self.code = 1
+  #   self.command = command
+  #   self.output = ""
 
-  # TODO: how to determine command and code from input ?
-  def SetInput():
-    try:
-      code = 127
-      output = sys.stdin.readline()
-      command = ""
+  # # TODO: how to determine command and code from input ?
+  # def SetInput():
+  #   try:
+  #     code = 127
+  #     output = sys.stdin.readline()
+  #     command = ""
 
-    except:
-      output = None
-      command = None
+  #   except:
+  #     output = None
+  #     command = None
 
-  def SetOutput():
-    if command is None:
-      __init__()
+  # def SetOutput():
+  #   if command is None:
+  #     __init__()
 
-    try:
-      result = subprocess.run(
-        command,
-        capture_output = True,  # Python >= 3.7 only
-        text = True             # Python >= 3.7 only
-      )
+  #   try:
+  #     result = subprocess.run(
+  #       command,
+  #       capture_output = True,  # Python >= 3.7 only
+  #       text = True             # Python >= 3.7 only
+  #     )
 
-      code = result.return_code
-      output = result.stdout
+  #     code = result.return_code
+  #     output = result.stdout
 
-    except:
-      __init__()
+  #   except:
+  #     __init__()
 
   def GetInput():
     try:
