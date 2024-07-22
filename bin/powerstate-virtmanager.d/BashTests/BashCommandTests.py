@@ -27,30 +27,29 @@ class BashCommandTests(unittest.TestCase):
     result = BashCommand.Example("")
     self.assertEqual(result, 0)
 
-  def test_GetCommandReturnCode_CommandIsNone_ReturnCode(self):
-    result = BashCommand.GetCommandReturnCode(None)
+  def test_GetCode_CommandIsNone_ReturnExpectedCode(self):
+    result = BashCommand.GetCode(None)
     self.assertEqual(result, 127)
 
-  def test_GetCommandReturnCode_CommandDoesNotExist_ReturnCode(self):
-    result = BashCommand.GetCommandReturnCode("")
+  def test_GetCode_CommandDoesNotExist_ReturnExpectedCode(self):
+    result = BashCommand.GetCode("")
     self.assertEqual(result, 127)
 
-  def test_GetCommandReturnCode_CommandPasses_ReturnZero(self):
-    result = BashCommand.GetCommandReturnCode("true")
-    self.assertEqual(result, 0)
-
-
-  def test_GetCommandReturnCode_CommandPasses_ReturnOne(self):
-    result = BashCommand.GetCommandReturnCode("false")
+  def test_GetCode_CommandPasses_ReturnOne(self):
+    result = BashCommand.GetCode("false")
     self.assertEqual(result, 1)
 
-  # def test_GetCommandReturnCode_CommandIsValid_ReturnOutput(self):
+  def test_GetCode_CommandPasses_ReturnZero(self):
+    result = BashCommand.GetCode("true")
+    self.assertEqual(result, 0)
+
+  # def test_GetCode_CommandIsValid_ReturnOutput(self):
   #   command = "echo \"Hello\""
   #   expected = "Hello"
   #   isExceptionRaised = False
 
   #   try:
-  #     result = BashCommand.GetCommandReturnCode(command)
+  #     result = BashCommand.GetCode(command)
 
   #   except:
   #     isExceptionRaised = True

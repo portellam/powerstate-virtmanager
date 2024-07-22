@@ -12,10 +12,7 @@ import subprocess
 import sys
 
 class BashCommand:
-  # @property
-  invalid_command_code = 127
-
-  def GetCommandInput():
+  def GetInput():
     try:
       result = sys.stdin.readline()
       return result
@@ -24,36 +21,29 @@ class BashCommand:
       print(exception)
       sys.exit(1)
 
-  def GetCommandOutput(command):
+  def GetOutput(command):
     if command is None:
-      sys.exit(1)
+      return None
 
     try:
-      result = subprocess.check_output(
-        command,
-        shell = True,
-        stderr = subprocess.STDOUT,
-        text = True
-      )
+      result = subprocess.run(command)
+      return result.output
 
-      return result
+    except:
+      return ""
 
-    except subprocess.CalledProcessError as contextManager:
-      print(exception)
-      sys.exit(1)
+  def GetCode(command):
+    invalidCommandCode = 127
 
-  def GetCommandReturnCode(command):
     if command is None:
-      print("Command does not exist.")
-      return 127
+      return invalidCommandCode
 
     try:
       result = subprocess.run(command)
       return result.returncode
 
     except:
-      print("Command does not exist.")
-      return 127
+      return invalidCommandCode
 
   # Test function
   def Example(input):

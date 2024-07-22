@@ -15,5 +15,5 @@ class Sudo:
   command = "sudo"
 
   def __init__():
-    is_sudo = BashCommand.GetCommandReturnCode(command) == 0
+    is_sudo = BashCommand.GetCode(command) == 0
     self.is_sudo = is_sudo

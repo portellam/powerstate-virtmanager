@@ -41,13 +41,13 @@ class BashDatatype:
     command = "echo {}" \
               .format(GetFormattedKeys(reference))
 
-    return GetCommandOutput(command)
+    return GetOutput(command)
 
   def GetVariableOutput(reference):
     command = "echo {}" \
               .format(GetFormattedVariable(reference))
 
-    return GetCommandOutput(command)
+    return GetOutput(command)
 
   def GetStringLiteral(string):
     return  "\"{}\"" \
@@ -61,7 +61,7 @@ class BashDatatype:
               .format(reference)
 
     try:
-      result = BashCommand.GetCommandReturnCode(reference)
+      result = BashCommand.GetCode(reference)
 
     except Exception exception:
       return False
@@ -76,7 +76,7 @@ class BashDatatype:
               .format(reference)
 
     try:
-      result = BashCommand.GetCommandReturnCode(reference)
+      result = BashCommand.GetCode(reference)
 
     except Exception exception:
       return False
@@ -91,7 +91,7 @@ class BashDatatype:
               .format(reference)
 
     try:
-      result = BashCommand.GetCommandReturnCode(reference)
+      result = BashCommand.GetCode(reference)
 
     except Exception exception:
       return False
