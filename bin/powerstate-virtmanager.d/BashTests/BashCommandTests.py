@@ -17,16 +17,6 @@ from Bash.BashCommand import BashCommand
 # TODO: create functional unit test.
 
 class BashCommandTests(unittest.TestCase):
-  def test_Example_IfNone_ThrowSysExit(self):
-    with self.assertRaises(SystemExit) as contextManager:
-      result = BashCommand.Example(None)
-
-    self.assertEqual(contextManager.exception.code, 1)
-
-  def test_Example_IfNotNone_ReturnZero(self):
-    result = BashCommand.Example("")
-    self.assertEqual(result, 0)
-
   def test_GetCode_CommandIsNone_ReturnExpectedCode(self):
     result = BashCommand.GetCode(None)
     self.assertEqual(result, 127)

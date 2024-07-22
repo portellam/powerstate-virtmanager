@@ -44,10 +44,3 @@ class BashCommand:
 
     except:
       return invalidCommandCode
-
-  # Test function
-  def Example(input):
-    if input is None:
-      sys.exit(1)
-
-    return 0
