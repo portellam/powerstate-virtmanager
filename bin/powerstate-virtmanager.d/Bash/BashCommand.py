@@ -8,17 +8,19 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-import os
 import subprocess
 import sys
 
 class BashCommand:
+  # @property
+  invalid_command_code = 127
+
   def GetCommandInput():
     try:
       result = sys.stdin.readline()
       return result
 
-    except Exception exception:
+    except Exception as contextManager:
       print(exception)
       sys.exit(1)
 
@@ -36,17 +38,26 @@ class BashCommand:
 
       return result
 
-    except subprocess.CalledProcessError as exception:
+    except subprocess.CalledProcessError as contextManager:
       print(exception)
       sys.exit(1)
 
   def GetCommandReturnCode(command):
     if command is None:
-      sys.exit(1)
+      print("Command does not exist.")
+      return 127
 
     try:
-      return os.system(command)
+      result = subprocess.run(command)
+      return result.returncode
 
-    except subprocess.CalledProcessError:
-      print(exception)
+    except:
+      print("Command does not exist.")
+      return 127
+
+  # Test function
+  def Example(input):
+    if input is None:
       sys.exit(1)
+
+    return 0
