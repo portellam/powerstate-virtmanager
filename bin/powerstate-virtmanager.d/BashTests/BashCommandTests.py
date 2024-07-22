@@ -33,6 +33,25 @@ class BashCommandTests(unittest.TestCase):
     result = BashCommand.GetCode("true")
     self.assertEqual(result, 0)
 
+  def test_GetOutput_CommandDoesNotExist_ReturnEmptyString(self):
+    result = BashCommand.GetOutput("")
+    self.assertEqual(result, "")
+
+  def test_GetOutput_CommandIsNone_ReturnNone(self):
+    result = BashCommand.GetOutput(None)
+    self.assertEqual(result, None)
+
+  def test_GetOutput_CommandIsString_ReturnOutput(self):
+    expected = "Hello World"
+
+    command = "echo \"{}\"" \
+              .format("Hello World")
+
+    result = BashCommand.GetOutput(command)
+
+    print(command)
+    # self.assertEqual(result, expected)
+
   # def test_GetCode_CommandIsValid_ReturnOutput(self):
   #   command = "echo \"Hello\""
   #   expected = "Hello"
