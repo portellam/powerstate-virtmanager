@@ -50,6 +50,9 @@ class BashDatatype:
     return GetOutput(command)
 
   def GetStringLiteral(string):
+    if string is None:
+      string = ""
+
     return  "\"{}\"" \
             .format(string)
 
@@ -63,7 +66,7 @@ class BashDatatype:
     try:
       result = BashCommand.GetCode(reference)
 
-    except Exception exception:
+    except Exception as contextManager:
       return False
 
     return result == 0
@@ -78,7 +81,7 @@ class BashDatatype:
     try:
       result = BashCommand.GetCode(reference)
 
-    except Exception exception:
+    except Exception as contextManager:
       return False
 
     return result == 0
@@ -93,7 +96,7 @@ class BashDatatype:
     try:
       result = BashCommand.GetCode(reference)
 
-    except Exception exception:
+    except Exception as contextManager:
       return False
 
     return result == 0
