@@ -8,6 +8,9 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+# TODO: use https://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases/
+
+import pytest
 import unittest
 from unittest.mock      import patch
 from Bash.BashCommand   import BashCommand
@@ -18,12 +21,12 @@ class BashCommandTests(unittest.TestCase):
     "input",
     [
       None,
-      ""
+      "",
     ],
   )
   def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
-    self,
-    input
+    input,
+    self, # will throw error saying positional argument 'self' is missing. Anything after the first is disregarded.
   ):
     with self.assertRaises(SystemExit) as contextManager:
       result = BashDatatype.GetFormattedArray(input)
@@ -31,7 +34,7 @@ class BashCommandTests(unittest.TestCase):
     self.assertEqual(contextManager.exception.code, 1)
 
   @pytest.mark.parametrize(
-    "input, expected"
+    "input, expected",
     [
       ( "array", "${\/array[*]}" ),
       ( "variable", "${\/variable[*]}" ),
@@ -46,7 +49,7 @@ class BashCommandTests(unittest.TestCase):
     self.assertEqual(expected, result)
 
   pytest.mark.parametrize(
-    "input, expected"
+    "input, expected",
     [
       ( None, "\"\"" ),
       ( "", "\"\"" ),
