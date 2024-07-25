@@ -18,28 +18,28 @@ class BashDatatype:
       or reference == "":
       sys.exit(1)
 
-    return "\"${" + {reference} + "[*]}\""
+    return "\"${" + reference + "[*]}\""
 
   def GetFormattedArrayLength(reference):
     if reference is None \
       or reference == "":
       sys.exit(1)
 
-    return "\"${#" + {reference} + "[*]}\""
+    return "\"${#" + reference + "[*]}\""
 
   def GetFormattedKeys(reference):
     if reference is None \
       or reference == "":
       sys.exit(1)
 
-    return "\"${!" + {reference} + "[*]}\""
+    return "\"${!" + reference + "[*]}\""
 
   def GetFormattedVariable(reference):
     if reference is None \
       or reference == "":
       sys.exit(1)
 
-    return "\"${" + {reference} + "}\""
+    return "\"${" + reference + "}\""
 
   def GetKeysOutput(reference):
     command = "echo {}" \
