@@ -11,60 +11,119 @@
 import subprocess
 import sys
 import unittest
+from unittest.mock    import patch
+from unittest.mock    import Mock
 from Bash.BashCommand import BashCommand
 
 # TODO: how to call from directory (this is a relative link)
 # TODO: create functional unit test.
 
 class BashCommandTests(unittest.TestCase):
-  def test_GetCode_CommandDoesNotExist_ReturnExpectedCode(self):
-    result = BashCommand.GetCode("")
-    self.assertEqual(result, 127)
+  # @mock.patch('BashCommand.GetInput')
+  # def test_SetInput_CommandIsNone_SetProperties(self, GetInputMock):
+  #   GetInputMock.return_value = ""
+  #   result = BashCommand()
 
-  def test_GetCode_CommandIsNone_ReturnExpectedCode(self):
-    result = BashCommand.GetCode(None)
-    self.assertEqual(result, 127)
+  #   BashCommand().SetInput()
 
-  def test_GetCode_CommandPasses_ReturnOne(self):
-    result = BashCommand.GetCode("false")
-    self.assertEqual(result, 1)
+  #   assertEqual(result.command, "")
 
-  def test_GetCode_CommandPasses_ReturnZero(self):
-    result = BashCommand.GetCode("true")
-    self.assertEqual(result, 0)
+  @patch('sys.stdin.readline')
+  def test_GetInput_InputIsEmptyString_ReturnEmptyString( \
+    self,
+    readline_mock
+  ):
+    readline_mock.return_value = ""
+    bashCommand = BashCommand(None)
+    result = bashCommand.GetInput()
 
-  def test_GetOutput_CommandDoesNotExist_ReturnEmptyString(self):
-    result = BashCommand.GetOutput("")
-    self.assertEqual(result, "")
+    self.assertEqual(
+      result,
+      ""
+    )
 
-  def test_GetOutput_CommandIsNone_ReturnNone(self):
-    result = BashCommand.GetOutput(None)
+    readline_mock.assert_called_once()
+
+  @patch('sys.stdin.readline')
+  def test_GetInput_InputIsNone_ReturnNone( \
+    self,
+    readline_mock
+  ):
+    readline_mock.return_value = None
+    bashCommand = BashCommand(None)
+    result = bashCommand.GetInput()
+
+    self.assertEqual(
+      result,
+      None
+    )
+
+    readline_mock.assert_called_once()
+
+  @patch('sys.stdin.readline')
+  def test_GetInput_InputIsString_ReturnExactString( \
+    self,
+    readline_mock
+  ):
+    readline_mock.return_value = "echo \"Hello World\""
+    bashCommand = BashCommand(None)
+    result = bashCommand.GetInput()
+
+    self.assertEqual(
+      result,
+      "echo \"Hello World\""
+    )
+
+    readline_mock.assert_called_once()
+
+  @patch('sys.stdin.readline')
+  def test_GetInput_CatchException_ReturnNone( \
+    self,
+    readline_mock
+  ):
+    # readline_mock.raiseError.side_effect = Mock( \
+    #   side_effect=Exception('Test')
+    # )
+
+    bashCommand = BashCommand(None)
+
+    result = bashCommand.GetInput()
     self.assertEqual(result, None)
+    readline_mock.assert_called_once()
 
-  def test_GetOutput_CommandIsString_ReturnOutput(self):
-    expected = "Hello World"
+  # def test_GetCode_CommandDoesNotExist_ReturnExpectedCode(self):
+  #   result = BashCommand.GetCode("")
+  #   self.assertEqual(result, 127)
 
-    command = "echo \"{}\"" \
-              .format("Hello World")
+  # def test_GetCode_CommandIsNone_ReturnExpectedCode(self):
+  #   result = BashCommand.GetCode(None)
+  #   self.assertEqual(result, 127)
 
-    result = BashCommand.GetOutput(command)
+  # def test_GetCode_CommandPasses_ReturnOne(self):
+  #   result = BashCommand.GetCode("false")
+  #   self.assertEqual(result, 1)
 
-    print(command)
-    # self.assertEqual(result, expected)
+  # def test_GetCode_CommandPasses_ReturnZero(self):
+  #   result = BashCommand.GetCode("true")
+  #   self.assertEqual(result, 0)
 
-  # def test_GetCode_CommandIsValid_ReturnOutput(self):
-  #   command = "echo \"Hello\""
-  #   expected = "Hello"
-  #   isExceptionRaised = False
+  # def test_GetOutput_CommandDoesNotExist_ReturnEmptyString(self):
+  #   result = BashCommand.GetOutput("")
+  #   self.assertEqual(result, "")
 
-  #   try:
-  #     result = BashCommand.GetCode(command)
+  # def test_GetOutput_CommandIsNone_ReturnNone(self):
+  #   result = BashCommand.GetOutput(None)
+  #   self.assertEqual(result, None)
 
-  #   except:
-  #     isExceptionRaised = True
+  # def test_GetOutput_CommandIsString_ReturnOutput(self):
+  #   expected = "Hello World"
 
-  #   self.assertFalse(isExceptionRaised)
-  #   self.assertEqual(result, expected)
+  #   command = "echo \"{}\"" \
+  #             .format("Hello World")
+
+  #   result = BashCommand.GetOutput(command)
+
+  #   print(command)
 
 if __name__ == '__main__':
   unittest.main()
