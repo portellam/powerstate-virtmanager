@@ -1,9 +1,10 @@
 #!/bin/bash
 
 #
-# Filename:       powerstate-virtmanager.sh
-# Version:        1.0.0-alpha
-# Description:    Set the power state of a QEMU/KVM Virtual Machine (VM).
+# Filename:       powerstate-virtmanager
+# Version:        1.0.0
+# Description:    Terminal User Interface to set the power state of a Virtual
+#                 Machine (VM).
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
@@ -20,7 +21,7 @@
 #
   SCRIPT_DIR="$( \
       cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd \
-    )/powerstate-virtmanager.d"
+    )/powerstate-virtmanager-d"
 
   # shellcheck source=./script-dialog
   source "${SCRIPT_DIR}"/script-dialog
@@ -28,7 +29,7 @@
 #
 # params
 #
-  SCRIPT_FILE="pwrstate-virtman-script-dialog.sh"
+  SCRIPT_FILE="powerstate-virtmanager"
   LOG_FILE="/var/log/${SCRIPT_FILE}.log"
   APP_NAME="Power State VM Manager"
 
