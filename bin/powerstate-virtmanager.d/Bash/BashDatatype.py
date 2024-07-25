@@ -14,25 +14,29 @@ from Bash.BashCommand import *
 
 class BashDatatype:
   def GetFormattedArray(reference):
-    if reference is None:
+    if reference is None \
+      or reference == "":
       sys.exit(1)
 
     return "\"${" + {reference} + "[*]}\""
 
   def GetFormattedArrayLength(reference):
-    if reference is None:
+    if reference is None \
+      or reference == "":
       sys.exit(1)
 
     return "\"${#" + {reference} + "[*]}\""
 
   def GetFormattedKeys(reference):
-    if reference is None:
+    if reference is None \
+      or reference == "":
       sys.exit(1)
 
     return "\"${!" + {reference} + "[*]}\""
 
   def GetFormattedVariable(reference):
-    if reference is None:
+    if reference is None \
+      or reference == "":
       sys.exit(1)
 
     return "\"${" + {reference} + "}\""
@@ -57,7 +61,8 @@ class BashDatatype:
             .format(string)
 
   def IsArray(reference):
-    if reference is None:
+    if reference is None \
+      or reference == "":
       sys.exit(1)
 
     command = "declare -p {} | grep \"-a\"" \
@@ -72,7 +77,8 @@ class BashDatatype:
     return result == 0
 
   def IsDictionary(reference):
-    if reference is None:
+    if reference is None \
+      or reference == "":
       sys.exit(1)
 
     command = "declare -p {} | grep \"-A\"" \
