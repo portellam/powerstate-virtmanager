@@ -12,59 +12,21 @@ import subprocess
 import sys
 
 class BashCommand:
-  # code = 127
-  # command = None
-  # output = None
+  code = 127
+  command = None
+  output = None
 
-  # def __init__(self):
-  #   self.code = 1
-  #   self.command = None
-  #   self.output = None
+  def __init__(self, command):
+    self.code = 127
+    self.command = command
+    self.output = ""
 
-  # def __init__(self, command):
-  #   self.code = 1
-  #   self.command = command
-  #   self.output = ""
+  def GetInput(self):
+    return sys.stdin.readline()
 
-  # # TODO: how to determine command and code from input ?
-  # def SetInput():
-  #   try:
-  #     code = 127
-  #     output = sys.stdin.readline()
-  #     command = ""
-
-  #   except:
-  #     output = None
-  #     command = None
-
-  # def SetOutput():
-  #   if command is None:
-  #     __init__()
-
-  #   try:
-  #     result = subprocess.run(
-  #       command,
-  #       capture_output = True,  # Python >= 3.7 only
-  #       text = True             # Python >= 3.7 only
-  #     )
-
-  #     code = result.return_code
-  #     output = result.stdout
-
-  #   except:
-  #     __init__()
-
-  def GetInput():
-    try:
-      return sys.stdin.readline()
-
-    except Exception as contextManager:
-      print(contextManager.exception)
-      return None
-
-  def GetOutput(command):
+  def RunCommand(self):
     if command is None:
-      return None
+      __init__()
 
     try:
       result = subprocess.run(
@@ -73,20 +35,18 @@ class BashCommand:
         text = True             # Python >= 3.7 only
       )
 
-      return result.stdout
+      code = result.return_code
+      output = result.stdout
 
     except:
-      return ""
+      __init__(command)
 
-  def GetCode(command):
-    invalidCommandCode = 127
-
-    if command is None:
-      return invalidCommandCode
-
+  def SetInput():
     try:
-      result = subprocess.run(command)
-      return result.returncode
+      code = 127
+      output = GetInput()
+      command = ""
 
     except:
-      return invalidCommandCode
+      output = None
+      command = None
