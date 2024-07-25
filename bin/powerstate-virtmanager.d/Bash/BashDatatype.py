@@ -87,7 +87,8 @@ class BashDatatype:
     return result == 0
 
   def IsVariable(reference):
-    if reference is None:
+    if reference is None \
+      or reference == "":
       sys.exit(1)
 
     command = "declare -p {}" \
