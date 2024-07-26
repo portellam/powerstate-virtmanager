@@ -93,8 +93,12 @@ class BashDatatype:
     return result == 0
 
   def IsReferenceLegal(reference):
+    if reference is None \
+      or reference == "":
+      return False
+
     pattern = re.compile("^[a-zA-Z0-9_]*$")
-    return pattern.match(reference)
+    return bool(pattern.search(reference))
 
   def IsVariable(reference):
     if IsReferenceLegal(reference):
