@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 
 #
-# Filename:       BashCommandTests.py
+# Filename:       bash_command_tests.py
 # Version:        1.0.0
 # Description:    BashCommand Unit Tests.
 # Author(s):      Alex Portell <github.com/portellam>
@@ -11,9 +11,11 @@
 import subprocess
 import sys
 import unittest
-from unittest.mock    import patch
-from unittest.mock    import Mock
-from Bash.BashCommand import BashCommand
+from unittest.mock            import patch
+from unittest.mock            import Mock
+
+import BashCommand
+import ParameterizedTestCase
 
 # TODO: how to call from directory (this is a relative link)
 # TODO: create functional unit test.
@@ -27,6 +29,7 @@ class BashCommandTests(unittest.TestCase):
   #   BashCommand().SetInput()
 
   #   assertEqual(result.command, "")
+
 
   @patch('sys.stdin.readline')
   def test_GetInput_InputIsEmptyString_ReturnEmptyString( \

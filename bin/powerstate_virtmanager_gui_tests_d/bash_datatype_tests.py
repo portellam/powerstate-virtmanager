@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 
 #
-# Filename:       BashDatatypeTests.py
+# Filename:       bash_datatype_tests.py
 # Version:        1.0.0
 # Description:    BashDatatype Unit Tests.
 # Author(s):      Alex Portell <github.com/portellam>
@@ -10,13 +10,14 @@
 
 # TODO: use https://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases/
 
-import pytest
 import unittest
-from unittest.mock      import patch
-from Bash.BashCommand   import BashCommand
-from Bash.BashDatatype  import BashDatatype
+from unittest.mock  import patch
 
-class BashCommandTests(unittest.TestCase):
+import BashCommand
+import BashDatatype
+import ParameterizedTestCase
+
+class BashDatatypeTests(unittest.TestCase):
   @pytest.mark.parametrize(
     "input",
     [
