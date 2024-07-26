@@ -8,6 +8,8 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+from os import system
+
 class bash_var:
   var = []
 
@@ -31,7 +33,7 @@ class bash_var:
               reference_expression
             )
 
-    set_var =  "echo -e \"${}\"" \
+    set_var =  "echo \"${}\" <<<\"${}\"" \
                 .format(
                   reference_name,
                   var.__name__

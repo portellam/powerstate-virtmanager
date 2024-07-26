@@ -8,6 +8,8 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+from os import system
+
 class bash_enum:
   enum = []
 
