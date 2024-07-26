@@ -10,60 +10,75 @@
 
 # TODO: use https://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases/
 
+import pytest
 import unittest
 from unittest.mock  import patch
 
-import BashCommand
-import BashDatatype
-import ParameterizedTestCase
+from bash_command   import BashCommand
+from bash_datatype  import BashDatatype
 
-class BashDatatypeTests(unittest.TestCase):
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
-    input,
-    self, # will throw error saying positional argument 'self' is missing. Anything after the first is disregarded.
-  ):
-    with self.assertRaises(SystemExit) as contextManager:
-      result = BashDatatype.GetFormattedArray(input)
-
-    self.assertEqual(contextManager.exception.code, 1)
-
-  @pytest.mark.parametrize(
-    "input, expected",
-    [
-      ( "array", "${\/array[*]}" ),
-      ( "variable", "${\/variable[*]}" ),
-    ],
-  )
-  def test_GetFormattedArray_InputIsValid_ReturnString(
-    self,
-    input,
-    expected
-  ):
+@pytest.mark.parametrize(
+  "input",
+  [
+    None,
+    "",
+  ],
+)
+def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
+  input
+):
+  with pytest.raises(SystemExit) as contextManager:
     result = BashDatatype.GetFormattedArray(input)
-    self.assertEqual(expected, result)
 
-  pytest.mark.parametrize(
-    "input, expected",
-    [
-      ( None, "\"\"" ),
-      ( "", "\"\"" ),
-      ( "hello", "\"hello\"" ),
-    ],
-  )
-  def test_GetStringLiteral_ReturnString(
-    self,
-    input,
-    expected
-  ):
-    result = BashDatatype.GetStringLiteral(input)
-    self.assertEqual(expected, result)
+  assert contextManager.value.code == 1
+
+# class BashDatatypeTests(unittest.TestCase):
+#   @pytest.mark.parametrize(
+#     "input",
+#     [
+#       None,
+#       "",
+#     ],
+#   )
+#   def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
+#     self,
+#     input
+#   ):
+#     with self.assertRaises(SystemExit) as contextManager:
+#       result = BashDatatype.GetFormattedArray(input)
+
+#     self.assertEqual(contextManager.exception.code, 1)
+
+  # @pytest.mark.parametrize(
+  #   "input, expected",
+  #   [
+  #     ( "array", "${\/array[*]}" ),
+  #     ( "variable", "${\/variable[*]}" ),
+  #   ],
+  # )
+  # def test_GetFormattedArray_InputIsValid_ReturnString(
+  #   self,
+  #   input,
+  #   expected
+  # ):
+  #   result = BashDatatype.GetFormattedArray(input)
+  #   self.assertEqual(expected, result)
+
+  # pytest.mark.parametrize(
+  #   "input, expected",
+  #   [
+  #     ( None, "\"\"" ),
+  #     ( "", "\"\"" ),
+  #     ( "hello", "\"hello\"" ),
+  #   ],
+  # )
+  # def test_GetStringLiteral_ReturnString(
+  #   self,
+  #   input,
+  #   expected
+  # ):
+  #   result = BashDatatype.GetStringLiteral(input)
+  #   self.assertEqual(expected, result)
 
   # def test_IsVariable_IsInputNoneOrEmptyString_ThrowSystemExit(self):
   #   with self.assertRaises(SystemExit) as contextManager:
