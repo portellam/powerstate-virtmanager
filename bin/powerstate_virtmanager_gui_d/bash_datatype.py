@@ -8,100 +8,140 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-import subprocess
+import re
 import sys
 from bash_command import BashCommand
 
-class BashDatatype:
-  def GetFormattedArray(reference):
-    if reference is None \
-      or reference == "":
+class BashDatatype(object):
+  def GetFormattedArray(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${" + reference + "[*]}\""
 
-  def GetFormattedArrayLength(reference):
-    if reference is None \
-      or reference == "":
+  def GetFormattedArrayLength(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${#" + reference + "[*]}\""
 
-  def GetFormattedKeys(reference):
-    if reference is None \
-      or reference == "":
+  def GetFormattedKeys(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${!" + reference + "[*]}\""
 
-  def GetFormattedVariable(reference):
-    if reference is None \
-      or reference == "":
+  def GetFormattedVariable(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${" + reference + "}\""
 
-  def GetKeysOutput(reference):
+  def GetKeysOutput(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
+      sys.exit(1)
+
     command = "echo {}" \
               .format(GetFormattedKeys(reference))
 
     return GetOutput(command)
 
-  def GetVariableOutput(reference):
+  def GetVariableOutput(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
+      sys.exit(1)
+
     command = "echo {}" \
               .format(GetFormattedVariable(reference))
 
     return GetOutput(command)
 
-  def GetStringLiteral(string):
+  def GetStringLiteral(
+    self,
+    string
+  ):
     if string is None:
       string = ""
 
     return  "\"{}\"" \
             .format(string)
 
-  def IsArray(reference):
-    if reference is None \
-      or reference == "":
+  def IsArray(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "declare -p {} | grep \"-a\"" \
               .format(reference)
 
     try:
-      result = BashCommand.GetCode(reference)
+      result = BashCommand.RunCommand(reference).code
 
     except Exception as contextManager:
       return False
 
     return result == 0
 
-  def IsDictionary(reference):
-    if reference is None \
-      or reference == "":
+  def IsDictionary(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "declare -p {} | grep \"-A\"" \
               .format(reference)
 
     try:
-      result = BashCommand.GetCode(reference)
+      result = BashCommand.RunCommand(reference).code
 
     except Exception as contextManager:
       return False
 
     return result == 0
 
-  def IsVariable(reference):
+  def IsReferenceLegal(
+    self,
+    reference
+  ):
     if reference is None \
       or reference == "":
+      return False
+
+    pattern = re.compile("^[a-zA-Z0-9_]*$")
+    return bool(pattern.search(reference))
+
+  def IsVariable(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "declare -p {}" \
               .format(reference)
 
     try:
-      result = BashCommand.GetCode(reference)
+      result = BashCommand.RunCommand(reference).code
 
     except Exception as contextManager:
       return False

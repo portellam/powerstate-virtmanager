@@ -11,7 +11,7 @@
 import subprocess
 import sys
 
-class BashCommand:
+class BashCommand(object):
   code = 127
   command = None
   output = None
@@ -25,28 +25,28 @@ class BashCommand:
     return sys.stdin.readline()
 
   def RunCommand(self):
-    if command is None:
-      __init__()
+    if self.command is None:
+      self.__init__()
 
     try:
       result = subprocess.run(
-        command,
+        self.command,
         capture_output = True,  # Python >= 3.7 only
         text = True             # Python >= 3.7 only
       )
 
-      code = result.return_code
-      output = result.stdout
+      self.code = result.return_code
+      self.output = result.stdout
 
     except:
-      __init__(command)
+      self.__init__(command)
 
-  def SetInput():
+  def SetInput(self):
     try:
-      code = 127
-      output = GetInput()
-      command = ""
+      self.code = 127
+      self.output = self.GetInput()
+      self.command = ""
 
     except:
-      output = None
-      command = None
+      self.output = None
+      self.command = None
