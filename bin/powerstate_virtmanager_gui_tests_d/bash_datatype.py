@@ -94,7 +94,7 @@ class BashDatatype(object):
               .format(reference)
 
     try:
-      result = BashCommand.GetCode(reference)
+      result = BashCommand.RunCommand(reference).code
 
     except Exception as contextManager:
       return False
@@ -112,7 +112,7 @@ class BashDatatype(object):
               .format(reference)
 
     try:
-      result = BashCommand.GetCode(reference)
+      result = BashCommand.RunCommand(reference).code
 
     except Exception as contextManager:
       return False
@@ -141,7 +141,7 @@ class BashDatatype(object):
               .format(reference)
 
     try:
-      result = BashCommand.GetCode(reference)
+      result = BashCommand.RunCommand(reference).code
 
     except Exception as contextManager:
       return False
