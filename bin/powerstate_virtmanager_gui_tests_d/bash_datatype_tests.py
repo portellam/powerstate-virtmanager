@@ -17,22 +17,24 @@ from unittest.mock  import patch
 from bash_command   import BashCommand
 from bash_datatype  import BashDatatype
 
-@pytest.mark.parametrize(
-  "input",
-  [
-    None,
-    "",
-  ],
-)
-def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
-  input
-):
-  with pytest.raises(SystemExit) as contextManager:
-    result = BashDatatype.GetFormattedArray(input)
+class TestBashDatatype:
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
+    self,
+    input
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.GetFormattedArray(input)
 
-  assert contextManager.value.code == 1
+    assert contextManager.value.code == 1
 
-# class BashDatatypeTests(unittest.TestCase):
+
 #   @pytest.mark.parametrize(
 #     "input",
 #     [
