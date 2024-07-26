@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 
 #
-# Filename:       BashDatatype.py
+# Filename:       bash_datatype.py
 # Version:        1.0.0
 # Description:    Bash datatype logic.
 # Author(s):      Alex Portell <github.com/portellam>
@@ -10,7 +10,7 @@
 
 import subprocess
 import sys
-from Bash.BashCommand import *
+from bash_command import BashCommand
 
 class BashDatatype:
   def GetFormattedArray(reference):

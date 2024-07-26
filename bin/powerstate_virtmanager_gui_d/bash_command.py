@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 
 #
-# Filename:       BashCommand.py
+# Filename:       bash_command.py
 # Version:        1.0.0
 # Description:    Bash command input and output logic.
 # Author(s):      Alex Portell <github.com/portellam>
