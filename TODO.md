@@ -6,3 +6,4 @@
 - [ ] add CLI commands?
 - [ ] test.
 - [ ] create first release.
+- [ ] sort python source files by test or binary, gui or tui.
