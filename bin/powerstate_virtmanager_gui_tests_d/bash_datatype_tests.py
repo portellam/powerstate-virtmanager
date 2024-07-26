@@ -145,7 +145,43 @@ class TestBashDatatype:
       "",
     ],
   )
-  def test_GetStringLiteral_IsNullOrEmptyString_ReturnEmptyString(
+  def test_GetKeysOutput_InputIsNotValid_ThrowSystemExit(
+    self,
+    input,
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.GetKeysOutput(input)
+
+    assert contextManager.value.code == 1
+
+  # test_GetKeysOutput_InputIsValid_ReturnOutput
+
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_GetVariableOutput_InputIsNotValid_ThrowSystemExit(
+    self,
+    input,
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.GetVariableOutput(input)
+
+    assert contextManager.value.code == 1
+
+  # test_GetVariableOutput_InputIsValid_ReturnOutput
+
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_GetStringLiteral_InputIsNullOrEmptyString_ReturnEmptyString(
     self,
     input,
   ):
@@ -160,7 +196,7 @@ class TestBashDatatype:
       ( "world", "\"world\"" ),
     ],
   )
-  def test_GetStringLiteral_IsNonEmptyString_ReturnString(
+  def test_GetStringLiteral_InputIsNonEmptyString_ReturnString(
     self,
     input,
     expected,
@@ -168,12 +204,62 @@ class TestBashDatatype:
     result = BashDatatype.GetStringLiteral(input)
     assert result == expected
 
-  # def test_IsVariable_IsInputNoneOrEmptyString_ThrowSystemExit(self):
-  #   with self.assertRaises(SystemExit) as contextManager:
-  #     result1 = BashDatatype.IsVariable(None)
-  #     result2 = BashDatatype.IsVariable("")
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_IsArray_InputIsNotValid_ThrowSystemExit(
+    self,
+    input,
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.IsArray(input)
 
-  #   self.assertEqual(contextManager.exception.code, 1)
+    assert contextManager.value.code == 1
+
+  # test_IsArray_InputIsValid_ReturnCode
+  # test_IsArray_InputIsValid_ThrowsException_ReturnFalse
+
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_IsDictionary_InputIsNotValid_ThrowSystemExit(
+    self,
+    input,
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.IsDictionary(input)
+
+    assert contextManager.value.code == 1
+
+  # test_IsDictionary_InputIsValid_ReturnCode
+  # test_IsDictionary_InputIsValid_ThrowsException_ReturnFalse
+
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_IsVariable_InputIsNotValid_ThrowSystemExit(
+    self,
+    input,
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.IsVariable(input)
+
+    assert contextManager.value.code == 1
+
+  # test_IsVariable_InputIsValid_ReturnCode
+  # test_IsVariable_InputIsValid_ThrowsException_ReturnFalse
 
   # @patch('BashCommand.__init__')
   # def test_IsVariable_IsVariableNameNotValid_ReturnFalse( \
