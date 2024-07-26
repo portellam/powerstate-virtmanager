@@ -138,24 +138,6 @@ class TestBashDatatype:
     result = BashDatatype.GetFormattedVariable(input)
     assert result == expected
 
-#   @pytest.mark.parametrize(
-#     "input",
-#     [
-#       None,
-#       "",
-#     ],
-#   )
-#   def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
-#     self,
-#     input
-#   ):
-#     with self.assertRaises(SystemExit) as contextManager:
-#       result = BashDatatype.GetFormattedArray(input)
-
-#     self.assertEqual(contextManager.exception.code, 1)
-
-
-
   # pytest.mark.parametrize(
   #   "input, expected",
   #   [
