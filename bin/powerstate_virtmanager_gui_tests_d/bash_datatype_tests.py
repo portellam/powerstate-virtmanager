@@ -38,7 +38,6 @@ class TestBashDatatype:
     "input, expected",
     [
       ( "array", "\"${" + "array[*]}\"" ),
-      ( "variable", "\"${" + "variable[*]}\"" ),
     ],
   )
   def test_GetFormattedArray_InputIsValid_ReturnString(
@@ -69,7 +68,6 @@ class TestBashDatatype:
     "input, expected",
     [
       ( "array", "\"${" + "#array[*]}\"" ),
-      ( "variable", "\"${" + "#variable[*]}\"" ),
     ],
   )
   def test_GetFormattedArrayLength_InputIsValid_ReturnString(
@@ -78,6 +76,66 @@ class TestBashDatatype:
     expected
   ):
     result = BashDatatype.GetFormattedArrayLength(input)
+    assert result == expected
+
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_GetFormattedKeys_InputIsNotValid_DoSystemExit(
+    self,
+    input
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.GetFormattedKeys(input)
+
+    assert contextManager.value.code == 1
+
+  @pytest.mark.parametrize(
+    "input, expected",
+    [
+      ( "array", "\"${" + "!array[*]}\"" ),
+    ],
+  )
+  def test_GetFormattedKeys_InputIsValid_ReturnString(
+    self,
+    input,
+    expected
+  ):
+    result = BashDatatype.GetFormattedKeys(input)
+    assert result == expected
+
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_GetFormattedVariable_InputIsNotValid_DoSystemExit(
+    self,
+    input
+  ):
+    with pytest.raises(SystemExit) as contextManager:
+      result = BashDatatype.GetFormattedVariable(input)
+
+    assert contextManager.value.code == 1
+
+  @pytest.mark.parametrize(
+    "input, expected",
+    [
+      ( "variable", "\"${" + "variable}\"" ),
+    ],
+  )
+  def test_GetFormattedVariable_InputIsValid_ReturnString(
+    self,
+    input,
+    expected
+  ):
+    result = BashDatatype.GetFormattedVariable(input)
     assert result == expected
 
 #   @pytest.mark.parametrize(
