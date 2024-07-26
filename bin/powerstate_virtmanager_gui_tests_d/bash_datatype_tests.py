@@ -8,8 +8,6 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-# TODO: use https://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases/
-
 import pytest
 import unittest
 from unittest.mock  import patch
@@ -203,7 +201,7 @@ class TestBashDatatype:
 
     assert contextManager.value.code == 1
 
-  # test_GetKeysOutput_InputIsValid_ReturnOutput
+  # test_GetKeysOutput_InputIsValid_ReturnOutput                                      # TODO
 
   @pytest.mark.parametrize(
     "input",
@@ -223,7 +221,7 @@ class TestBashDatatype:
 
     assert contextManager.value.code == 1
 
-  # test_GetVariableOutput_InputIsValid_ReturnOutput
+  # test_GetVariableOutput_InputIsValid_ReturnOutput                                  # TODO
 
   @pytest.mark.parametrize(
     "input",
@@ -275,8 +273,8 @@ class TestBashDatatype:
 
     assert contextManager.value.code == 1
 
-  # test_IsArray_InputIsValid_ReturnCode
-  # test_IsArray_InputIsValid_ThrowsException_ReturnFalse
+  # test_IsArray_InputIsValid_ReturnCode                                              # TODO
+  # test_IsArray_InputIsValid_ThrowsException_ReturnFalse                             # TODO
 
   @pytest.mark.parametrize(
     "input",
@@ -296,8 +294,8 @@ class TestBashDatatype:
 
     assert contextManager.value.code == 1
 
-  # test_IsDictionary_InputIsValid_ReturnCode
-  # test_IsDictionary_InputIsValid_ThrowsException_ReturnFalse
+  # test_IsDictionary_InputIsValid_ReturnCode                                         # TODO
+  # test_IsDictionary_InputIsValid_ThrowsException_ReturnFalse                        # TODO
 
   @pytest.mark.parametrize(
     "input",
@@ -317,39 +315,29 @@ class TestBashDatatype:
 
     assert contextManager.value.code == 1
 
-  # test_IsVariable_InputIsValid_ReturnCode
-  # test_IsVariable_InputIsValid_ThrowsException_ReturnFalse
+  # test_IsVariable_InputIsValid_RunCommandFails_ReturnFalse                          # TODO
 
-  # @patch('BashCommand.__init__')
-  # def test_IsVariable_IsVariableNameNotValid_ReturnFalse( \
+  # @patch('bash_command.BashCommand')
+  # def test_IsVariable_InputIsValid_VariableDoesExist_ReturnFalse( \                 # FIXME
   #   self,
-  #   BashCommand_mock
+  #   mock_BashCommand
   # ):
-  #   BashCommand_mock.code = 1
-  #   result = BashDatatype.IsVariable("var")
-  #   self.assertFalse(result)
-  #   BashCommand_mock.assert_called_once()
+  #   mock_BashCommand.code = 0
+  #   bashDatatype = BashDatatype()
+  #   result = bashDatatype.IsVariable("var")
+  #   assert result == True
+  #   mock_BashCommand.assert_called_once()
 
-  # @patch('BashCommand')
-  # def test_IsVariable_IsVariableNameValid_ReturnFalse( \
+  # @patch('bash_command.BashCommand')
+  # def test_IsVariable_InputIsValid_VariableDoesNotExist_ReturnFalse( \              # FIXME
   #   self,
-  #   BashCommand_mock
+  #   mock_BashCommand
   # ):
-  #   BashCommand_mock.code = 0
-  #   result = BashDatatype.IsVariable("var")
-  #   self.assertTrue(result)
-  #   BashCommand_mock.assert_called_once()
-
-  # @patch('BashCommand')
-  # def test_IsVariable_IsVariableNameValid_GetCodeThrowsException_ReturnFalse( \
-  #   self,
-  #   BashCommand_mock
-  # ):
-  #   with self.assertRaises(Exception) as contextManager:
-  #     result = BashDatatype.IsVariable("var")
-
-  #   self.assertFalse(result)
-  #   BashCommand_mock.assert_called_once()
+  #   mock_BashCommand.code = 127
+  #   bashDatatype = BashDatatype()
+  #   result = bashDatatype.IsVariable("var")
+  #   assert result == False
+  #   mock_BashCommand.assert_called_once()
 
 if __name__ == '__main__':
   unittest.main()
