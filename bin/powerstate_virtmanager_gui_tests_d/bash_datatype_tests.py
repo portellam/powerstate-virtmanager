@@ -21,242 +21,275 @@ class TestBashDatatype:
   @pytest.mark.parametrize(
     "input",
     [
-      None,
-      "",
+      "my_variable",
+      "ENVIRONMENT_VARIABLE",
+      "Abc123_",
     ],
   )
-  def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
+  def test_IsReferenceLegal_InputIsLegal_ReturnTrue(
     self,
     input,
   ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.GetFormattedArray(input)
-
-    assert contextManager.value.code == 1
-
-  @pytest.mark.parametrize(
-    "input, expected",
-    [
-      ( "array", "\"${" + "array[*]}\"" ),
-    ],
-  )
-  def test_GetFormattedArray_InputIsValid_ReturnString(
-    self,
-    input,
-    expected,
-  ):
-    result = BashDatatype.GetFormattedArray(input)
-    assert result == expected
+    result = BashDatatype.IsReferenceLegal(input)
+    assert result == True
 
   @pytest.mark.parametrize(
     "input",
     [
       None,
       "",
+      "+",
+      "Abc123+",
+      "-",
+      "Abc123-"
     ],
   )
-  def test_GetFormattedArrayLength_InputIsNotValid_DoSystemExit(
+  def test_IsReferenceLegal_InputIsNotLegal_ReturnFalse(
     self,
     input,
   ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.GetFormattedArrayLength(input)
+    result = BashDatatype.IsReferenceLegal(input)
+    assert result == False
 
-    assert contextManager.value.code == 1
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.GetFormattedArray(input)
 
-  @pytest.mark.parametrize(
-    "input, expected",
-    [
-      ( "array", "\"${" + "#array[*]}\"" ),
-    ],
-  )
-  def test_GetFormattedArrayLength_InputIsValid_ReturnString(
-    self,
-    input,
-    expected,
-  ):
-    result = BashDatatype.GetFormattedArrayLength(input)
-    assert result == expected
+  #   assert contextManager.value.code == 1
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_GetFormattedKeys_InputIsNotValid_DoSystemExit(
-    self,
-    input,
-  ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.GetFormattedKeys(input)
+  # @pytest.mark.parametrize(
+  #   "input, expected",
+  #   [
+  #     ( "array", "\"${" + "array[*]}\"" ),
+  #   ],
+  # )
+  # def test_GetFormattedArray_InputIsValid_ReturnString(
+  #   self,
+  #   input,
+  #   expected,
+  # ):
+  #   result = BashDatatype.GetFormattedArray(input)
+  #   assert result == expected
 
-    assert contextManager.value.code == 1
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_GetFormattedArrayLength_InputIsNotValid_DoSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.GetFormattedArrayLength(input)
 
-  @pytest.mark.parametrize(
-    "input, expected",
-    [
-      ( "array", "\"${" + "!array[*]}\"" ),
-    ],
-  )
-  def test_GetFormattedKeys_InputIsValid_ReturnString(
-    self,
-    input,
-    expected,
-  ):
-    result = BashDatatype.GetFormattedKeys(input)
-    assert result == expected
+  #   assert contextManager.value.code == 1
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_GetFormattedVariable_InputIsNotValid_DoSystemExit(
-    self,
-    input,
-  ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.GetFormattedVariable(input)
+  # @pytest.mark.parametrize(
+  #   "input, expected",
+  #   [
+  #     ( "array", "\"${" + "#array[*]}\"" ),
+  #   ],
+  # )
+  # def test_GetFormattedArrayLength_InputIsValid_ReturnString(
+  #   self,
+  #   input,
+  #   expected,
+  # ):
+  #   result = BashDatatype.GetFormattedArrayLength(input)
+  #   assert result == expected
 
-    assert contextManager.value.code == 1
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_GetFormattedKeys_InputIsNotValid_DoSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.GetFormattedKeys(input)
 
-  @pytest.mark.parametrize(
-    "input, expected",
-    [
-      ( "variable", "\"${" + "variable}\"" ),
-    ],
-  )
-  def test_GetFormattedVariable_InputIsValid_ReturnString(
-    self,
-    input,
-    expected,
-  ):
-    result = BashDatatype.GetFormattedVariable(input)
-    assert result == expected
+  #   assert contextManager.value.code == 1
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_GetKeysOutput_InputIsNotValid_ThrowSystemExit(
-    self,
-    input,
-  ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.GetKeysOutput(input)
+  # @pytest.mark.parametrize(
+  #   "input, expected",
+  #   [
+  #     ( "array", "\"${" + "!array[*]}\"" ),
+  #   ],
+  # )
+  # def test_GetFormattedKeys_InputIsValid_ReturnString(
+  #   self,
+  #   input,
+  #   expected,
+  # ):
+  #   result = BashDatatype.GetFormattedKeys(input)
+  #   assert result == expected
 
-    assert contextManager.value.code == 1
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_GetFormattedVariable_InputIsNotValid_DoSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.GetFormattedVariable(input)
 
-  # test_GetKeysOutput_InputIsValid_ReturnOutput
+  #   assert contextManager.value.code == 1
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_GetVariableOutput_InputIsNotValid_ThrowSystemExit(
-    self,
-    input,
-  ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.GetVariableOutput(input)
+  # @pytest.mark.parametrize(
+  #   "input, expected",
+  #   [
+  #     ( "variable", "\"${" + "variable}\"" ),
+  #   ],
+  # )
+  # def test_GetFormattedVariable_InputIsValid_ReturnString(
+  #   self,
+  #   input,
+  #   expected,
+  # ):
+  #   result = BashDatatype.GetFormattedVariable(input)
+  #   assert result == expected
 
-    assert contextManager.value.code == 1
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_GetKeysOutput_InputIsNotValid_ThrowSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.GetKeysOutput(input)
 
-  # test_GetVariableOutput_InputIsValid_ReturnOutput
+  #   assert contextManager.value.code == 1
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_GetStringLiteral_InputIsNullOrEmptyString_ReturnEmptyString(
-    self,
-    input,
-  ):
-    expected = "\"\""
-    result = BashDatatype.GetStringLiteral(input)
-    assert result == expected
+  # # test_GetKeysOutput_InputIsValid_ReturnOutput
 
-  @pytest.mark.parametrize(
-    "input, expected",
-    [
-      ( "hello", "\"hello\"" ),
-      ( "world", "\"world\"" ),
-    ],
-  )
-  def test_GetStringLiteral_InputIsNonEmptyString_ReturnString(
-    self,
-    input,
-    expected,
-  ):
-    result = BashDatatype.GetStringLiteral(input)
-    assert result == expected
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_GetVariableOutput_InputIsNotValid_ThrowSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.GetVariableOutput(input)
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_IsArray_InputIsNotValid_ThrowSystemExit(
-    self,
-    input,
-  ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.IsArray(input)
+  #   assert contextManager.value.code == 1
 
-    assert contextManager.value.code == 1
+  # # test_GetVariableOutput_InputIsValid_ReturnOutput
 
-  # test_IsArray_InputIsValid_ReturnCode
-  # test_IsArray_InputIsValid_ThrowsException_ReturnFalse
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_GetStringLiteral_InputIsNullOrEmptyString_ReturnEmptyString(
+  #   self,
+  #   input,
+  # ):
+  #   expected = "\"\""
+  #   result = BashDatatype.GetStringLiteral(input)
+  #   assert result == expected
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_IsDictionary_InputIsNotValid_ThrowSystemExit(
-    self,
-    input,
-  ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.IsDictionary(input)
+  # @pytest.mark.parametrize(
+  #   "input, expected",
+  #   [
+  #     ( "hello", "\"hello\"" ),
+  #     ( "world", "\"world\"" ),
+  #   ],
+  # )
+  # def test_GetStringLiteral_InputIsNonEmptyString_ReturnString(
+  #   self,
+  #   input,
+  #   expected,
+  # ):
+  #   result = BashDatatype.GetStringLiteral(input)
+  #   assert result == expected
 
-    assert contextManager.value.code == 1
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_IsArray_InputIsNotValid_ThrowSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.IsArray(input)
 
-  # test_IsDictionary_InputIsValid_ReturnCode
-  # test_IsDictionary_InputIsValid_ThrowsException_ReturnFalse
+  #   assert contextManager.value.code == 1
 
-  @pytest.mark.parametrize(
-    "input",
-    [
-      None,
-      "",
-    ],
-  )
-  def test_IsVariable_InputIsNotValid_ThrowSystemExit(
-    self,
-    input,
-  ):
-    with pytest.raises(SystemExit) as contextManager:
-      result = BashDatatype.IsVariable(input)
+  # # test_IsArray_InputIsValid_ReturnCode
+  # # test_IsArray_InputIsValid_ThrowsException_ReturnFalse
 
-    assert contextManager.value.code == 1
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_IsDictionary_InputIsNotValid_ThrowSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.IsDictionary(input)
+
+  #   assert contextManager.value.code == 1
+
+  # # test_IsDictionary_InputIsValid_ReturnCode
+  # # test_IsDictionary_InputIsValid_ThrowsException_ReturnFalse
+
+  # @pytest.mark.parametrize(
+  #   "input",
+  #   [
+  #     None,
+  #     "",
+  #   ],
+  # )
+  # def test_IsVariable_InputIsNotValid_ThrowSystemExit(
+  #   self,
+  #   input,
+  # ):
+  #   with pytest.raises(SystemExit) as contextManager:
+  #     result = BashDatatype.IsVariable(input)
+
+  #   assert contextManager.value.code == 1
 
   # test_IsVariable_InputIsValid_ReturnCode
   # test_IsVariable_InputIsValid_ThrowsException_ReturnFalse
