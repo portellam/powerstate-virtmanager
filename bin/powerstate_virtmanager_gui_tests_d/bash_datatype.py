@@ -12,33 +12,48 @@ import re
 import sys
 from bash_command import BashCommand
 
-class BashDatatype:
-  def GetFormattedArray(reference):
-    if IsReferenceLegal(reference):
+class BashDatatype(object):
+  def GetFormattedArray(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${" + reference + "[*]}\""
 
-  def GetFormattedArrayLength(reference):
-    if IsReferenceLegal(reference):
+  def GetFormattedArrayLength(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${#" + reference + "[*]}\""
 
-  def GetFormattedKeys(reference):
-    if IsReferenceLegal(reference):
+  def GetFormattedKeys(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${!" + reference + "[*]}\""
 
-  def GetFormattedVariable(reference):
-    if IsReferenceLegal(reference):
+  def GetFormattedVariable(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     return "\"${" + reference + "}\""
 
-  def GetKeysOutput(reference):
-    if IsReferenceLegal(reference):
+  def GetKeysOutput(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "echo {}" \
@@ -46,8 +61,11 @@ class BashDatatype:
 
     return GetOutput(command)
 
-  def GetVariableOutput(reference):
-    if IsReferenceLegal(reference):
+  def GetVariableOutput(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "echo {}" \
@@ -55,15 +73,21 @@ class BashDatatype:
 
     return GetOutput(command)
 
-  def GetStringLiteral(string):
+  def GetStringLiteral(
+    self,
+    string
+  ):
     if string is None:
       string = ""
 
     return  "\"{}\"" \
             .format(string)
 
-  def IsArray(reference):
-    if IsReferenceLegal(reference):
+  def IsArray(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "declare -p {} | grep \"-a\"" \
@@ -77,8 +101,11 @@ class BashDatatype:
 
     return result == 0
 
-  def IsDictionary(reference):
-    if IsReferenceLegal(reference):
+  def IsDictionary(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "declare -p {} | grep \"-A\"" \
@@ -92,7 +119,10 @@ class BashDatatype:
 
     return result == 0
 
-  def IsReferenceLegal(reference):
+  def IsReferenceLegal(
+    self,
+    reference
+  ):
     if reference is None \
       or reference == "":
       return False
@@ -100,8 +130,11 @@ class BashDatatype:
     pattern = re.compile("^[a-zA-Z0-9_]*$")
     return bool(pattern.search(reference))
 
-  def IsVariable(reference):
-    if IsReferenceLegal(reference):
+  def IsVariable(
+    self,
+    reference
+  ):
+    if not self.IsReferenceLegal(reference):
       sys.exit(1)
 
     command = "declare -p {}" \
