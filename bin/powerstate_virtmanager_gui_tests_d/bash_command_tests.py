@@ -10,12 +10,12 @@
 
 import subprocess
 import sys
-import unittest
-from unittest.mock            import patch
-from unittest.mock            import Mock
 
-import BashCommand
-import ParameterizedTestCase
+import pytest
+import unittest
+from unittest.mock  import patch
+
+from bash_command   import BashCommand
 
 # TODO: how to call from directory (this is a relative link)
 # TODO: create functional unit test.
