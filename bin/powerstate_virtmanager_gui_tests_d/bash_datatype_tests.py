@@ -27,7 +27,7 @@ class TestBashDatatype:
   )
   def test_GetFormattedArray_InputIsNotValid_DoSystemExit(
     self,
-    input
+    input,
   ):
     with pytest.raises(SystemExit) as contextManager:
       result = BashDatatype.GetFormattedArray(input)
@@ -43,7 +43,7 @@ class TestBashDatatype:
   def test_GetFormattedArray_InputIsValid_ReturnString(
     self,
     input,
-    expected
+    expected,
   ):
     result = BashDatatype.GetFormattedArray(input)
     assert result == expected
@@ -57,7 +57,7 @@ class TestBashDatatype:
   )
   def test_GetFormattedArrayLength_InputIsNotValid_DoSystemExit(
     self,
-    input
+    input,
   ):
     with pytest.raises(SystemExit) as contextManager:
       result = BashDatatype.GetFormattedArrayLength(input)
@@ -73,7 +73,7 @@ class TestBashDatatype:
   def test_GetFormattedArrayLength_InputIsValid_ReturnString(
     self,
     input,
-    expected
+    expected,
   ):
     result = BashDatatype.GetFormattedArrayLength(input)
     assert result == expected
@@ -87,7 +87,7 @@ class TestBashDatatype:
   )
   def test_GetFormattedKeys_InputIsNotValid_DoSystemExit(
     self,
-    input
+    input,
   ):
     with pytest.raises(SystemExit) as contextManager:
       result = BashDatatype.GetFormattedKeys(input)
@@ -103,7 +103,7 @@ class TestBashDatatype:
   def test_GetFormattedKeys_InputIsValid_ReturnString(
     self,
     input,
-    expected
+    expected,
   ):
     result = BashDatatype.GetFormattedKeys(input)
     assert result == expected
@@ -117,7 +117,7 @@ class TestBashDatatype:
   )
   def test_GetFormattedVariable_InputIsNotValid_DoSystemExit(
     self,
-    input
+    input,
   ):
     with pytest.raises(SystemExit) as contextManager:
       result = BashDatatype.GetFormattedVariable(input)
@@ -133,26 +133,40 @@ class TestBashDatatype:
   def test_GetFormattedVariable_InputIsValid_ReturnString(
     self,
     input,
-    expected
+    expected,
   ):
     result = BashDatatype.GetFormattedVariable(input)
     assert result == expected
 
-  # pytest.mark.parametrize(
-  #   "input, expected",
-  #   [
-  #     ( None, "\"\"" ),
-  #     ( "", "\"\"" ),
-  #     ( "hello", "\"hello\"" ),
-  #   ],
-  # )
-  # def test_GetStringLiteral_ReturnString(
-  #   self,
-  #   input,
-  #   expected
-  # ):
-  #   result = BashDatatype.GetStringLiteral(input)
-  #   self.assertEqual(expected, result)
+  @pytest.mark.parametrize(
+    "input",
+    [
+      None,
+      "",
+    ],
+  )
+  def test_GetStringLiteral_IsNullOrEmptyString_ReturnEmptyString(
+    self,
+    input,
+  ):
+    expected = "\"\""
+    result = BashDatatype.GetStringLiteral(input)
+    assert result == expected
+
+  @pytest.mark.parametrize(
+    "input, expected",
+    [
+      ( "hello", "\"hello\"" ),
+      ( "world", "\"world\"" ),
+    ],
+  )
+  def test_GetStringLiteral_IsNonEmptyString_ReturnString(
+    self,
+    input,
+    expected,
+  ):
+    result = BashDatatype.GetStringLiteral(input)
+    assert result == expected
 
   # def test_IsVariable_IsInputNoneOrEmptyString_ThrowSystemExit(self):
   #   with self.assertRaises(SystemExit) as contextManager:
