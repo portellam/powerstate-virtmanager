@@ -106,7 +106,7 @@ class Domain:
       print(message)
       sys.exit(1)
 
-    if code == 1:
+    if code != 0:
       print("Failed to disable auto-start for '{}'.".format(self.name))
       sys.exit(1)
 
@@ -125,7 +125,7 @@ class Domain:
       print(message)
       sys.exit(1)
 
-    if code == 1:
+    if code != 0:
       print("Failed to enable auto-start for '{}'.".format(self.name))
       sys.exit(1)
 
