@@ -8,6 +8,9 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+# TODO: test how long it will take to parse all domains and their properties
+#       (running virsh many times).
+
 from command  import Command
 from domain   import Domain
 
