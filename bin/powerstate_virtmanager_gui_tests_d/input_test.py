@@ -73,4 +73,39 @@ result = os.system(command)               # returns code.
 print("os.system")
 print("result == \"{}\"".format(result))
 print()
+
 ###
+
+print("subprocess.run")
+
+# domain_list= subprocess.run(
+#   ["sudo virsh list", "--all --name | head"],
+#   # stderr= subprocess.STDOUT,
+#   # check=True,
+#   # capture_output=True,
+#   # text=True
+# # ).stdout
+# )
+
+result = subprocess.run(
+    ['ls', '-l'],
+    capture_output=True,
+)
+
+for item in result.stdout.decode('ascii').splitlines():
+  print(item)
+
+# for domain in domain_list:
+#   print("domain == \"{}\"".format(domain))
+
+def get
+
+
+def get_completed_process(command):
+  try:
+    subprocess.run(
+      "command",
+      capture_output=True,
+    )
+  except:
+    sys.exit(1)
