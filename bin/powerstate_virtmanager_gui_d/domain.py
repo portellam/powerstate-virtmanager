@@ -8,49 +8,41 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-import sudo
+import sys
+from command import Command
 
 class Domain:
-  name  = ""
-  state = ""
-  command_prefix =  "virsh"
-  command_suffix =  "--domain {}" \
-                    .format(
-                      name
+  name              = ""
+  power_state       = ""
+  command           = "virsh"
+  argument          = ""
+  command_suffix    = "| head --lines 1"
+
+  def __init__( \
+    self,
+    name,
+    state
+  ):
+    self.name     = name
+    self.state    = state
+
+    self.command  = "{} --domain {}".format( \
+                      self.command,
+                      self.name
                     )
 
-  if sudo.is_sudo:
-    command_prefix += "{} {}" \
-                      .format(
-                        sudo.command,
-                        command_prefix
-                      )
+  def get_power_state(self):
+    this_command =  "{} domstate {}".format( \
+                      self.command,
+                      self.command_suffix,
+                    )
 
-  def __init__(name, state):
-    self.name   = name
-    self.state  = state
-
-  def is_valid():
-    return name is not None
-
-  def get_state():
-    if is_valid():
-      sys.exit(1)
-
-    reference_name = ""
-
-    command = "{} domstate {} | head --lines 1" \
-                .format(
-                  command_prefix,
-                  command_suffix,
-                )
     try:
-      subprocess.run(command)
+      Command.get_stdout_as_string(this_command)
 
     except:
       message = "Exception: Failed to get power state for '{}'." \
-                .format(name)
+                .format(self.name)
 
       print(message)
-      __init__()
       sys.exit(1)
