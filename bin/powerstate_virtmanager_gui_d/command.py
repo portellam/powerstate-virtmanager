@@ -71,7 +71,6 @@ class Command:
     except:
       sys.exit(1)
 
-    except
     return self.code
 
   def get_output_as_list( \
