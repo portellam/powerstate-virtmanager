@@ -11,6 +11,11 @@
 import subprocess
 import sys
 
+
+# TODO: make example.py to read input from bash, and print out that input to see how it is formatted by python!
+
+# TODO: stop this rabbit hole!
+
 class BashCommand(object):
   code = 127
   command = None
@@ -22,7 +27,10 @@ class BashCommand(object):
     self.output = ""
 
   def GetInput(self):
-    return sys.stdin.readline()
+    result = sys.stdin.readline()
+
+    if result is None:
+      sys.exit(1)
 
   def RunCommand(self):
     if self.command is None:
