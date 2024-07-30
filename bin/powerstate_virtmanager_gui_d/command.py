@@ -12,10 +12,16 @@ import subprocess
 from sudo import Sudo
 
 class Command:
-  use_sudo = False
+  use_sudo  = False
+  code      = 127 # the return code for an non-existing command.
+  error     = ""
+  output    = ""
 
   def __init__(self):
     self.use_sudo = Sudo.is_sudo
+    self.code     = 127   # the return code for an non-existing command.
+    self.stderr   = ""
+    self.stdout   = ""
 
   def make_command_sudo( \
     self,
@@ -29,18 +35,37 @@ class Command:
       command
     )
 
-  def get_stdout_as_list( \
+  def get_completed_process( \
     self,
     command
   ):
-    return subprocess.run(
+    result = subprocess.run(
       self.make_command_sudo(command),
       capture_output=True,
-    ).decode('ascii') \
-    .splitlines()
+    )
 
-  def get_stdout_as_string( \
+    self.code   = result.returncode
+    self.error  = result.stderr
+    self.output = result.stdout
+
+  def get_output_as_list( \
     self,
     command
   ):
-    return self.get_stdout_as_list(command)[0]
+    self.get_completed_process(command)
+
+    if self.code != 0:
+      return self.error.decode('ascii').splitlines()
+
+    return self.output.decode('ascii').splitlines()
+
+  def get_output_as_string( \
+    self,
+    command
+  ):
+    self.get_completed_process(command)
+
+    if self.code != 0:
+      return self.error.decode('ascii').splitlines()[0]
+
+    return self.output.decode('ascii').splitlines()[0]
