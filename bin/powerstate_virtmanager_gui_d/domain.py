@@ -79,20 +79,6 @@ class Domain:
     self.is_persistent = info.startswith("Persistent").split(":")[1].split(" ")[1]
     self.power_state = info.startswith("State:").split(":")[1].split(" ")[1]
 
-  def get_power_state(self):
-    this_command =  "{} domstate {}".format( \
-                      self.command,
-                      self.command_suffix,
-                    )
-
-    try:
-      return Command.get_output_as_string(this_command)
-
-    except:
-      message = "Exception: Failed to get power state for '{}'.".format(self.name)
-      print(message)
-      sys.exit(1)
-
   def disable_autostart(self):
     this_command =  "{} autostart --disable".format(self.command)
 
@@ -130,3 +116,146 @@ class Domain:
       sys.exit(1)
 
     print("Enabled auto-start for '{}'.".format(self.name))
+
+  def get_power_state(self):
+    this_command =  "{} domstate {}".format( \
+                      self.command,
+                      self.command_suffix,
+                    )
+
+    try:
+      return Command.get_output_as_string(this_command)
+
+    except:
+      message = "Exception: Failed to get power state for '{}'.".format(self.name)
+      print(message)
+      sys.exit(1)
+
+  def get_power_state_argument(self):
+    match self.power_state:
+      case "paused":
+        argument = "resume"
+
+      case "pmsuspended":
+        argument = "dompmwakeup"
+
+      case "shut off":
+        argument = "start"
+
+      case _:
+        sys.exit(1)
+
+  def get_power_state_error( \
+    self,
+    new_power_state
+  ):
+    if not self.is_new_power_state_valid(new_power_state):
+      return
+
+    power_state_verb = self.power_state
+
+    match self.power_state:
+      case "pmsuspended":
+        power_state_verb = "sleeping."
+
+    print("Error: Cannot {} '{}'. Virtual machine is {}".format( \
+      new_power_state,
+      self.name,
+      power_state_verb
+    ))
+
+  def get_power_state_verb( \
+    self,
+    power_state
+  ):
+    match power_state:
+      case "dompmwakeup":
+        return "wake"
+
+      case "pmsuspended":
+        return "sleep"
+
+      case _:
+        return power_state
+
+  def is_new_power_state_valid( \
+    self,
+    new_power_state
+  ):
+    match new_power_state:
+      case "start" \
+        | "resume" \
+        | "wake":
+        return self.power_state != "running"
+
+      case "sleep" \
+        | "hybrid sleep":
+        return self.power_state != "pmsuspended"
+
+      case "pause" \
+        | "hibernate" \
+        | "reboot" \
+        | "reset" \
+        | "stop" \
+        | "force stop":
+        return  self.power_state == "running"
+
+      case _:
+        return False
+
+  def set_power_state( \
+    self,
+    argument
+  ):
+    if argument is None \
+      or argument == "":
+      sys.exit(1)
+
+    this_command =  "{} {} {}".format( \
+                      self.command,
+                      argument,
+                      self.command_suffix
+                    )
+
+    verb = self.get_power_state_verb(argument)
+
+    try:
+      code = Command.get_code(this_command)
+
+    except Exception as contextManager:
+      message = "Exception: Failed to {} '{}'.".format( \
+        verb,
+        self.name
+      )
+
+      print(contextManager.exception.output)
+      print(message)
+      raise
+
+    if code != 0:
+      message = "Error: Failed to {} '{}'.".format( \
+        verb,
+        self.name
+      )
+
+      print(message)
+      sys.exit(1)
+
+  def start(self):
+    argument = ""
+
+    match self.power_state:
+      case "paused":
+        argument = "resume"
+
+      case "pmsuspended":
+        argument = "dompmwakeup"
+
+      case "shut off":
+        argument = "start"
+
+      case _:
+        self.get_power_state_error(self.power_state)
+        sys.exit(1)
+
+    self.set_power_state(argument)
