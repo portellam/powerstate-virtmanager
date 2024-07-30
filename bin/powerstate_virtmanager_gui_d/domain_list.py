@@ -68,6 +68,19 @@ class DomainList:
   # End: Domain enum getters.
 
   # Begin: Domain selection.
+  def deselect( \
+    self,
+    uuid
+  ):
+    domain = self.get_domain(uuid)
+
+    if domain is None:
+      print("Error: Invalid virtual machine.")
+      return
+
+    self.selected_list.remove(domain)
+    print("Unselected virtual machine '{}'.".format(domain.name))
+
   def get_domain( \
     self,
     uuid
@@ -82,6 +95,10 @@ class DomainList:
 
     return None
 
+  def has_selected(self):
+    return not self.selected_list is None \
+      and not self.selected_list.len == 0
+
   def select( \
     self,
     uuid
@@ -94,19 +111,6 @@ class DomainList:
 
     self.selected_list.add(domain)
     print("Selected virtual machine '{}'.".format(domain.name))
-
-  def deselect( \
-    self,
-    uuid
-  ):
-    domain = self.get_domain(uuid)
-
-    if domain is None:
-      print("Error: Invalid virtual machine.")
-      return
-
-    self.selected_list.remove(domain)
-    print("Unselected virtual machine '{}'.".format(domain.name))
 
   # End: Domain selection.
 
@@ -144,8 +148,7 @@ class DomainList:
 
   # Start: Domain power-state action logic.
   def force_stop_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -162,8 +165,7 @@ class DomainList:
       print("Error: Failed to force stop one or more virtual machines.")
 
   def hibernate_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -180,8 +182,7 @@ class DomainList:
       print("Error: Failed to hibernate one or more virtual machines.")
 
   def hybrid_sleep_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -198,8 +199,7 @@ class DomainList:
       print("Error: Failed to hybrid sleep one or more virtual machines.")
 
   def pause_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -216,8 +216,7 @@ class DomainList:
       print("Error: Failed to pause one or more virtual machines.")
 
   def pause_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -234,8 +233,7 @@ class DomainList:
       print("Error: Failed to pause one or more virtual machines.")
 
   def restart_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -252,8 +250,7 @@ class DomainList:
       print("Error: Failed to restart one or more virtual machines.")
 
   def reset_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -270,8 +267,7 @@ class DomainList:
       print("Error: Failed to reset one or more virtual machines.")
 
   def restart_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -288,8 +284,7 @@ class DomainList:
       print("Error: Failed to restart one or more virtual machines.")
 
   def start_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -306,8 +301,7 @@ class DomainList:
       print("Error: Failed to start one or more virtual machines.")
 
   def sleep_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
@@ -324,8 +318,7 @@ class DomainList:
       print("Error: Failed to sleep one or more virtual machines.")
 
   def stop_selected(self):
-    if self.selected_uuid_list is None \
-      or self.selected_uuid_list.len == 0:
+    if not self.has_selected():
       return
 
     has_failed = False
