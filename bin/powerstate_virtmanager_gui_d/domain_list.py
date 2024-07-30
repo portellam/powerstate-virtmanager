@@ -37,6 +37,6 @@ class DomainList:
     )
 
   def get_all(self):
-    return Command.get_stdout_as_list( \
+    return Command.get_output_as_list( \
       self.get_command_with_option("--all")
     )
