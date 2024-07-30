@@ -41,10 +41,15 @@ class Command:
     self,
     command
   ):
-    result = subprocess.run(
-      self.make_command_sudo(command),
-      capture_output=True,
-    )
+    try:
+      result = subprocess.run(
+        self.make_command_sudo(command),
+        capture_output=True,
+      )
+
+    except Exception as contextManager:
+      print(contextManager.exception.output)
+      raise
 
     self.code   = result.returncode
     self.error  = result.stderr.decode('ascii')
