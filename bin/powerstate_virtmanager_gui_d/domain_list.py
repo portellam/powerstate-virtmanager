@@ -8,14 +8,19 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-# TODO: test how long it will take to parse all domains and their properties
-#       (running virsh many times).
+#
+# TODO:
+# - [ ] gracefully fail if you cannot parse info for one domain.
+# - [ ] add unit tests.
+# - [ ] test how long it will take to parse all domains and their properties
+# (example: running virsh many times).
+#
 
 from command  import Command
 from domain   import Domain
 
 class DomainList:
-  list            = []
+  list[Domain]    = []
   selected_list   = []
   command         = "virsh"
   argument        = "list"
@@ -37,6 +42,17 @@ class DomainList:
     )
 
   def get_all(self):
-    return Command.get_output_as_list( \
-      self.get_command_with_option("--all")
+    list[Domain] = []
+
+    name_list = Command.get_output_as_list( \
+      self.get_command_with_option("--all --name")
     )
+
+    for name in name_list:
+      try:
+        list.add(Domain(name))
+
+      except:
+        continue
+
+    return list
