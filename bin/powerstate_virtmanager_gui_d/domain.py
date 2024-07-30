@@ -1,14 +1,20 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #
 # Filename:       domain.py
 # Version:        1.0.0
-# Description:    Virtual Machine logic.
+# Description:    Virtual Machine object, logic, and actions.
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-# TODO: gracefully fail if you cannot parse info for one domain.
+#
+# TODO:
+# - [ ] gracefully fail if you cannot parse info for one domain.
+# - [x] add properties.
+# - [x] add functions as defined in notes.
+# - [ ] add unit tests.
+#
 
 import sys
 
@@ -37,7 +43,7 @@ class Domain:
   ):
     self.name = name
 
-    self.command  = "{} --domain {}".format( \
+    self.command  = "{} {}".format( \
                       self.command,
                       self.name
                     )
@@ -79,6 +85,7 @@ class Domain:
     self.is_persistent = info.startswith("Persistent").split(":")[1].split(" ")[1]
     self.power_state = info.startswith("State:").split(":")[1].split(" ")[1]
 
+  # Begin: Auto-start logic
   def disable_autostart(self):
     this_command =  "{} autostart --disable".format(self.command)
 
@@ -116,6 +123,10 @@ class Domain:
       sys.exit(1)
 
     print("Enabled auto-start for '{}'.".format(self.name))
+
+  # End: Auto-start logic
+
+  # Begin: Power-state getters and setters
 
   def get_power_state(self):
     this_command =  "{} domstate {}".format( \
@@ -241,21 +252,81 @@ class Domain:
       print(message)
       sys.exit(1)
 
+  # End: Power-state getters and setters
+
+  # Begin: Power-state action logic
+  def force_stop(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("destroy --domain")
+
+  def hibernate(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("dompmsuspend --target disk")
+
+  def hybrid_sleep(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("dompmsuspend --target hybrid")
+
+  def pause(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("pause --domain")
+
+  def reset(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("reset --domain")
+
+  def restart(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("reboot --domain")
+
   def start(self):
     argument = ""
 
     match self.power_state:
       case "paused":
-        argument = "resume"
+        argument = "resume --domain"
 
       case "pmsuspended":
-        argument = "dompmwakeup"
+        argument = "dompmwakeup --domain"
 
       case "shut off":
-        argument = "start"
+        argument = "start --domain"
 
       case _:
         self.get_power_state_error(self.power_state)
         sys.exit(1)
 
     self.set_power_state(argument)
+
+  def sleep(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("dompmsuspend --target mem")
+
+  def stop(self):
+    if self.power_state != "running":
+      self.get_power_state_error(self.power_state)
+      sys.exit(1)
+
+    self.set_power_state("shutdown --domain")
+  # End: Power-state action logic
