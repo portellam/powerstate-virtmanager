@@ -13,7 +13,7 @@ import sys
 
 import pytest
 import unittest
-from unittest.mock  import patch
+from unittest.mock  import Mock, patch
 
 from bash_command   import BashCommand
 
@@ -21,6 +21,62 @@ from bash_command   import BashCommand
 # TODO: create functional unit test.
 
 class BashCommandTests(unittest.TestCase):
+  @patch('sys.stdin.readline')
+  def test_GetInput_ReadlineReturnsNonEmptyString_ReturnString(
+    self,
+    mock_readline
+  ):
+    mock_readline.return_value = "Hello World"
+    bashCommand = BashCommand("echo \"Hello World\"")
+    result = bashCommand.GetInput()
+    assert result == "Hello World"
+    mock_readline.assert_called_once()
+
+  @patch('sys.stdin.readline')
+  def test_GetInput_ReadlineReturnsEmptyString_ReturnEmptyString(
+    self,
+    mock_readline
+  ):
+    mock_readline.return_value = ""
+    bashCommand = BashCommand("")
+    result = bashCommand.GetInput()
+    assert result == ""
+    mock_readline.assert_called_once()
+
+  @patch('sys.stdin.readline')
+  def test_GetInput_ReadlineReturnsNone_ThrowSystemExit(
+    self,
+    mock_readline
+  ):
+    mock_readline.return_value = None
+    bashCommand = BashCommand("")
+
+    with pytest.raises(SystemExit) as contextManager:
+      result = bashCommand.GetInput()
+
+    assert contextManager.value.code == 1
+    mock_readline.assert_called_once()
+
+  # @patch('sys.stdin')
+  # def test_GetInput_ReadlineThrowsException_ReturnNone(
+  #   self,
+  #   mock_stdin
+  # ):
+  #   mock_stdin.readline.raiseError.side_effect = Mock(
+  #     side_effect=Exception()
+  #   )
+
+  #   bashCommand = BashCommand(None)
+
+    # with pytest.raises(SystemExit) as contextManager:
+    #   result = bashCommand.GetInput()
+
+    # mock_stdin.assert_called_once()
+    # assert contextManager.value.code == 1
+
+    # result = bashCommand.GetInput().return_value
+    # assert result == None
+
   # @mock.patch('BashCommand.GetInput')
   # def test_SetInput_CommandIsNone_SetProperties(self, GetInputMock):
   #   GetInputMock.return_value = ""
@@ -30,71 +86,39 @@ class BashCommandTests(unittest.TestCase):
 
   #   assertEqual(result.command, "")
 
+  # @patch('sys.stdin.readline')
+  # def test_GetInput_InputIsNone_ReturnNone( \
+  #   self,
+  #   mock_readline
+  # ):
+  #   mock_readline.return_value = None
+  #   bashCommand = BashCommand(None)
+  #   result = bashCommand.GetInput()
 
-  @patch('sys.stdin.readline')
-  def test_GetInput_InputIsEmptyString_ReturnEmptyString( \
-    self,
-    readline_mock
-  ):
-    readline_mock.return_value = ""
-    bashCommand = BashCommand(None)
-    result = bashCommand.GetInput()
+  #   self.assertEqual(
+  #     result,
+  #     None
+  #   )
 
-    self.assertEqual(
-      result,
-      ""
-    )
+  #   mock_readline.assert_called_once()
 
-    readline_mock.assert_called_once()
+  # @patch('sys.stdin.readline')
+  # def test_GetInput_InputIsString_ReturnExactString( \
+  #   self,
+  #   mock_readline
+  # ):
+  #   mock_readline.return_value = "echo \"Hello World\""
+  #   bashCommand = BashCommand(None)
+  #   result = bashCommand.GetInput()
 
-  @patch('sys.stdin.readline')
-  def test_GetInput_InputIsNone_ReturnNone( \
-    self,
-    readline_mock
-  ):
-    readline_mock.return_value = None
-    bashCommand = BashCommand(None)
-    result = bashCommand.GetInput()
+  #   self.assertEqual(
+  #     result,
+  #     "echo \"Hello World\""
+  #   )
 
-    self.assertEqual(
-      result,
-      None
-    )
+  #   mock_readline.assert_called_once()
 
-    readline_mock.assert_called_once()
-
-  @patch('sys.stdin.readline')
-  def test_GetInput_InputIsString_ReturnExactString( \
-    self,
-    readline_mock
-  ):
-    readline_mock.return_value = "echo \"Hello World\""
-    bashCommand = BashCommand(None)
-    result = bashCommand.GetInput()
-
-    self.assertEqual(
-      result,
-      "echo \"Hello World\""
-    )
-
-    readline_mock.assert_called_once()
-
-  @patch('sys.stdin.readline')
-  def test_GetInput_CatchException_ReturnNone( \
-    self,
-    readline_mock
-  ):
-    # readline_mock.raiseError.side_effect = Mock( \
-    #   side_effect=Exception('Test')
-    # )
-
-    bashCommand = BashCommand(None)
-
-    result = bashCommand.GetInput()
-    self.assertEqual(result, None)
-    readline_mock.assert_called_once()
-
-  # def test_GetCode_CommandDoesNotExist_ReturnExpectedCode(self):
+ # def test_GetCode_CommandDoesNotExist_ReturnExpectedCode(self):
   #   result = BashCommand.GetCode("")
   #   self.assertEqual(result, 127)
 
