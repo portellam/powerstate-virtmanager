@@ -97,7 +97,7 @@ class Domain:
     this_command =  "{} autostart --disable".format(self.command)
 
     try:
-      Command.get_output_as_string(this_command)
+      code = Command.get_code(this_command)
 
     except:
       message = "Exception: Failed to disable auto-start for '{}'." \
@@ -106,16 +106,27 @@ class Domain:
       print(message)
       sys.exit(1)
 
+    if code == 1:
+      print("Failed to disable auto-start for '{}'.".format(self.name))
+      sys.exit(1)
+
+    print("Disabled auto-start for '{}'.".format(self.name))
 
   def enable_autostart(self):
-    this_command =  "{} autostart --disable".format(self.command)
+    this_command =  "{} autostart".format(self.command)
 
     try:
-      Command.get_output_as_string(this_command)
+      code = Command.get_code(this_command)
 
     except:
-      message = "Exception: Failed to disable auto-start for '{}'." \
+      message = "Exception: Failed to enable auto-start for '{}'." \
                   .format(self.name)
 
       print(message)
       sys.exit(1)
+
+    if code == 1:
+      print("Failed to enable auto-start for '{}'.".format(self.name))
+      sys.exit(1)
+
+    print("Enabled auto-start for '{}'.".format(self.name))
