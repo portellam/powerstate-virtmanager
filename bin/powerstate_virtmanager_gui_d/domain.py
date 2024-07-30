@@ -13,6 +13,11 @@ from command import Command
 
 class Domain:
   name              = ""
+  has_autostart     = False
+  has_checkpoint    = False
+  has_managed_save  = False
+  has_snapshot      = False
+  hypervisor        = ""
   power_state       = ""
   command           = "virsh"
   argument          = ""
