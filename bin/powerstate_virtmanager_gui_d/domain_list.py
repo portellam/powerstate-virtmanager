@@ -3,7 +3,7 @@
 #
 # Filename:       domain.py
 # Version:        1.0.0
-# Description:    Virtual Machine logic.
+# Description:    List, select, and act on Virtual machines.
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
@@ -14,6 +14,11 @@
 # - [ ] add unit tests.
 # - [ ] test how long it will take to parse all domains and their properties
 # (example: running virsh many times).
+# - [ ] determine upper memory limits of virsh, python stack, and glade GUI.
+# - [ ] set upper limit?
+# - [ ] add sort by.
+# - [ ] add hypervisor validation.
+# - [ ] add power state action logic.
 #
 
 from command  import Command
@@ -41,6 +46,7 @@ class DomainList:
       self.command_suffix
     )
 
+  # Begin: Domain enum getters.
   def get_all(self):
     list[Domain] = []
 
@@ -56,3 +62,41 @@ class DomainList:
         continue
 
     return list
+
+  # End: Domain enum getters.
+
+  # Begin: Domain hypervisor sort logic.
+  def get_qemu(self):
+    list[Domain] = []
+
+    for domain in self.list:
+      if domain.is_hypervisor_qemu():
+        continue
+
+      try:
+        list.add(domain)
+
+      except:
+        continue
+
+    return list
+
+  def get_vmware_workstation(self):
+    list[Domain] = []
+
+    for domain in self.list:
+      if domain.is_hypervisor_vmware_workstation():
+        continue
+
+      try:
+        list.add(domain)
+
+      except:
+        continue
+
+    return list
+  # End: Domain hypervisor sort logic.
+
+  # Start: Domain power-state action logic.
+
+  # End: Domain power-state action logic.
