@@ -9,9 +9,11 @@
 #
 
 import sys
+
 from command import Command
 
 class Domain:
+  uuid              = ""
   name              = ""
   has_autostart     = False
   has_checkpoint    = False
@@ -43,11 +45,38 @@ class Domain:
                     )
 
     try:
-      Command.get_stdout_as_string(this_command)
+      return Command.get_output_as_string(this_command)
 
     except:
-      message = "Exception: Failed to get power state for '{}'." \
-                .format(self.name)
+      message = "Exception: Failed to get power state for '{}'.".format(self.name)
+
+      print(message)
+      sys.exit(1)
+
+
+  def disable_autostart(self):
+    this_command =  "{} autostart --disable".format(self.command)
+
+    try:
+      Command.get_output_as_string(this_command)
+
+    except:
+      message = "Exception: Failed to disable auto-start for '{}'." \
+                  .format(self.name)
+
+      print(message)
+      sys.exit(1)
+
+
+  def enable_autostart(self):
+    this_command =  "{} autostart --disable".format(self.command)
+
+    try:
+      Command.get_output_as_string(this_command)
+
+    except:
+      message = "Exception: Failed to disable auto-start for '{}'." \
+                  .format(self.name)
 
       print(message)
       sys.exit(1)
