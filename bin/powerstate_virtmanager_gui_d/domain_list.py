@@ -25,15 +25,17 @@ from command  import Command
 from domain   import Domain
 
 class DomainList:
-  list[Domain]    = []
-  selected_list   = []
-  command         = "virsh"
-  argument        = "list"
-  command_suffix  = "| head"
+  list[Domain]          = []
+  selected_list[Domain] = []
+  selected_uuid_list    = []
+  command               = "virsh"
+  argument              = "list"
+  command_suffix        = "| head"
 
   def __init__(self):
-    self.list = self.get_all()
-    self.selected_list = []
+    self.list               = self.get_all()
+    self.selected_list      = []
+    self.selected_uuid_list = []
 
   def get_command_with_option( \
     self,
@@ -64,6 +66,49 @@ class DomainList:
     return list
 
   # End: Domain enum getters.
+
+  # Begin: Domain selection.
+  def get_domain( \
+    self,
+    uuid
+  ):
+    if uuid is None \
+      or uuid == "":
+      return None
+
+    for domain in list:
+      if domain.uuid == uuid:
+        return domain
+
+    return None
+
+  def select( \
+    self,
+    uuid
+  ):
+    domain = self.get_domain(uuid)
+
+    if domain is None:
+      print("Error: Invalid virtual machine selected.")
+      return
+
+    self.selected_list.add(domain)
+    print("Selected virtual machine '{}'.".format(domain.name))
+
+  def deselect( \
+    self,
+    uuid
+  ):
+    domain = self.get_domain(uuid)
+
+    if domain is None:
+      print("Error: Invalid virtual machine.")
+      return
+
+    self.selected_list.remove(domain)
+    print("Unselected virtual machine '{}'.".format(domain.name))
+
+  # End: Domain selection.
 
   # Begin: Domain hypervisor sort logic.
   def get_qemu(self):
@@ -98,5 +143,202 @@ class DomainList:
   # End: Domain hypervisor sort logic.
 
   # Start: Domain power-state action logic.
+  def force_stop_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.force_stop()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to force stop one or more virtual machines.")
+
+  def hibernate_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.hibernate()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to hibernate one or more virtual machines.")
+
+  def hybrid_sleep_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.hybrid_sleep()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to hybrid sleep one or more virtual machines.")
+
+  def pause_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.pause()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to pause one or more virtual machines.")
+
+  def pause_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.pause()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to pause one or more virtual machines.")
+
+  def restart_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.restart()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to restart one or more virtual machines.")
+
+  def reset_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.reset()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to reset one or more virtual machines.")
+
+  def restart_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.restart()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to restart one or more virtual machines.")
+
+  def start_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.start()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to start one or more virtual machines.")
+
+  def sleep_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.sleep()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to sleep one or more virtual machines.")
+
+  def stop_selected(self):
+    if self.selected_uuid_list is None \
+      or self.selected_uuid_list.len == 0:
+      return
+
+    has_failed = False
+
+    for selected in self.selected_list:
+      try:
+        selected.stop()
+
+      except:
+        has_failed = True
+        continue
+
+    if has_failed:
+      print("Error: Failed to stop one or more virtual machines.")
 
   # End: Domain power-state action logic.
