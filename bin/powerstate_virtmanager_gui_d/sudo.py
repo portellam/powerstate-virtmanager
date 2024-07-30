@@ -8,11 +8,14 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-from bash_command import BashCommand
+import os
 
 class Sudo:
-  is_sudo = false
+  is_sudo = False
   command = "sudo"
 
-  def __init__():
-    self.is_sudo = BashCommand.GetCode(command) == 0
+  def __init__(self):
+    self.is_sudo = self.is_root()
+
+  def is_root():
+    return os.system("[ $( whoami ) == \"root\" ]") == 0
