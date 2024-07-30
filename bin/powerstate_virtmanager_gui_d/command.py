@@ -9,6 +9,8 @@
 #
 
 import subprocess
+import sys
+
 from sudo import Sudo
 
 class Command:
@@ -45,8 +47,8 @@ class Command:
     )
 
     self.code   = result.returncode
-    self.error  = result.stderr
-    self.output = result.stdout
+    self.error  = result.stderr.decode('ascii')
+    self.output = result.stdout.decode('ascii')
 
   def get_output_as_list( \
     self,
@@ -55,9 +57,10 @@ class Command:
     self.get_completed_process(command)
 
     if self.code != 0:
-      return self.error.decode('ascii').splitlines()
+      print(self.error.splitlines())
+      sys.exit(1)
 
-    return self.output.decode('ascii').splitlines()
+    return self.output.splitlines()
 
   def get_output_as_string( \
     self,
@@ -66,6 +69,7 @@ class Command:
     self.get_completed_process(command)
 
     if self.code != 0:
-      return self.error.decode('ascii').splitlines()[0]
+      print(self.error.splitlines())
+      sys.exit(1)
 
-    return self.output.decode('ascii').splitlines()[0]
+    return self.output.splitlines()[0]
