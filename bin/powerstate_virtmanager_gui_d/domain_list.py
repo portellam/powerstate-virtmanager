@@ -12,11 +12,11 @@ from command  import Command
 from domain   import Domain
 
 class DomainList:
-  list = []
-  selected_list = []
-  command = "virsh"
-  argument = "list"
-  command_suffix = "| head"
+  list            = []
+  selected_list   = []
+  command         = "virsh"
+  argument        = "list"
+  command_suffix  = "| head"
 
   def __init__(self):
     self.list = self.get_all()
