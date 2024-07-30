@@ -3,9 +3,15 @@
 #
 # Filename:       command.py
 # Version:        1.0.0
-# Description:    
+# Description:    Bash command logic.
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
+#
+
+#
+# TODO:
+# - [ ] gracefully fail if you cannot parse info for one domain.
+# - [ ] add unit tests.
 #
 
 import subprocess
