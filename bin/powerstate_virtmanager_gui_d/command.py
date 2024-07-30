@@ -37,7 +37,7 @@ class Command:
       command
     )
 
-  def get_completed_process( \
+  def set_completed_process( \
     self,
     command
   ):
@@ -55,11 +55,28 @@ class Command:
     self.error  = result.stderr.decode('ascii')
     self.output = result.stdout.decode('ascii')
 
+  def get_code( \
+    self,
+    command
+  ):
+    try:
+      self.set_completed_process(command)
+
+    except:
+      sys.exit(1)
+
+    except
+    return self.code
+
   def get_output_as_list( \
     self,
     command
   ):
-    self.get_completed_process(command)
+    try:
+      self.set_completed_process(command)
+
+    except:
+      sys.exit(1)
 
     if self.code != 0:
       print(self.error.splitlines())
@@ -71,7 +88,11 @@ class Command:
     self,
     command
   ):
-    self.get_completed_process(command)
+    try:
+      self.set_completed_process(command)
+
+    except:
+      sys.exit(1)
 
     if self.code != 0:
       print(self.error.splitlines())
