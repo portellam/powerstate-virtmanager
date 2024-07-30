@@ -14,6 +14,7 @@
 # - [x] add properties.
 # - [x] add functions as defined in notes.
 # - [ ] add unit tests.
+# - [ ] add hypervisor validation (1. find strings, 2. implement).
 #
 
 import sys
@@ -85,7 +86,7 @@ class Domain:
     self.is_persistent = info.startswith("Persistent").split(":")[1].split(" ")[1]
     self.power_state = info.startswith("State:").split(":")[1].split(" ")[1]
 
-  # Begin: Auto-start logic
+  # Begin: Auto-start logic.
   def disable_autostart(self):
     this_command =  "{} autostart --disable".format(self.command)
 
@@ -124,9 +125,23 @@ class Domain:
 
     print("Enabled auto-start for '{}'.".format(self.name))
 
-  # End: Auto-start logic
+  # End: Auto-start logic.
 
-  # Begin: Power-state getters and setters
+  # Begin: Hypervisor validation.
+  def is_hypervisor_qemu(self):
+    return self.hypervisor.lower() == "hvf" \
+      or self.hypervisor.lower() == "kvm" \
+      or self.hypervisor.lower() == "qemu"
+
+  def is_hypervisor_vmware_workstation(self):
+    return self.hypervisor.lower().__contains__("vmware") \
+      and ( \
+        self.hypervisor.lower().__contains__("workstation") \
+          or self.hypervisor.lower().__contains__("player")
+      )
+  # End: Hypervisor validation.
+
+  # Begin: Power-state getters and setters.
 
   def get_power_state(self):
     this_command =  "{} domstate {}".format( \
@@ -252,9 +267,9 @@ class Domain:
       print(message)
       sys.exit(1)
 
-  # End: Power-state getters and setters
+  # End: Power-state getters and setters.
 
-  # Begin: Power-state action logic
+  # Begin: Power-state action logic.
   def force_stop(self):
     if self.power_state != "running":
       self.get_power_state_error(self.power_state)
@@ -329,4 +344,4 @@ class Domain:
       sys.exit(1)
 
     self.set_power_state("shutdown --domain")
-  # End: Power-state action logic
+  # End: Power-state action logic.
