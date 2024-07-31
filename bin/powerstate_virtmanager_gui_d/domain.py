@@ -19,7 +19,7 @@
 
 import sys
 
-from command import Command
+from .command import Command
 
 class Domain:
   uuid              = ""

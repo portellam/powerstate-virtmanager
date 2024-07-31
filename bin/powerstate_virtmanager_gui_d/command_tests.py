@@ -12,8 +12,8 @@ import pytest
 import unittest
 from unittest.mock  import Mock, patch
 
-from command  import Command
-from sudo     import Sudo
+from .command  import Command
+from .sudo     import Sudo
 
 class CommandTests(unittest.TestCase):
   placeholder = ""

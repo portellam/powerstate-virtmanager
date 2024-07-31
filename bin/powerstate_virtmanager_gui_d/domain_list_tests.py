@@ -12,9 +12,9 @@ import pytest
 import unittest
 from unittest.mock  import Mock, patch
 
-from command      import Command
-from domain       import Domain
-from domain_list  import DomainList
+from .command      import Command
+from .domain       import Domain
+from .domain_list  import DomainList
 
 class DomainListTests(unittest.TestCase):
   placeholder = ""

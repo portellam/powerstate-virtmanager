@@ -17,7 +17,7 @@
 import subprocess
 import sys
 
-from sudo import Sudo
+from .sudo import Sudo
 
 class Command:
   use_sudo  = False

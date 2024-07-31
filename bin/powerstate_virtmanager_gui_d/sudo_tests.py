@@ -14,7 +14,7 @@ from unittest.mock  import Mock, patch
 
 import os
 
-from sudo     import Sudo
+from .sudo     import Sudo
 
 class SudoTests(unittest.TestCase):
   placeholder = ""

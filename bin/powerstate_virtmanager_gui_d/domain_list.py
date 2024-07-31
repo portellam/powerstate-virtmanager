@@ -21,12 +21,12 @@
 # - [ ] add power state action logic.
 #
 
-from command  import Command
-from domain   import Domain
+from .command  import Command
+from .domain   import Domain
 
 class DomainList:
-  list[Domain]          = []
-  selected_list[Domain] = []
+  list                  = []
+  selected_list         = []
   selected_uuid_list    = []
   command               = "virsh"
   argument              = "list"
@@ -50,7 +50,7 @@ class DomainList:
 
   # Begin: Domain enum getters.
   def get_all(self):
-    list[Domain] = []
+    list = []
 
     name_list = Command.get_output_as_list( \
       self.get_command_with_option("--all --name")
@@ -116,7 +116,7 @@ class DomainList:
 
   # Begin: Domain hypervisor sort logic.
   def get_qemu(self):
-    list[Domain] = []
+    list = []
 
     for domain in self.list:
       if domain.is_hypervisor_qemu():
@@ -131,7 +131,7 @@ class DomainList:
     return list
 
   def get_vmware_workstation(self):
-    list[Domain] = []
+    list = []
 
     for domain in self.list:
       if domain.is_hypervisor_vmware_workstation():
