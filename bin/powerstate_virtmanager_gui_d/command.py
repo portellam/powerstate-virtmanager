@@ -20,13 +20,14 @@ import sys
 from .sudo import Sudo
 
 class Command:
-  use_sudo  = False
+  sudo = None
   code      = 127 # the return code for an non-existing command.
   error     = ""
   output    = ""
 
   def __init__(self):
-    self.use_sudo = Sudo.is_sudo
+    self.Sudo = Sudo
+    self.Sudo.is_root()
     self.code     = 127   # the return code for an non-existing command.
     self.stderr   = ""
     self.stdout   = ""
@@ -35,7 +36,7 @@ class Command:
     self,
     command
   ):
-    if not self.use_sudo:
+    if not self.sudo.is_sudo:
       return command
 
     command = "{} {}".format( \
