@@ -8,11 +8,10 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+import os
 import pytest
 import unittest
 from unittest.mock  import Mock, patch
-
-import os
 
 from .sudo     import Sudo
 
@@ -25,8 +24,14 @@ class SudoTests(unittest.TestCase):
     mock_os_system
   ):
     mock_os_system.return_value = 1
-    result = Sudo.is_root()
-    assert not result
+    sudo = Sudo()
+
+    result1 = sudo.is_sudo
+    sudo.is_root()
+    result2 = sudo.is_sudo
+
+    assert not result1
+    assert not result2
 
   @patch('os.system')
   def test_is_root_command_executes_user_is_root_returns_true( \
@@ -34,8 +39,14 @@ class SudoTests(unittest.TestCase):
     mock_os_system
   ):
     mock_os_system.return_value = 0
-    result = Sudo.is_root()
-    assert result
+    sudo = Sudo()
+
+    result1 = sudo.is_sudo
+    sudo.is_root()
+    result2 = sudo.is_sudo
+
+    assert not result1
+    assert result2
 
 if __name__ == '__main__':
   unittest.main()
