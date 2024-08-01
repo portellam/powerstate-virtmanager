@@ -17,7 +17,7 @@ class Sudo:
   def __init__(self):
     self.is_sudo = False
 
-  def is_root(self):
+  def set_is_sudo(self):
     command = "[ $( whoami ) == \"root\" ]"
     result = os.system(command) == 0
     self.is_sudo = result

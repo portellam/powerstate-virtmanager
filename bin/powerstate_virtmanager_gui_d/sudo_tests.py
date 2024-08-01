@@ -19,7 +19,7 @@ class SudoTests(unittest.TestCase):
   placeholder = ""
 
   @patch('os.system')
-  def test_is_root_command_executes_user_is_not_root_returns_false( \
+  def test_set_is_sudo_command_executes_user_is_not_root_returns_false( \
     self,
     mock_os_system
   ):
@@ -27,14 +27,14 @@ class SudoTests(unittest.TestCase):
     sudo = Sudo()
 
     result1 = sudo.is_sudo
-    sudo.is_root()
+    sudo.set_is_sudo()
     result2 = sudo.is_sudo
 
     assert not result1
     assert not result2
 
   @patch('os.system')
-  def test_is_root_command_executes_user_is_root_returns_true( \
+  def test_set_is_sudo_command_executes_user_set_is_sudo_returns_true( \
     self,
     mock_os_system
   ):
@@ -42,7 +42,7 @@ class SudoTests(unittest.TestCase):
     sudo = Sudo()
 
     result1 = sudo.is_sudo
-    sudo.is_root()
+    sudo.set_is_sudo()
     result2 = sudo.is_sudo
 
     assert not result1

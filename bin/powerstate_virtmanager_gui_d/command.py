@@ -27,7 +27,7 @@ class Command:
 
   def __init__(self):
     self.Sudo = Sudo
-    self.Sudo.is_root()
+    self.Sudo.set_is_sudo()
     self.code     = 127   # the return code for an non-existing command.
     self.stderr   = ""
     self.stdout   = ""
