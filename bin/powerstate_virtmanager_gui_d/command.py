@@ -44,6 +44,8 @@ class Command:
       command
     )
 
+    return command
+
   def set_completed_process( \
     self,
     command
