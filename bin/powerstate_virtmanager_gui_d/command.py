@@ -27,12 +27,12 @@ class Command:
   output    = ""
 
   def __init__(self):
-    self.sudo     = Sudo
+    self.sudo   = Sudo
     self.sudo.set_is_sudo(self)
 
-    self.code     = 127   # the return code for an non-existing command.
-    self.stderr   = ""
-    self.stdout   = ""
+    self.code   = 127   # the return code for an non-existing command.
+    self.error  = ""
+    self.output = ""
 
   def make_command_sudo( \
     self,
