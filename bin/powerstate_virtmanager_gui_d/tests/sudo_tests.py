@@ -8,16 +8,13 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-import os
 import pytest
 import unittest
 from unittest.mock  import Mock, patch
 
-from .sudo     import Sudo
+from ..sudo     import Sudo
 
 class SudoTests(unittest.TestCase):
-  placeholder = ""
-
   @patch('os.system')
   def test_set_is_sudo_command_executes_user_is_not_root_returns_false( \
     self,

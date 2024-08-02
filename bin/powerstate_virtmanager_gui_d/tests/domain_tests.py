@@ -12,8 +12,8 @@ import pytest
 import unittest
 from unittest.mock  import Mock, patch
 
-from .command  import Command
-from .domain   import Domain
+from ..command  import Command
+from ..domain   import Domain
 
 class DomainTests(unittest.TestCase):
   placeholder = ""

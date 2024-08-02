@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 #
-# Filename:       domain_list_tests.py
+# Filename:       command_tests.py
 # Version:        1.0.0
-# Description:    DomainList unit tests.
+# Description:    Command unit tests.
 # Author(s):      Alex Portell <github.com/portellam>
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
@@ -12,11 +12,10 @@ import pytest
 import unittest
 from unittest.mock  import Mock, patch
 
-from .command      import Command
-from .domain       import Domain
-from .domain_list  import DomainList
+from ..command  import Command
+from ..sudo     import Sudo
 
-class DomainListTests(unittest.TestCase):
+class CommandTests(unittest.TestCase):
   placeholder = ""
 
 if __name__ == '__main__':
