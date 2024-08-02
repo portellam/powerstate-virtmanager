@@ -31,11 +31,12 @@ class CommandTests(unittest.TestCase):
       command1      = Command()
       command2      = Command()
       command3      = Command()
+      command4      = Command()
 
       result1 = command1.get_code(self.bogus_command)
       result2 = command2.get_code("false")
-      result3 = command2.get_code(None)
-      result4 = command3.get_code("true")
+      result3 = command3.get_code(None)
+      result4 = command4.get_code("true")
 
       assert result1 == 1
       assert result2 == 1
@@ -60,14 +61,33 @@ class CommandTests(unittest.TestCase):
 
       result1 = command1.get_code(self.bogus_command)
       result2 = command2.get_code("false")
-      result3 = command2.get_code(None)
-      result4 = command3.get_code("true")
+      result3 = command3.get_code(None)
+      result4 = command4.get_code("true")
 
       assert result1 == 127
       assert result2 == 1
       # assert result3 == 0 # FIXME: set_completed_process(). Empty string always returns 0.
       # assert result4 == 0 # FIXME: set_completed_process(). "true" always returns 0.
       mock_set_completed_process.assert_called_once
+
+  def test_make_command_sudo_is_sudo_is_true_return_sudo_command(self):
+    with patch.object( \
+      Sudo,
+      'is_sudo'
+    ) as mock_is_sudo:
+      mock_is_sudo.return_value = True
+      command1      = Command()
+      command2      = Command()
+      command3      = Command()
+
+      result1 = command1.make_command_sudo("false")
+      result2 = command2.make_command_sudo(None)
+      result3 = command3.make_command_sudo("true")
+
+      assert result1 == "sudo false"
+      assert result2 == "sudo "
+      assert result3 == "sudo true"
+      mock_is_sudo.assert_called_once
 
 if __name__ == '__main__':
   unittest.main()
