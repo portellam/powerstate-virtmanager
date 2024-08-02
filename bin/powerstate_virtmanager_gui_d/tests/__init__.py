@@ -3,6 +3,7 @@
 #
 # Filename:       __tests_init__.py
 # Description:    Unit test sources for the Graphics User Interface.
+# Usage:          `pytest -v ./*`
 #
 
 from ..command      import Command
