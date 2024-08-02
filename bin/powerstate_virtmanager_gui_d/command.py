@@ -21,7 +21,8 @@ from .sudo import Sudo
 
 class Command:
   sudo      = Sudo
-  code      = 127 # the return code for an non-existing command.
+  code      = 127   # the return code for an non-existing command.
+  fail_code = 1
   error     = ""
   output    = ""
 
@@ -53,12 +54,13 @@ class Command:
   ):
     try:
       result = subprocess.run(
-        self.make_command_sudo(command),
-        capture_output=True,
+        args            = self.make_command_sudo(command),
+        capture_output  = True,
       )
 
     except Exception as contextManager:
       print(contextManager.exception.output)
+      self.code = fail_code
       raise
 
     self.code   = result.returncode
