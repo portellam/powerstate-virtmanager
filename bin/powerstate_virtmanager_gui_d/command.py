@@ -72,7 +72,7 @@ class Command:
       self.set_completed_process(command)
 
     except:
-      sys.exit(1)
+      return 1
 
     return self.code
 
