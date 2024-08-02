@@ -28,29 +28,7 @@ class CommandTests(unittest.TestCase):
   def setUp(self):
     self.command = Command()
 
-  def test_get_code_throws_exception_return_one(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = Exception(Exception)
-      command1      = Command()
-      command2      = Command()
-      command3      = Command()
-      command4      = Command()
-
-      result1 = command1.get_code(self.bogus_command)
-      result2 = command2.get_code("false")
-      result3 = command3.get_code(None)
-      result4 = command4.get_code("true")
-
-      assert result1 == 1
-      assert result2 == 1
-      assert result3 == 1
-      assert result4 == 1
-      assert mock_set_completed_process.call_count == 4
-
-  def test_get_code_succeeds_return_expected_code(self):
+  def test__get_code__succeeds__return_expected_code(self):
     with patch.object( \
       Command,
       'set_completed_process'
@@ -76,7 +54,29 @@ class CommandTests(unittest.TestCase):
       assert result4 == 0
       assert mock_set_completed_process.call_count == 4
 
-  def test_make_command_sudo_is_sudo_is_false_return_command(self):
+  def test__get_code__throws_exception__return_one(self):
+    with patch.object( \
+      Command,
+      'set_completed_process'
+    ) as mock_set_completed_process:
+      mock_set_completed_process.side_effect = Exception(Exception)
+      command1      = Command()
+      command2      = Command()
+      command3      = Command()
+      command4      = Command()
+
+      result1 = command1.get_code(self.bogus_command)
+      result2 = command2.get_code("false")
+      result3 = command3.get_code(None)
+      result4 = command4.get_code("true")
+
+      assert result1 == 1
+      assert result2 == 1
+      assert result3 == 1
+      assert result4 == 1
+      assert mock_set_completed_process.call_count == 4
+
+  def test__make_command_sudo__is_sudo_is_false__return_command(self):
       command1              = Command()
       command2              = Command()
       command3              = Command()
