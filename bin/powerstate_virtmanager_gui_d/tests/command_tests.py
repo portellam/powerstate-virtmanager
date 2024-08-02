@@ -133,7 +133,18 @@ class CommandTests(unittest.TestCase):
       assert result == None
       assert mock_set_completed_process.call_count == 1
 
+  def test__get_output_as_string__command_passes__return_expected_output(self):
+    with patch.object( \
+      Command,
+      'set_completed_process'
+    ) as mock_set_completed_process:
+      mock_set_completed_process.side_effect = None
+      self.command.output = "Hello World"
 
+      result = self.command.get_output_as_string("echo \"Hello World\"")
+
+      assert result == "Hello World"
+      assert mock_set_completed_process.call_count == 1
 
   def test__get_output_as_string__throws_exception__return_none(self):
     with patch.object( \
