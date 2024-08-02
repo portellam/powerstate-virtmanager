@@ -20,97 +20,89 @@ import sys
 from .sudo import Sudo
 
 class Command:
-  sudo      = Sudo
-  code      = 127   # the return code for an non-existing command.
-  fail_code = 1
-  error     = ""
-  output    = ""
+  code                  = None
+  command               = ""
+  error                 = ""
+  output                = ""
+  use_sudo_if_available = False
 
-  def __init__(self):
-    self.sudo   = Sudo
+  fail_code = 1
+  sudo      = Sudo
+
+  def __init__( \
+    self,
+    command               = "",
+    code                  = 127,
+    error                 = "",
+    output                = "",
+    use_sudo_if_available = False
+  ):
+    self.sudo = Sudo
     self.sudo.set_is_sudo(self)
 
-    self.code   = 127   # the return code for an non-existing command.
-    self.error  = ""
-    self.output = ""
+    self.command                = command
+    self.code                   = code
+    self.error                  = error
+    self.output                 = output
+    self.use_sudo_if_available  = use_sudo_if_available
 
-  def make_command_sudo( \
-    self,
-    command
-  ):
-    if command is None \
-      or command == "":
-      return ""
+    self.make_sudo()
 
-    if not self.sudo.is_sudo:
-      return command
+  def make_sudo(self):
+    if self.command is None \
+      or self.command == "":
+      self.command == ""
 
-    command = "{} {}".format( \
+    if self.command is None \
+      or not self.sudo.is_sudo \
+      or self.command.startswith(Sudo.command):
+      return
+
+    self.command = "{} {}".format( \
       Sudo.command,
-      command
+      self.command
     )
 
-    return command
+  def run(self):
+    if self.use_sudo_if_available:
+      self.make_sudo()
 
-  def set_completed_process( \
-    self,
-    command
-  ):
     try:
       result = subprocess.run(
-        args            = self.make_command_sudo(command),
+        args            = self.command,
         capture_output  = True,
       )
 
     except Exception as contextManager:
       print(contextManager.exception.output)
-      self.code = fail_code
+      self.code = self.fail_code
       raise
 
     self.code   = result.returncode
     self.error  = result.stderr.decode('ascii')
     self.output = result.stdout.decode('ascii')
 
-  def get_code( \
-    self,
-    command
-  ):
-    try:
-      self.set_completed_process(command)
-
-    except:
-      return 1
-
-    return self.code
-
-  def get_output_as_list( \
-    self,
-    command
-  ):
-    try:
-      self.set_completed_process(command)
-
-    except:
-      return None
+  def get_output_as_list(self):
+    if self.command is None:
+      return []
 
     if self.code != 0:
       print(self.error.splitlines())
-      return None
+      return []
 
     return self.output.splitlines()
 
-  def get_output_as_string( \
-    self,
-    command
-  ):
-    try:
-      self.set_completed_process(command)
-
-    except:
-      return None
+  def get_output_as_string(self):
+    if self.command is None:
+      return ""
 
     if self.code != 0:
       print(self.error.splitlines())
-      return None
+      return ""
 
-    return self.output.splitlines()[0]
+    output = self.output.splitlines()
+
+    if output.length() == 1:
+      return output[0]
+
+    return ' '.join(str(line) for line in output)
