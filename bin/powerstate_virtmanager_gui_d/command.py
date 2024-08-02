@@ -91,11 +91,11 @@ class Command:
       self.set_completed_process(command)
 
     except:
-      sys.exit(1)
+      return None
 
     if self.code != 0:
       print(self.error.splitlines())
-      sys.exit(1)
+      return None
 
     return self.output.splitlines()
 
@@ -107,10 +107,10 @@ class Command:
       self.set_completed_process(command)
 
     except:
-      sys.exit(1)
+      return None
 
     if self.code != 0:
       print(self.error.splitlines())
-      sys.exit(1)
+      return None
 
     return self.output.splitlines()[0]
