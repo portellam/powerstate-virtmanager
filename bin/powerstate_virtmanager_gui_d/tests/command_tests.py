@@ -76,6 +76,78 @@ class CommandTests(unittest.TestCase):
       assert result4 == 1
       assert mock_set_completed_process.call_count == 4
 
+  def test__get_output_as_list__command_fails__return_none(self):
+    with patch.object( \
+      Command,
+      'set_completed_process'
+    ) as mock_set_completed_process:
+      mock_set_completed_process.side_effect = Exception(Exception)
+      command1      = Command()
+      command2      = Command()
+      command3      = Command()
+      command4      = Command()
+
+      result1 = command1.get_output_as_list(self.bogus_command)
+      result2 = command2.get_output_as_list("false")
+      result3 = command3.get_output_as_list(None)
+      result4 = command4.get_output_as_list("true")
+
+      assert result1 == None
+      assert result2 == None
+      assert result3 == None
+      assert result4 == None
+      assert mock_set_completed_process.call_count == 4
+
+  def test__get_output_as_list__throws_exception__return_none(self):
+    with patch.object( \
+      Command,
+      'set_completed_process'
+    ) as mock_set_completed_process:
+      mock_set_completed_process.side_effect = Exception(Exception)
+      command1      = Command()
+      command2      = Command()
+      command3      = Command()
+      command4      = Command()
+
+      result1 = command1.get_output_as_list(self.bogus_command)
+      result2 = command2.get_output_as_list("false")
+      result3 = command3.get_output_as_list(None)
+      result4 = command4.get_output_as_list("true")
+
+      assert result1 == None
+      assert result2 == None
+      assert result3 == None
+      assert result4 == None
+      assert mock_set_completed_process.call_count == 4
+
+  def test__get_output_as_string__command_fails__return_none(self):
+    with patch.object( \
+      Command,
+      'set_completed_process'
+    ) as mock_set_completed_process:
+      mock_set_completed_process.side_effect = Exception(Exception)
+      self.command.output = "Hello World"
+
+      result = self.command.get_output_as_string("echo \"Hello World\"")
+
+      assert result == None
+      assert mock_set_completed_process.call_count == 1
+
+
+
+  def test__get_output_as_string__throws_exception__return_none(self):
+    with patch.object( \
+      Command,
+      'set_completed_process'
+    ) as mock_set_completed_process:
+      mock_set_completed_process.side_effect = Exception(Exception)
+      self.command.output = "Hello World"
+
+      result = self.command.get_output_as_string("echo \"Hello World\"")
+
+      assert result == None
+      assert mock_set_completed_process.call_count == 1
+
   def test__make_command_sudo__is_sudo_is_false__return_command(self):
       command1              = Command()
       command2              = Command()
