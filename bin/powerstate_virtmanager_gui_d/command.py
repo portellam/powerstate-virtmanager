@@ -38,8 +38,9 @@ class Command:
     self,
     command
   ):
-    if command is None:
-      command = ""
+    if command is None \
+      or command == "":
+      return ""
 
     if not self.sudo.is_sudo:
       return command
