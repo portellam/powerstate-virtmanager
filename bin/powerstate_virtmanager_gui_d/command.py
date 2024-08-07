@@ -15,7 +15,6 @@
 #
 
 import subprocess
-import sys
 
 from .sudo import Sudo
 
@@ -32,18 +31,15 @@ class Command:
   def __init__( \
     self,
     command               = "",
-    code                  = 127,
-    error                 = "",
-    output                = "",
     use_sudo_if_available = False
   ):
     self.sudo = Sudo
     self.sudo.set_is_sudo(self)
 
     self.command                = command
-    self.code                   = code
-    self.error                  = error
-    self.output                 = output
+    self.code                   = 127
+    self.error                  = ""
+    self.output                 = ""
     self.use_sudo_if_available  = use_sudo_if_available
 
     self.make_sudo()
@@ -87,22 +83,22 @@ class Command:
       return []
 
     if self.code != 0:
-      print(self.error.splitlines())
+      print(self.error)
       return []
 
-    return self.output.splitlines()
+    return self.output
 
   def get_output_as_string(self):
-    if self.command is None:
+    if self.command is None \
+      or self.command == "":
       return ""
 
     if self.code != 0:
-      print(self.error.splitlines())
+      print(self.error)
       return ""
 
-    output = self.output.splitlines()
+    if len(self.output) > 2:
+      return self.output
 
-    if output.length() == 1:
-      return output[0]
-
-    return ' '.join(str(line) for line in output)
+    delimiter = ' '
+    return delimiter.join(self.output)
