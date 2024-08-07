@@ -26,7 +26,7 @@ class Command:
   use_sudo_if_available = False
 
   fail_code = 1
-  sudo      = Sudo
+  sudo      = None
 
   def __init__( \
     self,
@@ -36,20 +36,46 @@ class Command:
     self.sudo = Sudo
     self.sudo.set_is_sudo(self)
 
+    if (command == None):
+      command = ""
+
     self.command                = command
     self.code                   = 127
     self.error                  = ""
     self.output                 = ""
     self.use_sudo_if_available  = use_sudo_if_available
 
-    self.make_sudo()
+  def get_output_as_list(self):
+    if self.command is None:
+      return []
 
-  def make_sudo(self):
+    if self.code != 0:
+      print(self.error)
+      return []
+
+    return self.output
+
+  def get_output_as_string(self):
     if self.command is None \
       or self.command == "":
-      self.command == ""
+      return ""
 
-    if self.command is None \
+    if self.code != 0:
+      print(self.error)
+      return ""
+
+    if len(self.output) > 2:
+      return self.output
+
+    delimiter = ' '
+    return delimiter.join(self.output)
+
+  def make_sudo(self):
+    if self.command is None:
+      self.command == ""
+      return
+
+    if self.command == "" \
       or not self.sudo.is_sudo \
       or self.command.startswith(Sudo.command):
       return
@@ -77,28 +103,3 @@ class Command:
     self.code   = result.returncode
     self.error  = result.stderr.decode('ascii')
     self.output = result.stdout.decode('ascii')
-
-  def get_output_as_list(self):
-    if self.command is None:
-      return []
-
-    if self.code != 0:
-      print(self.error)
-      return []
-
-    return self.output
-
-  def get_output_as_string(self):
-    if self.command is None \
-      or self.command == "":
-      return ""
-
-    if self.code != 0:
-      print(self.error)
-      return ""
-
-    if len(self.output) > 2:
-      return self.output
-
-    delimiter = ' '
-    return delimiter.join(self.output)
