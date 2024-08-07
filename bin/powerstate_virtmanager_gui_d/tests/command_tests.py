@@ -28,192 +28,121 @@ class CommandTests(unittest.TestCase):
   def setUp(self):
     self.command = Command()
 
-  def test__get_code__succeeds__return_expected_code(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = None
-      command1      = Command()
-      command2      = Command()
-      command3      = Command()
-      command4      = Command()
-      command1.code = 127
-      command2.code = 1
-      command3.code = 0
-      command4.code = 0
+  def test__get_output_as_string__command_is_empty_string__return_empty_string(self):
+    self.command.command = ""
 
-      result1 = command1.get_code(self.bogus_command)
-      result2 = command2.get_code("false")
-      result3 = command3.get_code(None)
-      result4 = command4.get_code("true")
+    result = self.command.get_output_as_string()
 
-      assert result1 == 127
-      assert result2 == 1
-      assert result3 == 0
-      assert result4 == 0
-      assert mock_set_completed_process.call_count == 4
+    assert result == ""
 
-  def test__get_code__throws_exception__return_one(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = Exception(Exception)
-      command1      = Command()
-      command2      = Command()
-      command3      = Command()
-      command4      = Command()
+  def test__get_output_as_string__command_is_none__return_empty_string(self):
+    self.command.command = None
 
-      result1 = command1.get_code(self.bogus_command)
-      result2 = command2.get_code("false")
-      result3 = command3.get_code(None)
-      result4 = command4.get_code("true")
+    result = self.command.get_output_as_string()
 
-      assert result1 == 1
-      assert result2 == 1
-      assert result3 == 1
-      assert result4 == 1
-      assert mock_set_completed_process.call_count == 4
+    assert result == ""
 
-  def test__get_output_as_list__command_fails__return_none(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = Exception(Exception)
-      command1      = Command()
-      command2      = Command()
-      command3      = Command()
-      command4      = Command()
+  def test__get_output_as_list__command_fails__return_empty_list(self):
+    self.command = Command("echo -e \"Hello\nWorld\"")
+    self.command.code = 1
+    self.command.error = "this_is_an_error"
 
-      result1 = command1.get_output_as_list(self.bogus_command)
-      result2 = command2.get_output_as_list("false")
-      result3 = command3.get_output_as_list(None)
-      result4 = command4.get_output_as_list("true")
+    self.command.output = [
+      "Hello",
+      "World"
+    ]
 
-      assert result1 == None
-      assert result2 == None
-      assert result3 == None
-      assert result4 == None
-      assert mock_set_completed_process.call_count == 4
+    result = self.command.get_output_as_list()
 
-  def test__get_output_as_list__throws_exception__return_none(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = Exception(Exception)
-      command1      = Command()
-      command2      = Command()
-      command3      = Command()
-      command4      = Command()
+    assert result != [
+      "Hello",
+      "World"
+    ]
 
-      result1 = command1.get_output_as_list(self.bogus_command)
-      result2 = command2.get_output_as_list("false")
-      result3 = command3.get_output_as_list(None)
-      result4 = command4.get_output_as_list("true")
+    assert result == []
 
-      assert result1 == None
-      assert result2 == None
-      assert result3 == None
-      assert result4 == None
-      assert mock_set_completed_process.call_count == 4
+  def test__get_output_as_list__command_passes__return_list(self):
+    self.command = Command("echo -e \"Hello\nWorld\"")
+    self.command.code = 0
+    self.command.error = "this_is_an_error"
 
-  def test__get_output_as_string__command_fails__return_none(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = Exception(Exception)
-      self.command.output = "Hello World"
+    self.command.output = [
+      "Hello",
+      "World"
+    ]
 
-      result = self.command.get_output_as_string("echo \"Hello World\"")
+    result = self.command.get_output_as_list()
 
-      assert result == None
-      assert mock_set_completed_process.call_count == 1
+    assert result != []
 
-  def test__get_output_as_string__command_passes__return_expected_output(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = None
-      self.command.output = "Hello World"
+    assert result == [
+      "Hello",
+      "World"
+    ]
 
-      result = self.command.get_output_as_string("echo \"Hello World\"")
+  def test__get_output_as_list__command_is_none__return_empty_list(self):
+    self.command = Command("echo -e \"Hello\nWorld\"")
+    self.command.code = 127
+    self.command.error = "this_is_an_error"
 
-      assert result == "Hello World"
-      assert mock_set_completed_process.call_count == 1
+    self.command.output = [
+      "Hello",
+      "World"
+    ]
 
-  def test__get_output_as_string__throws_exception__return_none(self):
-    with patch.object( \
-      Command,
-      'set_completed_process'
-    ) as mock_set_completed_process:
-      mock_set_completed_process.side_effect = Exception(Exception)
-      self.command.output = "Hello World"
+    result = self.command.get_output_as_list()
 
-      result = self.command.get_output_as_string("echo \"Hello World\"")
+    assert result != [
+      "Hello",
+      "World"
+    ]
 
-      assert result == None
-      assert mock_set_completed_process.call_count == 1
+    assert result == []
 
-  def test__make_command_sudo__is_sudo_is_false__return_command(self):
-      command1              = Command()
-      command2              = Command()
-      command3              = Command()
-      command1.sudo.is_sudo = False
-      command2.sudo.is_sudo = False
-      command3.sudo.is_sudo = False
+  def test__get_output_as_string__command_fails__return_empty_string(self):
+    self.command = Command("echo -e \"Hello\nWorld\"")
+    self.command.code = 1
+    self.command.error = "this_is_an_error"
 
-      result1 = command1.make_command_sudo("false")
-      result2 = command2.make_command_sudo(None)
-      result3 = command3.make_command_sudo("true")
+    self.command.output = [
+      "Hello",
+      "World"
+    ]
 
-      assert result1 == "false"
-      assert result2 == ""
-      assert result3 == "true"
+    result = self.command.get_output_as_string()
 
-  def test__make_command_sudo__command_is_empty_string__always_return_empty_string(self):
-    command1              = Command()
-    command2              = Command()
-    command3              = Command()
-    command1.sudo.is_sudo = True
-    command2.sudo.is_sudo = False
+    assert result != "Hello World"
+    assert result == ""
 
-    result1 = command1.make_command_sudo("")
-    result2 = command3.make_command_sudo("")
+  def test__get_output_as_string__command_passes__return_delimited_output(self):
+    self.command = Command("echo -e \"Hello\nWorld\"")
+    self.command.code = 0
+    self.command.error = "this_is_an_error"
 
-    assert result1 == ""
-    assert result2 == ""
+    self.command.output = [
+      "Hello",
+      "World"
+    ]
 
-  def test__make_command_sudo__command_is_none__always_return_empty_string(self):
-    command1              = Command()
-    command2              = Command()
-    command3              = Command()
-    command1.sudo.is_sudo = True
-    command2.sudo.is_sudo = False
+    result = self.command.get_output_as_string()
 
-    result1 = command1.make_command_sudo(None)
-    result2 = command3.make_command_sudo(None)
+    assert result != ""
+    assert result == "Hello World"
 
-    assert result1 == ""
-    assert result2 == ""
+  def test__get_output_as_string__command_is_none__return_empty_string(self):
+    self.command = Command(None)
+    self.command.code = 127
+    self.command.error = "this_is_an_error"
 
-  def test__make_command_sudo__command_is_valid__is_sudo_is_true__return_sudo_command(self):
-    command1              = Command()
-    command2              = Command()
-    command3              = Command()
-    command1.sudo.is_sudo = True
-    command2.sudo.is_sudo = True
-    command3.sudo.is_sudo = True
+    self.command.output = [
+      "Hello",
+      "World"
+    ]
 
-    result1 = command1.make_command_sudo("false")
-    result2 = command3.make_command_sudo("true")
+    result = self.command.get_output_as_string()
 
-    assert result1 == "sudo false"
-    assert result2 == "sudo true"
+    assert result != "Hello World"
+    assert result == ""
 
 if __name__ == '__main__':
   unittest.main()
