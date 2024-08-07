@@ -14,8 +14,8 @@ from unittest.mock  import Mock, patch
 
 from ..sudo     import Sudo
 
+@patch('os.system')
 class SudoTests(unittest.TestCase):
-  @patch('os.system')
   def test_set_is_sudo_command_executes_user_is_not_root_returns_false( \
     self,
     mock_os_system
@@ -30,7 +30,6 @@ class SudoTests(unittest.TestCase):
     assert not result1
     assert not result2
 
-  @patch('os.system')
   def test_set_is_sudo_command_executes_user_set_is_sudo_returns_true( \
     self,
     mock_os_system
