@@ -27,6 +27,7 @@ class SudoTests(unittest.TestCase):
     sudo.set_is_sudo()
     result2 = sudo.is_sudo
 
+    mock_os_system.assert_called_once()
     assert not result1
     assert not result2
 
@@ -41,6 +42,7 @@ class SudoTests(unittest.TestCase):
     sudo.set_is_sudo()
     result2 = sudo.is_sudo
 
+    mock_os_system.assert_called_once()
     assert not result1
     assert result2
 
