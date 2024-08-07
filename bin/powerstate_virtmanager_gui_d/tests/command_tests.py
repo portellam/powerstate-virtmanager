@@ -177,5 +177,77 @@ class CommandTests(unittest.TestCase):
 
     assert result == "echo -e \"Hello\nWorld\""
 
+  def test__run__use_sudo_if_available_is_false_command_is_not_valid_and_fails__throws_exception(self):
+    with self.assertRaises(Exception) as contextManager:
+      command = Command(self.bogus_command)
+      command.use_sudo_if_available = False
+
+      command.run()
+      result_code     = command.code
+      result_command  = command.command
+      result_error    = command.error
+      result_output   = command.output
+
+      assert result_command == self.bogus_command
+      assert result_code    == 1
+      assert result_error   == ""
+      assert result_output  == ""
+
+  def test__run__use_sudo_if_available_is_false_command_is_valid_and_fails(self):
+    command = Command("false")
+    command.use_sudo_if_available = False
+
+    command.run()
+    result_code     = command.code
+    result_command  = command.command
+    result_error    = command.error
+    result_output   = command.output
+
+    self.assertRaises(Exception, command)
+    assert result_command == "false"
+    assert result_code    == 1
+    assert result_error   == ""
+    assert result_output  == ""
+
+  def test__run__use_sudo_if_available_is_false_command_is_valid_and_runs_and_passes(self):
+    command = Command("echo -e \"Hello\nWorld\"")
+    command.use_sudo_if_available = False
+
+    command.run()
+    result_code     = command.code
+    result_command  = command.command
+    result_error    = command.error
+    result_output   = command.output
+
+    expected_output = [
+      "Hello"
+      "World"
+    ]
+
+    assert result_command == "echo -e \"Hello\nWorld\""
+    assert result_code    == 1
+    assert result_error   == ""
+    assert result_output  == expected_output
+
+  def test__run__use_sudo_if_available_is_true__command_is_valid_and_runs_and_passes(self):
+    command = Command("echo -e \"Hello\nWorld\"")
+    command.use_sudo_if_available = True
+
+    command.run()
+    result_code     = command.code
+    result_command  = command.command
+    result_error    = command.error
+    result_output   = command.output
+
+    expected_output = [
+      "Hello"
+      "World"
+    ]
+
+    assert result_command == "sudo echo -e \"Hello\nWorld\""
+    assert result_code    == 0
+    assert result_error   == ""
+    assert result_output  == expected_output
+
 if __name__ == '__main__':
   unittest.main()
