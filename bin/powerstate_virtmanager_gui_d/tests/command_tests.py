@@ -22,37 +22,34 @@ from ..command  import Command
 from ..sudo     import Sudo
 
 class CommandTests(unittest.TestCase):
-  command       = None
   bogus_command = "this_command_should_not_exist_in_bash"
 
-  def setUp(self):
-    self.command = Command()
 
   def test__get_output_as_string__command_is_empty_string__return_empty_string(self):
-    self.command.command = ""
+    command = Command("")
 
-    result = self.command.get_output_as_string()
+    result = command.get_output_as_string()
 
     assert result == ""
 
   def test__get_output_as_string__command_is_none__return_empty_string(self):
-    self.command.command = None
+    command = Command(None)
 
-    result = self.command.get_output_as_string()
+    result = command.get_output_as_string()
 
     assert result == ""
 
   def test__get_output_as_list__command_fails__return_empty_list(self):
-    self.command = Command("echo -e \"Hello\nWorld\"")
-    self.command.code = 1
-    self.command.error = "this_is_an_error"
+    command = Command(self.bogus_command)
+    command.code = 1
+    command.error = "this_is_an_error"
 
-    self.command.output = [
+    command.output = [
       "Hello",
       "World"
     ]
 
-    result = self.command.get_output_as_list()
+    result = command.get_output_as_list()
 
     assert result != [
       "Hello",
@@ -62,16 +59,16 @@ class CommandTests(unittest.TestCase):
     assert result == []
 
   def test__get_output_as_list__command_passes__return_list(self):
-    self.command = Command("echo -e \"Hello\nWorld\"")
-    self.command.code = 0
-    self.command.error = "this_is_an_error"
+    command = Command("echo -e \"Hello\nWorld\"")
+    command.code = 0
+    command.error = "this_is_an_error"
 
-    self.command.output = [
+    command.output = [
       "Hello",
       "World"
     ]
 
-    result = self.command.get_output_as_list()
+    result = command.get_output_as_list()
 
     assert result != []
 
@@ -81,16 +78,16 @@ class CommandTests(unittest.TestCase):
     ]
 
   def test__get_output_as_list__command_is_none__return_empty_list(self):
-    self.command = Command("echo -e \"Hello\nWorld\"")
-    self.command.code = 127
-    self.command.error = "this_is_an_error"
+    command = Command("echo -e \"Hello\nWorld\"")
+    command.code = 127
+    command.error = "this_is_an_error"
 
-    self.command.output = [
+    command.output = [
       "Hello",
       "World"
     ]
 
-    result = self.command.get_output_as_list()
+    result = command.get_output_as_list()
 
     assert result != [
       "Hello",
@@ -100,49 +97,85 @@ class CommandTests(unittest.TestCase):
     assert result == []
 
   def test__get_output_as_string__command_fails__return_empty_string(self):
-    self.command = Command("echo -e \"Hello\nWorld\"")
-    self.command.code = 1
-    self.command.error = "this_is_an_error"
+    command = Command(self.bogus_command)
+    command.code = 1
+    command.error = "this_is_an_error"
 
-    self.command.output = [
+    command.output = [
       "Hello",
       "World"
     ]
 
-    result = self.command.get_output_as_string()
+    result = command.get_output_as_string()
 
     assert result != "Hello World"
     assert result == ""
 
   def test__get_output_as_string__command_passes__return_delimited_output(self):
-    self.command = Command("echo -e \"Hello\nWorld\"")
-    self.command.code = 0
-    self.command.error = "this_is_an_error"
+    command = Command("echo -e \"Hello\nWorld\"")
+    command.code = 0
+    command.error = "this_is_an_error"
 
-    self.command.output = [
+    command.output = [
       "Hello",
       "World"
     ]
 
-    result = self.command.get_output_as_string()
+    result = command.get_output_as_string()
 
     assert result != ""
     assert result == "Hello World"
 
   def test__get_output_as_string__command_is_none__return_empty_string(self):
-    self.command = Command(None)
-    self.command.code = 127
-    self.command.error = "this_is_an_error"
+    command = Command(None)
+    command.code = 127
+    command.error = "this_is_an_error"
 
-    self.command.output = [
+    command.output = [
       "Hello",
       "World"
     ]
 
-    result = self.command.get_output_as_string()
+    result = command.get_output_as_string()
 
     assert result != "Hello World"
     assert result == ""
+
+  def test__make_sudo__command_has_sudo_prefix__command_is_unchanged(self):
+    command = Command("sudo echo -e \"Hello\nWorld\"")
+    command.sudo.is_sudo = True
+
+    command.make_sudo()
+    result = command.command
+
+    assert result == "sudo echo -e \"Hello\nWorld\""
+
+  def test__make_sudo__is_sudo__command_is_none__command_is_empty_string(self):
+    command = Command(None)
+    command.sudo.is_sudo = True
+
+    command.make_sudo()
+    result = command.command
+
+    assert result == ""
+
+  def test__make_sudo__is_sudo__command_is_valid__command_has_sudo_prefix(self):
+    command = Command("echo -e \"Hello\nWorld\"")
+    command.sudo.is_sudo = True
+
+    command.make_sudo()
+    result = command.command
+
+    assert result == "sudo echo -e \"Hello\nWorld\""
+
+  def test__make_sudo__is_not_sudo__command_is_valid__command_is_unchanged(self):
+    command = Command("echo -e \"Hello\nWorld\"")
+    command.sudo.is_sudo = False
+
+    command.make_sudo()
+    result = command.command
+
+    assert result == "echo -e \"Hello\nWorld\""
 
 if __name__ == '__main__':
   unittest.main()
