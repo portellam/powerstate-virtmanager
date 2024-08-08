@@ -10,14 +10,22 @@
 
 import os
 
+from command  import Command
+
 class Sudo:
   is_sudo = False
   command = "sudo"
 
   def __init__(self):
-    self.is_sudo = False
+    self.set_is_sudo()
 
   def set_is_sudo(self):
-    command = "[ $( whoami ) == \"root\" ]"
-    result = os.system(command) == 0
-    self.is_sudo = result
+    is_root = os.system("[ \"$UID\" == 0 ]") == 0
+
+    if (is_root):
+      self.is_sudo = False
+      return
+
+    is_sudo_available = Command("command -v sudo").run().code == 0
+    is_sudo           = os.system("[ $( whoami ) == \"root\" ]") == 0
+    self.is_sudo      = is_sudo_available and is_sudo
