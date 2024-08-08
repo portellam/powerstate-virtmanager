@@ -8,12 +8,6 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-#
-# TODO:
-# - [x] gracefully fail if you cannot parse info for one domain.
-# - [x] add unit tests.
-#
-
 import subprocess
 import traceback
 
