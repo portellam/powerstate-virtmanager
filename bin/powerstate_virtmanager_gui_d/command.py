@@ -10,8 +10,8 @@
 
 #
 # TODO:
-# - [ ] gracefully fail if you cannot parse info for one domain.
-# - [ ] add unit tests.
+# - [x] gracefully fail if you cannot parse info for one domain.
+# - [x] add unit tests.
 #
 
 import subprocess
