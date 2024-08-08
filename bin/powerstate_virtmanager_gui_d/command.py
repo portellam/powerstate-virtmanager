@@ -76,34 +76,15 @@ class Command:
       self.command == ""
       return
 
-    if self.command == [] \
-      or self.command == [ None ]:
-      self.command = [ "" ]
-      return
-
-    is_list = len(self.command) > 1
-
     if self.command == "" \
-      or not self.sudo.is_sudo:
+      or not self.sudo.is_sudo \
+      or self.command.startswith(Sudo.command):
       return
 
-    if is_list \
-      and self.command[0] == Sudo.command:
-      return
-
-    if not is_list \
-      and self.command.startswith(Sudo.command):
-      return
-
-    if not is_list:
-      self.command = "{} {}".format( \
-        Sudo.command,
-        self.command
-      )
-
-      return
-
-    self.command.insert(0, Sudo.command)
+    self.command = "{} {}".format( \
+      Sudo.command,
+      self.command
+    )
 
   def run(self):
     if self.use_sudo_if_available:
