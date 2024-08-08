@@ -8,18 +8,10 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-#
-# NOTES:
-# - cannot use parameters with self as input.
-# - "echo -e" is not necessary. However, the argument and input will exist on the same line.
-#
-
-import pytest
 import unittest
-from unittest.mock  import Mock, patch
+from unittest.mock  import patch
 
 from ..command  import Command
-from ..sudo     import Sudo
 
 class CommandTests(unittest.TestCase):
   bogus_command = "this_command_should_not_exist_in_bash"

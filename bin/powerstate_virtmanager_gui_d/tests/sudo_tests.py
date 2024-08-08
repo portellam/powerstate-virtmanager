@@ -8,9 +8,8 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-import pytest
 import unittest
-from unittest.mock  import Mock, patch
+from unittest.mock  import patch
 
 from ..sudo     import Sudo
 
