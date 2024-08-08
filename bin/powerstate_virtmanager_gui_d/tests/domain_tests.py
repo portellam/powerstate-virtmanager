@@ -8,25 +8,22 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-# TODO: add enum for multiple dependencies.
+# TODO: add enum for multiple dependencies?
 
+import os
 import unittest
 from unittest.mock  import patch
 
-from ..command  import Command
 from ..domain   import Domain
 
 class DomainTests(unittest.TestCase):
-  placeholder = ""
-
   def test__does_dependency_exist(self):
     dependency = "virsh"
     check_dependency = "command -v {}".format(dependency)
-    command = Command(check_dependency)
+    is_available = False
 
     try:
-      command.run()
-      is_available = command.code == 0
+      is_available = os.system(check_dependency) == 0
 
     except:
       print("Could not determine if dependency '{}' exists.".format(dependency))
