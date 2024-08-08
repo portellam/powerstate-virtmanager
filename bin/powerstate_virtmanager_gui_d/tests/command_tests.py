@@ -11,7 +11,7 @@
 #
 # NOTES:
 # - cannot use parameters with self as input.
-#
+# - "echo -e" is not necessary. However, the argument and input will exist on the same line.
 #
 
 import pytest
@@ -58,7 +58,7 @@ class CommandTests(unittest.TestCase):
     assert result == []
 
   def test__get_output_as_list__command_passes__return_list(self):
-    command = Command("echo -e \"Hello\nWorld\"")
+    command = Command("echo \"Hello\nWorld\"")
     command.code = 0
     command.error = "this_is_an_error"
 
@@ -77,7 +77,7 @@ class CommandTests(unittest.TestCase):
     ]
 
   def test__get_output_as_list__command_is_none__return_empty_list(self):
-    command = Command("echo -e \"Hello\nWorld\"")
+    command = Command("echo \"Hello\nWorld\"")
     command.code = 127
     command.error = "this_is_an_error"
 
@@ -111,7 +111,7 @@ class CommandTests(unittest.TestCase):
     assert result == ""
 
   def test__get_output_as_string__command_passes__return_delimited_output(self):
-    command = Command("echo -e \"Hello\nWorld\"")
+    command = Command("echo \"Hello\nWorld\"")
     command.code = 0
     command.error = "this_is_an_error"
 
@@ -141,13 +141,13 @@ class CommandTests(unittest.TestCase):
     assert result == ""
 
   def test__make_sudo__command_has_sudo_prefix__command_is_unchanged(self):
-    command = Command("sudo echo -e \"Hello\nWorld\"")
+    command = Command("sudo echo \"Hello\nWorld\"")
     command.sudo.is_sudo = True
 
     command.make_sudo()
     result = command.command
 
-    assert result == "sudo echo -e \"Hello\nWorld\""
+    assert result == "sudo echo \"Hello\nWorld\""
 
   def test__make_sudo__is_sudo__command_is_none__command_is_empty_string(self):
     command = Command(None)
@@ -159,22 +159,22 @@ class CommandTests(unittest.TestCase):
     assert result == ""
 
   def test__make_sudo__is_sudo__command_is_valid__command_has_sudo_prefix(self):
-    command = Command("echo -e \"Hello\nWorld\"")
+    command = Command("echo \"Hello\nWorld\"")
     command.sudo.is_sudo = True
 
     command.make_sudo()
     result = command.command
 
-    assert result == "sudo echo -e \"Hello\nWorld\""
+    assert result == "sudo echo \"Hello\nWorld\""
 
   def test__make_sudo__is_not_sudo__command_is_valid__command_is_unchanged(self):
-    command = Command("echo -e \"Hello\nWorld\"")
+    command = Command("echo \"Hello\nWorld\"")
     command.sudo.is_sudo = False
 
     command.make_sudo()
     result = command.command
 
-    assert result == "echo -e \"Hello\nWorld\""
+    assert result == "echo \"Hello\nWorld\""
 
   @patch('subprocess.run')
   def test__run__use_sudo_if_available_is_false_command_is_not_valid_and_fails__throws_exception( \
@@ -215,7 +215,7 @@ class CommandTests(unittest.TestCase):
     assert result_output  == ""
 
   def test__run__use_sudo_if_available_is_false__command_is_valid_and_runs_and_passes(self):
-    command = Command("echo -e \"Hello\nWorld\"")
+    command = Command("echo \"Hello\nWorld\"")
     command.use_sudo_if_available = False
 
     command.run()
@@ -224,13 +224,13 @@ class CommandTests(unittest.TestCase):
     result_error    = command.error
     result_output   = command.output
 
-    assert result_command == "echo -e \"Hello\nWorld\""
+    assert result_command == "echo \"Hello\nWorld\""
     assert result_code    == 0
     assert result_error   == ""
     assert result_output  == "Hello\nWorld\n"
 
   def test__run__use_sudo_if_available_is_true__command_is_valid_and_runs_and_passes(self):
-    command = Command("echo -e \"Hello\nWorld\"")
+    command = Command("echo \"Hello\nWorld\"")
     command.use_sudo_if_available = True
 
     command.run()
@@ -239,7 +239,7 @@ class CommandTests(unittest.TestCase):
     result_error    = command.error
     result_output   = command.output
 
-    assert result_command == "sudo echo -e \"Hello\nWorld\""
+    assert result_command == "sudo echo \"Hello\nWorld\""
     assert result_code    == 0
     assert result_error   == ""
     assert result_output  == "Hello\nWorld\n"
