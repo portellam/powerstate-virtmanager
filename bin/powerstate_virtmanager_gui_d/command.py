@@ -15,6 +15,7 @@
 #
 
 import subprocess
+import traceback
 
 from .sudo import Sudo
 
@@ -75,29 +76,51 @@ class Command:
       self.command == ""
       return
 
-    if self.command == "" \
-      or not self.sudo.is_sudo \
-      or self.command.startswith(Sudo.command):
+    if self.command == [] \
+      or self.command == [ None ]:
+      self.command = [ "" ]
       return
 
-    self.command = "{} {}".format( \
-      Sudo.command,
-      self.command
-    )
+    is_list = len(self.command) > 1
+
+    if self.command == "" \
+      or not self.sudo.is_sudo:
+      return
+
+    if is_list \
+      and self.command[0] == Sudo.command:
+      return
+
+    if not is_list \
+      and self.command.startswith(Sudo.command):
+      return
+
+    if not is_list:
+      self.command = "{} {}".format( \
+        Sudo.command,
+        self.command
+      )
+
+      return
+
+    self.command.insert(0, Sudo.command)
 
   def run(self):
     if self.use_sudo_if_available:
       self.make_sudo()
 
+    result = None
+
     try:
       result = subprocess.run(
         args            = self.command,
         capture_output  = True,
+        shell           = True
       )
 
-    except Exception as contextManager:
-      print(contextManager.exception.output)
+    except Exception:
       self.code = self.fail_code
+      traceback.print_exc()
       raise
 
     self.code   = result.returncode
