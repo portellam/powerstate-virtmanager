@@ -24,7 +24,6 @@ from ..sudo     import Sudo
 class CommandTests(unittest.TestCase):
   bogus_command = "this_command_should_not_exist_in_bash"
 
-
   def test__get_output_as_string__command_is_empty_string__return_empty_string(self):
     command = Command("")
 
@@ -177,8 +176,14 @@ class CommandTests(unittest.TestCase):
 
     assert result == "echo -e \"Hello\nWorld\""
 
-  def test__run__use_sudo_if_available_is_false_command_is_not_valid_and_fails__throws_exception(self):
-    with self.assertRaises(Exception) as contextManager:
+  @patch('subprocess.run')
+  def test__run__use_sudo_if_available_is_false_command_is_not_valid_and_fails__throws_exception( \
+    self,
+    mock_subprocess_run
+  ):
+    mock_subprocess_run.raises(Exception)
+
+    with self.assertRaises(Exception):
       command = Command(self.bogus_command)
       command.use_sudo_if_available = False
 
@@ -188,6 +193,7 @@ class CommandTests(unittest.TestCase):
       result_error    = command.error
       result_output   = command.output
 
+      mock_subprocess_run.assert_called_once()
       assert result_command == self.bogus_command
       assert result_code    == 1
       assert result_error   == ""
@@ -203,13 +209,12 @@ class CommandTests(unittest.TestCase):
     result_error    = command.error
     result_output   = command.output
 
-    self.assertRaises(Exception, command)
     assert result_command == "false"
     assert result_code    == 1
     assert result_error   == ""
     assert result_output  == ""
 
-  def test__run__use_sudo_if_available_is_false_command_is_valid_and_runs_and_passes(self):
+  def test__run__use_sudo_if_available_is_false__command_is_valid_and_runs_and_passes(self):
     command = Command("echo -e \"Hello\nWorld\"")
     command.use_sudo_if_available = False
 
@@ -219,15 +224,10 @@ class CommandTests(unittest.TestCase):
     result_error    = command.error
     result_output   = command.output
 
-    expected_output = [
-      "Hello"
-      "World"
-    ]
-
     assert result_command == "echo -e \"Hello\nWorld\""
-    assert result_code    == 1
+    assert result_code    == 0
     assert result_error   == ""
-    assert result_output  == expected_output
+    assert result_output  == "Hello\nWorld\n"
 
   def test__run__use_sudo_if_available_is_true__command_is_valid_and_runs_and_passes(self):
     command = Command("echo -e \"Hello\nWorld\"")
@@ -239,15 +239,10 @@ class CommandTests(unittest.TestCase):
     result_error    = command.error
     result_output   = command.output
 
-    expected_output = [
-      "Hello"
-      "World"
-    ]
-
     assert result_command == "sudo echo -e \"Hello\nWorld\""
     assert result_code    == 0
     assert result_error   == ""
-    assert result_output  == expected_output
+    assert result_output  == "Hello\nWorld\n"
 
 if __name__ == '__main__':
   unittest.main()
