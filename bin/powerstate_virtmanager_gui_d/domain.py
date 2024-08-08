@@ -15,7 +15,7 @@
 # - [x] add functions as defined in notes.
 # - [ ] add unit tests.
 # - [ ] add hypervisor validation (1. find strings, 2. implement).
-#
+# - [ ] add logic to check for virsh command.
 
 import sys
 
