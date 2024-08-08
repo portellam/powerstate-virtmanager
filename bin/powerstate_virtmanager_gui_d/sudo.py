@@ -10,8 +10,6 @@
 
 import os
 
-from command  import Command
-
 class Sudo:
   is_sudo = False
   command = "sudo"
