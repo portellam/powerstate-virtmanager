@@ -29,7 +29,6 @@ class Command:
     use_sudo_if_available = False
   ):
     self.sudo = Sudo
-    self.sudo.set_is_sudo(self)
 
     if (command == None):
       command = ""
