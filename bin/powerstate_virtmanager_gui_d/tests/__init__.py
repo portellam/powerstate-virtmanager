@@ -4,6 +4,8 @@
 # Filename:       __tests_init__.py
 # Description:    Unit test sources for the Graphics User Interface.
 # Usage:          `pytest -v ./*`
+# Dependencies:   python3-mock
+#                 python3-pytest
 #
 
 from ..command      import Command
