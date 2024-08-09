@@ -171,9 +171,9 @@ class CommandTests(unittest.TestCase):
   @patch('subprocess.run')
   def test__run__use_sudo_if_available_is_false_command_is_not_valid_and_fails__throws_exception( \
     self,
-    mock_subprocess_run
+    mock_run
   ):
-    mock_subprocess_run.raises(Exception)
+    mock_run.raises(Exception)
 
     with self.assertRaises(Exception):
       command = Command(self.bogus_command)
@@ -185,7 +185,7 @@ class CommandTests(unittest.TestCase):
       result_error    = command.error
       result_output   = command.output
 
-      mock_subprocess_run.assert_called_once()
+      mock_run.assert_called_once()
       assert result_command == self.bogus_command
       assert result_code    == 1
       assert result_error   == ""
