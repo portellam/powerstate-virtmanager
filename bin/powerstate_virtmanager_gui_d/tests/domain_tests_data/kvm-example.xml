@@ -1,0 +1,11 @@
+<domain type='kvm'>
+	<name>kvm-example</name>
+	<uuid>01234567-0123-0123-0123-01234567890a</uuid>
+	<memory unit='KiB'>1</memory>
+	<currentMemory unit='KiB'>1</currentMemory>
+	<vcpu placement='static'>1</vcpu>
+  <os>
+		<type arch='x86_64' machine='pc-i440fx-2.9'>hvm</type>
+		<boot dev='hd'/>
+	</os>
+</domain>
