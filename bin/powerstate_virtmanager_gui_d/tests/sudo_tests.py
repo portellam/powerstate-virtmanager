@@ -8,42 +8,84 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
+import os
+import sys
 import unittest
-from unittest.mock  import patch
 
-from ..sudo     import Sudo
+if sys.version_info >= (3, 3):
+    from unittest.mock  import MagicMock, patch
+else:
+    from mock           import MagicMock, patch
 
-@patch('os.system')
+from ..sudo         import Sudo
+
 class SudoTests(unittest.TestCase):
-  def test_set_is_sudo_command_executes_user_is_not_root_returns_false( \
+  def test__does_dependency_exist(self):
+    dependency = "sudo"
+    check_dependency = "command -v {}".format(dependency)
+    is_available = False
+
+    try:
+      is_available = os.system(check_dependency) == 0
+
+    except:
+      print("Could not determine if dependency '{}' exists.".format(dependency))
+      assert False
+
+    if not is_available:
+      print("Dependency '{}' is not available.".format(dependency))
+      assert False
+
+    print("Dependency '{}' is available.".format(dependency))
+    assert True
+
+  @patch('os.system')
+  def test__is_root__os_system_fails__returns_false( \
     self,
-    mock_os_system
+    mock_system
   ):
-    mock_os_system.return_value = 1
-    sudo = Sudo()
+    mock_system.return_value = 1
 
-    result1 = sudo.is_sudo
-    sudo.set_is_sudo()
-    result2 = sudo.is_sudo
+    result = Sudo.is_root(self)
 
-    mock_os_system.assert_called_once()
-    assert not result1
-    assert not result2
+    assert mock_system.call_count == 1
+    assert not result
 
-  def test_set_is_sudo_command_executes_user_set_is_sudo_returns_true( \
+  @patch('os.system')
+  def test__is_root__os_system_passes__returns_true( \
     self,
-    mock_os_system
+    mock_system
   ):
-    mock_os_system.return_value = 0
-    sudo = Sudo()
+    mock_system.return_value = 0
 
-    result1 = sudo.is_sudo
-    sudo.set_is_sudo()
-    result2 = sudo.is_sudo
+    result = Sudo.is_root(self)
 
-    mock_os_system.assert_called_once()
-    assert not result1
-    assert result2
+    assert mock_system.call_count == 1
+    assert result
+
+  @patch('os.system')
+  def test__is_sudo__os_system_fails__returns_false( \
+    self,
+    mock_system
+  ):
+    mock_system.return_value = 1
+
+    result = Sudo.is_sudo(self)
+
+    assert mock_system.call_count == 2
+    assert not result
+
+  @patch('os.system')
+  def test__is_sudo__os_system_passes__returns_true( \
+    self,
+    mock_system
+  ):
+    mock_system.return_value = 0
+
+    result = Sudo.is_sudo(self)
+
+    assert mock_system.call_count == 2
+    assert result
 
 if __name__ == '__main__':
   unittest.main()

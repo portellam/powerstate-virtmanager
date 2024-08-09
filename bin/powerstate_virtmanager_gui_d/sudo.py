@@ -15,15 +15,12 @@ class Sudo:
   command = "sudo"
 
   def __init__(self):
-    self.set_is_sudo()
+    self.is_sudo = self.is_sudo() and not self.is_root()
 
-  def set_is_sudo(self):
-    is_root = os.system("[ \"$UID\" == 0 ]") == 0
-
-    if (is_root):
-      self.is_sudo = False
-      return
-
-    is_sudo_available = Command("command -v sudo").run().code == 0
+  def is_sudo(self):
+    is_sudo_available = os.system("command -v sudo") == 0
     is_sudo           = os.system("[ $( whoami ) == \"root\" ]") == 0
-    self.is_sudo      = is_sudo_available and is_sudo
+    return is_sudo_available and is_sudo
+
+  def is_root(self):
+    return os.system("[ \"$UID\" == 0 ]") == 0
