@@ -8,7 +8,13 @@
 # Maintainer(s):  Alex Portell <github.com/portellam>
 #
 
-# TODO: add enum for multiple dependencies?
+#
+# TODO:
+# - [ ] add enum for multiple dependencies?
+# - [ ] test domain xml?
+#    - [ ] disable libvirt hooks for these domains?
+#
+#
 
 import os
 import unittest
