@@ -60,6 +60,7 @@ class Domain:
     Sets the constructor properties given valid information.
     If the name is Null or an empty string, exit with failure.
     If parse is not successful, print exception and exit with failure.
+    Else, pass.
   """
   def set_info(self):
     if self.name is None \
@@ -72,19 +73,36 @@ class Domain:
                     )
 
     try:
-      info = Command.get_output_as_list(this_command)
+      info = Command(this_command).get_output_as_string()
 
-    except Exception as contextManager:
-      print(contextManager.exception.output)
+    except:
       print("Exception: Cannot get information for '{}'".format(self.name))
       raise
 
-    self.uuid = info.startswith("UUID:").split(":")[1].split(" ")[1]
-    self.name = info.startswith("Name:").split(":")[1].split(" ")[1]
-    self.has_autostart = info.startswith("Autostart:").split(":")[1].split(" ")[1]
-    self.hypervisor = info.startswith("OS Type:").split(":")[1].split(" ")[1]
-    self.is_persistent = info.startswith("Persistent").split(":")[1].split(" ")[1]
-    self.power_state = info.startswith("State:").split(":")[1].split(" ")[1]
+    for line in info:
+      if line.startswith("UUID:"):
+        self.uuid = line.split(":")[1].split(" ")[1]
+        continue
+
+      if line.startswith("Name:"):
+        self.name = line.split(":")[1].split(" ")[1]
+        continue
+
+      if line.startswith("Autostart:"):
+        self.has_autostart = line.split(":")[1].split(" ")[1]
+        continue
+
+      if line.startswith("OS Type:"):
+        self.hypervisor = line.split(":")[1].split(" ")[1]
+        continue
+
+      if line.startswith("Persistent:"):
+        self.is_persistent = line.split(":")[1].split(" ")[1]
+        continue
+
+      if line.startswith("State:"):
+        self.power_state = line.split(":")[1].split(" ")[1]
+        continue
 
   # Begin: Auto-start logic.
   def disable_autostart(self):
@@ -93,15 +111,12 @@ class Domain:
     try:
       code = Command.get_code(this_command)
 
+      if code != 0:
+        print("Failed to disable auto-start for '{}'.".format(self.name))
+        sys.exit(1)
+
     except:
-      message = "Exception: Failed to disable auto-start for '{}'." \
-                  .format(self.name)
-
-      print(message)
-      sys.exit(1)
-
-    if code != 0:
-      print("Failed to disable auto-start for '{}'.".format(self.name))
+      print("Exception: Failed to disable auto-start for '{}'.".format(self.name))
       sys.exit(1)
 
     print("Disabled auto-start for '{}'.".format(self.name))
@@ -113,10 +128,7 @@ class Domain:
       code = Command.get_code(this_command)
 
     except:
-      message = "Exception: Failed to enable auto-start for '{}'." \
-                  .format(self.name)
-
-      print(message)
+      print("Exception: Failed to enable auto-start for '{}'.".format(self.name))
       sys.exit(1)
 
     if code != 0:
@@ -157,16 +169,16 @@ class Domain:
       print(message)
       sys.exit(1)
 
-  def get_power_state_argument(self):
+  def set_power_state_argument(self):
     match self.power_state:
       case "paused":
-        argument = "resume"
+        self.argument = "resume"
 
       case "pmsuspended":
-        argument = "dompmwakeup"
+        self.argument = "dompmwakeup"
 
       case "shut off":
-        argument = "start"
+        self.argument = "start"
 
       case _:
         sys.exit(1)
@@ -208,6 +220,10 @@ class Domain:
     self,
     new_power_state
   ):
+    if new_power_state is not None \
+      and new_power_state != "":
+      print("Error: New power state {} is not valid.".format(new_power_state))
+
     match new_power_state:
       case "start" \
         | "resume" \
@@ -227,6 +243,7 @@ class Domain:
         return  self.power_state == "running"
 
       case _:
+        print("Error: New power state is not valid.")
         return False
 
   def set_power_state( \
