@@ -12,7 +12,7 @@
 # TODO:
 # - [ ] add enum for multiple dependencies?
 # - [ ] test domain xml?
-#    - [ ] disable libvirt hooks for these domains?
+#    - [ ] disable libvirt hooks for these domains? It's a user permissions issue.
 #
 #
 
