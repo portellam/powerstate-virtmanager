@@ -18,6 +18,7 @@
 # - [ ] add logic to check for virsh command.
 
 import sys
+import traceback
 
 from .command import Command
 
@@ -33,7 +34,6 @@ class Domain:
   power_state       = ""
   command           = "virsh"
   argument          = ""
-  command_suffix    = "| head --lines 1"
 
   """_summary_
     Constructor
@@ -44,15 +44,11 @@ class Domain:
   ):
     self.name = name
 
-    self.command  = "{} {}".format( \
-                      self.command,
-                      self.name
-                    )
-
     try:
       self.set_info()
 
     except:
+      traceback.print_exc()
       sys.exit(1)
 
   """_summary_
@@ -67,55 +63,87 @@ class Domain:
       or self.name == "":
       sys.exit(1)
 
-    this_command =  "{} dominfo {}".format( \
-                      self.command,
-                      self.command_suffix,
-                    )
+    this_command = "{} dominfo {}".format( \
+      self.command,
+      self.name
+    )
+
+    print(this_command)
 
     try:
-      info = Command(this_command).get_output_as_string()
+      command = Command(this_command)
+      command.run()
+      output = command.output.splitlines()
 
     except:
+      traceback.print_exc()
       print("Exception: Cannot get information for '{}'".format(self.name))
       raise
 
-    for line in info:
+    for line in output:
+      value = ""
+
+      try:
+        value = line.split(":")[1].strip()
+
+      except:
+        None
+
       if line.startswith("UUID:"):
-        self.uuid = line.split(":")[1].split(" ")[1]
+        self.uuid = value
         continue
 
       if line.startswith("Name:"):
-        self.name = line.split(":")[1].split(" ")[1]
+        self.name = value
         continue
 
       if line.startswith("Autostart:"):
-        self.has_autostart = line.split(":")[1].split(" ")[1]
+        self.is_persistent = self.get_true_false_from_yes_no(value)
         continue
 
       if line.startswith("OS Type:"):
-        self.hypervisor = line.split(":")[1].split(" ")[1]
+        self.hypervisor = value
         continue
 
       if line.startswith("Persistent:"):
-        self.is_persistent = line.split(":")[1].split(" ")[1]
+        self.is_persistent = self.get_true_false_from_yes_no(value)
         continue
 
       if line.startswith("State:"):
-        self.power_state = line.split(":")[1].split(" ")[1]
+        self.power_state = value
         continue
+
+    print("UUID:\t\t" + self.uuid)
+    print("Name:\t\t" + self.name)
+    print("Autostart:\t" + str(self.has_autostart))
+    print("OS Type:\t" + self.hypervisor)
+    print("Persistent:\t" + str(self.is_persistent))
+    print("State:\t\t" + self.power_state)
+
+  def get_true_false_from_yes_no(self, input):
+    match input.lower():
+      case "yes":
+        return True
+
+      case "no":
+        return False
+
+      case _:
+        return False
 
   # Begin: Auto-start logic.
   def disable_autostart(self):
     this_command =  "{} autostart --disable".format(self.command)
 
     try:
-      code = Command.get_code(this_command)
+      code = Command(this_command).code
 
       if code != 0:
         print("Failed to disable auto-start for '{}'.".format(self.name))
         sys.exit(1)
 
     except:
+      traceback.print_exc()
       print("Exception: Failed to disable auto-start for '{}'.".format(self.name))
       sys.exit(1)
 
@@ -125,9 +153,10 @@ class Domain:
     this_command =  "{} autostart".format(self.command)
 
     try:
-      code = Command.get_code(this_command)
+      code = Command(this_command).code
 
     except:
+      traceback.print_exc()
       print("Exception: Failed to enable auto-start for '{}'.".format(self.name))
       sys.exit(1)
 
@@ -158,13 +187,14 @@ class Domain:
   def get_power_state(self):
     this_command =  "{} domstate {}".format( \
                       self.command,
-                      self.command_suffix,
+                      "| head --lines 1",
                     )
 
     try:
       return Command.get_output_as_string(this_command)
 
     except:
+      traceback.print_exc()
       message = "Exception: Failed to get power state for '{}'.".format(self.name)
       print(message)
       sys.exit(1)
@@ -257,21 +287,21 @@ class Domain:
     this_command =  "{} {} {}".format( \
                       self.command,
                       argument,
-                      self.command_suffix
+                      "| head --lines 1"
                     )
 
     verb = self.get_power_state_verb(argument)
 
     try:
-      code = Command.get_code(this_command)
+      code = Command(this_command).code
 
-    except Exception as contextManager:
+    except:
       message = "Exception: Failed to {} '{}'.".format( \
         verb,
         self.name
       )
 
-      print(contextManager.exception.output)
+      traceback.print_exc()
       print(message)
       raise
 
