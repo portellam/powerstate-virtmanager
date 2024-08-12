@@ -11,7 +11,7 @@
 #
 # TODO:
 # - [ ] add enum for multiple dependencies?
-# - [ ] test domain xml?
+# - [x] test domain xml?
 #    - [ ] disable libvirt hooks for these domains? It's a user permissions issue.
 #
 #
@@ -23,6 +23,33 @@ from unittest.mock  import patch
 from ..domain   import Domain
 
 class DomainTests(unittest.TestCase):
+  test_data_directory='domain_tests_data'
+  test_kvm_domain_path='./{}/kvm-example.xml'.format(test_data_directory)
+
+  def setUp(self):
+    self.setUp__create_domain(self.test_kvm_domain_path)
+
+  def teardown(self):
+    self.teardown__destroy_domain(self.test_kvm_domain_path)
+
+  def setUp__create_domain(domain):
+    try:
+      result = os.system('virsh create '.format(domain))
+      return result == 0
+
+    except:
+      print("Failed to create test domain '{}'".format(domain))
+      raise
+
+  def teardown__destroy_domain(domain):
+    try:
+      result = os.system('virsh destroy '.format(domain))
+      return result == 0
+
+    except:
+      print("Failed to destroy test domain '{}'".format(domain))
+      raise
+
   def test__does_dependency_exist(self):
     dependency = "virsh"
     check_dependency = "command -v {}".format(dependency)
@@ -41,6 +68,9 @@ class DomainTests(unittest.TestCase):
 
     print("Dependency '{}' is available.".format(dependency))
     assert True
+
+  def test__does_dependency_file_exist(self):
+    assert False
 
 if __name__ == '__main__':
   unittest.main()
