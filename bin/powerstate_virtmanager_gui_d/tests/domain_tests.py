@@ -24,26 +24,42 @@ from ..domain   import Domain
 
 class DomainTests(unittest.TestCase):
   test_data_directory='domain_tests_data'
-  test_kvm_domain_path='./{}/kvm-example.xml'.format(test_data_directory)
+
+  test_domain_name_list = [
+    'kvm-example'
+  ]
 
   def setUp(self):
-    self.setUp__create_domain(self.test_kvm_domain_path)
+    for domain in self.test_domain_name_list:
+      path = './{}/{}.xml'.format( \
+        self.test_data_directory,
+        domain
+      )
+
+      self.setUp__create_domain(path)
 
   def teardown(self):
-    self.teardown__destroy_domain(self.test_kvm_domain_path)
+    for domain in self.test_domain_name_list:
+      self.teardown__destroy_domain(domain)
 
-  def setUp__create_domain(domain):
+  def setUp__create_domain( \
+    self,
+    domain
+  ):
     try:
-      result = os.system('virsh create '.format(domain))
+      result = os.system('virsh create --file {}'.format(domain))
       return result == 0
 
     except:
       print("Failed to create test domain '{}'".format(domain))
       raise
 
-  def teardown__destroy_domain(domain):
+  def teardown__destroy_domain( \
+    self,
+    domain
+  ):
     try:
-      result = os.system('virsh destroy '.format(domain))
+      result = os.system('virsh destroy {}'.format(domain))
       return result == 0
 
     except:
@@ -69,8 +85,32 @@ class DomainTests(unittest.TestCase):
     print("Dependency '{}' is available.".format(dependency))
     assert True
 
-  def test__does_dependency_file_exist(self):
-    assert False
+  def test__does_test_data_exist(self):
+    for domain in self.test_domain_name_list:
+      path = './{}/{}.xml'.format( \
+        self.test_data_directory,
+        domain
+      )
+
+      if not os.path.isfile(path):
+        print("Test domain file '{}' does not exist.".format(path))
+        assert False
+
+    print("All test domain files exist.")
+    assert True
+
+  def test__reset__is_running__set_power_state_is_called(self):
+    domain = Domain(self.test_domain_name_list[0])
+
+    try:
+      domain.reset()
+
+      result = domain.power_state
+
+      assert result != "running"
+
+    except:
+      assert False
 
 if __name__ == '__main__':
   unittest.main()
